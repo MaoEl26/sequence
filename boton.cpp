@@ -6,7 +6,6 @@ Boton::Boton(QString Name, QString Url)
     this->Url=Url;
     //Creacion del botón y seteo del estilo
     //setRect(0,0,121,122);
-    //QBrush brush;
     //brush.setStyle(Qt::TexturePattern);
     //brush.setTextureImage(QImage(Url));
     //setBrush(brush);

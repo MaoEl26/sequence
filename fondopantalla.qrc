@@ -1,0 +1,21 @@
+<RCC>
+    <qresource prefix="/">
+        <file>imagenes/imagen.png</file>
+        <file>imagenes/Helpbutton.png</file>
+        <file>imagenes/startButton.png</file>
+        <file>imagenes/exitButton.png</file>
+        <file>imagenes/FondoInicio.png</file>
+        <file>imagenes/fondo.png</file>
+        <file>imagenes/fondoJugadores.png</file>
+        <file>imagenes/2plays.png</file>
+        <file>imagenes/3plays.png</file>
+        <file>imagenes/4plays.png</file>
+        <file>imagenes/6plays.png</file>
+        <file>imagenes/8plays.png</file>
+        <file>imagenes/9plays.png</file>
+        <file>imagenes/10plays.png</file>
+        <file>imagenes/12plays.png</file>
+        <file>imagenes/backButton.png</file>
+        <file>imagenes/FondoInicio2.png</file>
+    </qresource>
+</RCC>

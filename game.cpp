@@ -4,7 +4,7 @@ Game::Game()
 {
     ambiente();
     agregarBotonJugar();
-    show();
+   // show();
 }
 
 void Game::ambiente(){

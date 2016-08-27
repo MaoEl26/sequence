@@ -52,7 +52,3 @@ void Boton::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
     this->setGraphicsEffect(brush);
 
 }
-
-
-
-

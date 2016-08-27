@@ -14,11 +14,19 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     game.cpp \
-    boton.cpp
+    boton.cpp \
+    carta.cpp \
+    mazo.cpp \
+    arraylist.cpp \
+    arraycarta.cpp
 
 HEADERS  += \
     game.h \
-    boton.h
+    boton.h \
+    carta.h \
+    mazo.h \
+    arraylist.h \
+    arraycarta.h
 
 FORMS    +=
 

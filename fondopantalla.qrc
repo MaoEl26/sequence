@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>imagenes/imagen.png</file>
         <file>imagenes/Helpbutton.png</file>
         <file>imagenes/startButton.png</file>
         <file>imagenes/exitButton.png</file>
@@ -17,5 +16,62 @@
         <file>imagenes/12plays.png</file>
         <file>imagenes/backButton.png</file>
         <file>imagenes/FondoInicio2.png</file>
+        <file>imagenes/2C.png</file>
+        <file>imagenes/2D.png</file>
+        <file>imagenes/2P.png</file>
+        <file>imagenes/2T.png</file>
+        <file>imagenes/3C.png</file>
+        <file>imagenes/3D.png</file>
+        <file>imagenes/3P.png</file>
+        <file>imagenes/3T.png</file>
+        <file>imagenes/4C.png</file>
+        <file>imagenes/4D.png</file>
+        <file>imagenes/4P.png</file>
+        <file>imagenes/4T.png</file>
+        <file>imagenes/5C.png</file>
+        <file>imagenes/5D.png</file>
+        <file>imagenes/5P.png</file>
+        <file>imagenes/5T.png</file>
+        <file>imagenes/6C.png</file>
+        <file>imagenes/6D.png</file>
+        <file>imagenes/6P.png</file>
+        <file>imagenes/6T.png</file>
+        <file>imagenes/7C.png</file>
+        <file>imagenes/7D.png</file>
+        <file>imagenes/7P.png</file>
+        <file>imagenes/7T.png</file>
+        <file>imagenes/8C.png</file>
+        <file>imagenes/8D.png</file>
+        <file>imagenes/8P.png</file>
+        <file>imagenes/8T.png</file>
+        <file>imagenes/9C.png</file>
+        <file>imagenes/9D.png</file>
+        <file>imagenes/9P.png</file>
+        <file>imagenes/9T.png</file>
+        <file>imagenes/10C.png</file>
+        <file>imagenes/10D.png</file>
+        <file>imagenes/10P.png</file>
+        <file>imagenes/10T.png</file>
+        <file>imagenes/AC.png</file>
+        <file>imagenes/AD.png</file>
+        <file>imagenes/AP.png</file>
+        <file>imagenes/AT.png</file>
+        <file>imagenes/COMODIN.png</file>
+        <file>imagenes/FICHA _AZUL.png</file>
+        <file>imagenes/FICHA _MORADA.png</file>
+        <file>imagenes/FICHA _VERDE.png</file>
+        <file>imagenes/JC.png</file>
+        <file>imagenes/JD.png</file>
+        <file>imagenes/JP.png</file>
+        <file>imagenes/JT.png</file>
+        <file>imagenes/KC.png</file>
+        <file>imagenes/KD.png</file>
+        <file>imagenes/KP.png</file>
+        <file>imagenes/KT.png</file>
+        <file>imagenes/QC.png</file>
+        <file>imagenes/QD.png</file>
+        <file>imagenes/QP.png</file>
+        <file>imagenes/QT.png</file>
+        <file>imagenes/REVERSO.png</file>
     </qresource>
 </RCC>

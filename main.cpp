@@ -3,7 +3,7 @@
 #include "Game.h"
 #include "Carta.h"
 #include "arraycarta.h"
-#include "arraylist.h"
+#include <QString>
 #include <iostream>
 using namespace std;
 
@@ -14,14 +14,16 @@ int main(int argc, char *argv[])
 
     game= new Game();
 
-    Carta* carta1 = new Carta ("4","corazon","rojo","jfjf");
-  //  ArrayCarta <Carta> *cartas = new ArrayCarta <Carta>(5);
+//    Carta* carta1 = new Carta ("4","corazon","rojo","jfjf");
 
-    ArrayCarta <Carta*> cartas ();
-    cartas.append(carta1);
-    //cartas.print();
+//    ArrayCarta<Carta*>*cartas = new ArrayCarta<Carta*>(7);
+
+//   // ArrayCarta <Carta*> *cartas(4);
+//    cartas->append(carta1);
+//    cout<<cartas->getSize()<<endl;
+//   cout<<cartas->getSize();
+//    cout<<carta1->getColor();
 
 
-    return 0;
-  //  return a.exec();
+  return a.exec();
 }

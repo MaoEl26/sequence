@@ -1,10 +1,11 @@
 #include "game.h"
+#include "jugador.h"
 
 Game::Game()
 {
     ambiente();
     agregarBotonJugar();
-   // show();
+    show();
 }
 
 void Game::ambiente(){
@@ -19,6 +20,7 @@ void Game::ambiente(){
 void Game::agregarBotonJugar(){
     //Boton de inicio del Juego
     scene->clear();
+
     scene->setBackgroundBrush(QBrush(QImage(":/imagenes/FondoInicio2.png")));
 
     startButton= new Boton("Start Game",":/imagenes/startButton.png");
@@ -105,50 +107,46 @@ void Game::start(){
     scene->addItem(plays10B);
     scene->addItem(plays12B);
     scene->addItem(backButton);
+
+    //Se Deshabilitan los botones de jugadores que se agregan después
+    plays6B->setEnabled(false);
+    plays8B->setEnabled(false);
+    plays9B->setEnabled(false);
+    plays10B->setEnabled(false);
+    plays12B->setEnabled(false);
+
 }
 
 void Game::play2(){
-    int players=2;
-    table(players);
+    Jugador(2);
 }
 
 void Game::play3(){
-    int players=3;
-    table(players);
+    Jugador(3);
 }
 
 void Game::play4(){
-    int players=4;
-    table(players);
+    Jugador(4);
 }
 
 void Game::play6(){
-    int players=6;
-    table(players);
+   Jugador(6);
 }
 
 void Game::play8(){
-    int players=8;
-    table(players);
+    Jugador(8);
 }
 
 void Game::play9(){
-    int players=9;
-    table(players);
+    Jugador(9);
 }
 
 void Game::play10(){
-    int players=10;
-    table(players);
+    Jugador(10);
 }
 
 void Game::play12(){
-    int players=12;
-    table(players);
-}
-
-void Game::table(int players){
-
+    Jugador(12);
 }
 
 void Game::wiki(){

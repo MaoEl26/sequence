@@ -18,6 +18,8 @@ SOURCES += main.cpp \
     carta.cpp \
     mazo.cpp \
     arraylist.cpp \
+    jugador.cpp \
+    ficha.cpp \
     arraycarta.cpp
 
 HEADERS  += \
@@ -26,6 +28,8 @@ HEADERS  += \
     carta.h \
     mazo.h \
     arraylist.h \
+    jugador.h \
+    ficha.h \
     arraycarta.h
 
 FORMS    +=

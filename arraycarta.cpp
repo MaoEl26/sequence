@@ -1,11 +1,12 @@
-#include "ArrayCarta.h"
+#include "arraycarta.h"
+
 #define default_max_size 1024
 #include <stdexcept>
 #include <iostream>
 using namespace std;
 
-template <typename E>
-ArrayCarta<E>::ArrayCarta(int pMax= default_max_size)
+template <class E>
+ArrayCarta<E>::ArrayCarta(int pMax)
 {
     max = pMax;
     size = 0;
@@ -13,56 +14,53 @@ ArrayCarta<E>::ArrayCarta(int pMax= default_max_size)
     elements = new E [pMax];
 }
 
-template <typename E>
+template <class E>
 E ArrayCarta<E>::getValue(){
-    if (pos < 0 || pos > size){
-        throw runtime_error ("Index out of bound");
-    }else{
+
         return elements [pos];
-    }
 }
 
-template <typename E>
+template <class E>
 int ArrayCarta<E>::getPos (){
     return pos;
 }
 
-template <typename E>
+template <class E>
 int ArrayCarta<E>::getSize(){
     return size;
 }
 
-template <typename E>
+template <class E>
 void ArrayCarta<E>::goToStart(){
     pos = 0;
 }
 
-template <typename E>
+template <class E>
 void ArrayCarta<E>::goToEnd(){
     pos = size;
 }
 
-template <typename E>
+template <class E>
 void ArrayCarta<E>::goToPos (int pos){
 
     //validar pos existe
     this->pos = pos;
 }
 
-template <typename E>
+template <class E>
 void ArrayCarta<E>::previous(){
     // Validaciones
     pos--;
 }
 
-template <typename E>
+template <class E>
 void ArrayCarta<E>::next(){
     if (pos < size){
         pos++;
     }
 }
 
-template <typename E>
+template <class E>
 void ArrayCarta<E>::append(E pElement){
     if (size == max){
         throw runtime_error ("List Full");
@@ -71,7 +69,7 @@ void ArrayCarta<E>::append(E pElement){
     size++;
 }
 
-template <typename E>
+template <class E>
 void ArrayCarta<E>::insert(E pElement){
     if (size == max){
         throw runtime_error ("List Full");
@@ -83,13 +81,13 @@ void ArrayCarta<E>::insert(E pElement){
     size++;
 }
 
-template <typename E>
+template <class E>
 E ArrayCarta<E>::remove(int pos){
     if (size == 0){
         throw runtime_error ("Empty List");
     }else{
         goToPos(pos);
-        string deletedElement = elements [pos];
+        E deletedElement = elements [pos];
         for (int i = pos; i < size; i++){
             elements[i]= elements [i+1];
         }
@@ -98,16 +96,11 @@ E ArrayCarta<E>::remove(int pos){
     }
 }
 
-template <typename E>
-void ArrayCarta<E>::print(){
-    for (int i =0; i< size; i++){
-        cout <<"Elemento sub "<<i<<" : "<<elements[i]<<"\n";
-    }
-}
 
-template <typename E>
+template <class E>
 ArrayCarta<E>::~ArrayCarta (){
     size= 0;
     pos = 0;
     delete[]elements;
 }
+template class ArrayCarta<Carta*>;

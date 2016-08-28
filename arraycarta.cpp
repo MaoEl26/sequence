@@ -109,3 +109,4 @@ ArrayCarta<E>::~ArrayCarta (){
 }
 template class ArrayCarta<Carta*>;
 template class ArrayCarta<string>;
+template class ArrayCarta<int>;

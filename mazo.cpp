@@ -2,24 +2,12 @@
 
 Mazo::Mazo()
 {
-    simbolos(0);
+
     mazoTablero(95);
+    mazoJugadores();
 }
 
-string Mazo::simbolos(int position)
-{
-    //ArrayCarta
-    ArrayCarta<Carta*>*cartas = new ArrayCarta<Carta*>(7);
-    cartas->append(new Carta ("4","corazon","rojo","jfjf"));
-    cout<< cartas->returnPos(0)->getColor();
 
-    //ArrayStrings
-//    ArrayCarta<string> arraySimbolos(10);
-//    arraySimbolos.append("diamante");
-//    cout << arraySimbolos.returnPos(position);
-
-    return "carta";
-}
 
 Carta* Mazo::mazoTablero(int position){
     ArrayCarta<Carta*>*cartasTablero = new ArrayCarta<Carta*>(100);
@@ -141,6 +129,52 @@ Carta* Mazo::mazoTablero(int position){
     cout<< cartasTablero->returnPos(position)->getPath();
     return cartasTablero->returnPos(position);
 }
+
+ArrayCarta<Carta*> Mazo::tableroRandom()
+{
+    ArrayCarta<Carta*>*cartas = new ArrayCarta<Carta*>(105);
+    ArrayCarta<int> arrayInt(104);
+    for (int i =0; i<96; i++) arrayInt.append(i);
+
+    int cont=0 ;
+    while (cont < arrayInt.getSize()){
+        int num;
+        srand(time(NULL));
+        num = 1 + rand() % (arrayInt.getSize()- 0);
+        cartas->append(mazoTablero(num));
+        arrayInt.remove(num);
+    }
+
+    return *cartas;
+}
+
+ArrayCarta<Carta *> Mazo::mazoJugadores()
+{
+    ArrayCarta<Carta*> mazoCartas= tableroRandom();
+    int num;
+    srand(time(NULL));
+    num = 1 + rand() % (mazoCartas.getSize()- 0);
+    mazoCartas.goToPos(num);
+    mazoCartas.insert(new Carta ("J" ,"corazon","rojo",":/imagenes/JC.png"));
+
+    num = 1 + rand() % (mazoCartas.getSize()- 0);
+    mazoCartas.goToPos(num);
+    mazoCartas.insert(new Carta ("J" ,"corazon","rojo",":/imagenes/JC.png"));
+
+    num = 1 + rand() % (mazoCartas.getSize()- 0);
+    mazoCartas.goToPos(num);
+    mazoCartas.insert(new Carta ("J" ,"corazon","rojo",":/imagenes/JC.png"));
+
+    num = 1 + rand() % (mazoCartas.getSize()- 0);
+    mazoCartas.goToPos(num);
+    mazoCartas.insert(new Carta ("J" ,"corazon","rojo",":/imagenes/JC.png"));
+
+
+
+    return tableroRandom();
+}
+
+
 
 
 

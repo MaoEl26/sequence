@@ -17,7 +17,6 @@ SOURCES += main.cpp \
     boton.cpp \
     carta.cpp \
     mazo.cpp \
-    arraylist.cpp \
     jugador.cpp \
     ficha.cpp \
     arraycarta.cpp
@@ -27,7 +26,6 @@ HEADERS  += \
     boton.h \
     carta.h \
     mazo.h \
-    arraylist.h \
     jugador.h \
     ficha.h \
     arraycarta.h

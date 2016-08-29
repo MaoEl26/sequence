@@ -159,19 +159,17 @@ ArrayCarta<Carta *> Mazo::mazoJugadores()
 
     num = 1 + rand() % (mazoCartas.getSize()- 0);
     mazoCartas.goToPos(num);
-    mazoCartas.insert(new Carta ("J" ,"corazon","rojo",":/imagenes/JC.png"));
+    mazoCartas.insert(new Carta ("J" ,"diamante","rojo",":/imagenes/JD.png"));
 
     num = 1 + rand() % (mazoCartas.getSize()- 0);
     mazoCartas.goToPos(num);
-    mazoCartas.insert(new Carta ("J" ,"corazon","rojo",":/imagenes/JC.png"));
+    mazoCartas.insert(new Carta ("J" ,"trebol","negro",":/imagenes/JT.png"));
 
     num = 1 + rand() % (mazoCartas.getSize()- 0);
     mazoCartas.goToPos(num);
-    mazoCartas.insert(new Carta ("J" ,"corazon","rojo",":/imagenes/JC.png"));
+    mazoCartas.insert(new Carta ("J" ,"pica","negro",":/imagenes/JP.png"));
 
-
-
-    return tableroRandom();
+    return mazoCartas;
 }
 
 

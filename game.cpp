@@ -15,6 +15,8 @@ void Game::ambiente(){
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(1350,680);
+
+
 }
 
 void Game::agregarBotonJugar(){
@@ -89,13 +91,9 @@ void Game::start(){
     connect(backButton,SIGNAL(clicked()),this,SLOT(seteoBotones()));//Establece la acción que va a realizar
 
 
-    //Prueba
-//      QImage holi(":/imagenes/exitButton.png");
-//      QGraphicsPixmapItem *item= new QGraphicsPixmapItem( QPixmap::fromImage(holi));
-//      item->setPos(0,100);
-//      item->setScale(1.0);
-//     item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
-//      scene->addItem(item);
+
+
+
 
     //Añade los botones a la pantalla
     scene->addItem(plays2B);
@@ -149,6 +147,7 @@ void Game::play12(){
     Jugador(12);
 }
 
+
 void Game::wiki(){
     //Crea el wiki
     scene->clear();//Limpia la Pantalla
@@ -157,7 +156,92 @@ void Game::wiki(){
     backButton->setPos(0,0);//Establece la posícion
     connect(backButton,SIGNAL(clicked()),this,SLOT(seteoBotones()));//Establece la acción que va a realizar
     scene->addItem(backButton);//Añade el botón a la pantalla
+
+    //Prueba
+      QImage holi(":/imagenes/2C.png");
+      QGraphicsPixmapItem *item= new QGraphicsPixmapItem( QPixmap::fromImage(holi));
+      item->setPos(0,100);
+      item->setScale(0.55);
+      item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+      scene->addItem(item);
+
+      //p2
+      QImage holi2(":/imagenes/2C.png");
+      QGraphicsPixmapItem *item2= new QGraphicsPixmapItem( QPixmap::fromImage(holi2));
+      item2->setPos(0,100);
+      item2->setScale(0.55);
+      item2->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+      scene->addItem(item2);
+
+      //p3
+      QImage holi3(":/imagenes/2C.png");
+      QGraphicsPixmapItem *item3= new QGraphicsPixmapItem( QPixmap::fromImage(holi3));
+      item3->setPos(0,100);
+      item3->setScale(0.55);
+      item3->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+      scene->addItem(item3);
+      //p4
+      QImage holi4(":/imagenes/2C.png");
+      QGraphicsPixmapItem *item4= new QGraphicsPixmapItem( QPixmap::fromImage(holi4));
+      item4->setPos(0,100);
+      item4->setScale(0.55);
+      item4->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+      scene->addItem(item4);
+      //p5
+      QImage holi5(":/imagenes/2C.png");
+      QGraphicsPixmapItem *item5= new QGraphicsPixmapItem( QPixmap::fromImage(holi5));
+      item5->setPos(0,100);
+      item5->setScale(0.55);
+      item5->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+      scene->addItem(item5);
+      //p4
+      QImage holi6(":/imagenes/2C.png");
+      QGraphicsPixmapItem *item6= new QGraphicsPixmapItem( QPixmap::fromImage(holi6));
+      item6->setPos(0,100);
+      item6->setScale(0.55);
+      item6->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+      scene->addItem(item6);
+      //p4
+      QImage holi10(":/imagenes/2C.png");
+      QGraphicsPixmapItem *item10= new QGraphicsPixmapItem( QPixmap::fromImage(holi10));
+      item10->setPos(0,100);
+      item10->setScale(0.55);
+      item10->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+      scene->addItem(item10);
+      //p4
+      QImage holi7(":/imagenes/2C.png");
+      QGraphicsPixmapItem *item7= new QGraphicsPixmapItem( QPixmap::fromImage(holi7));
+      item7->setPos(0,100);
+      item7->setScale(0.55);
+      item7->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+      scene->addItem(item7);
+      //p4
+      QImage holi8(":/imagenes/2C.png");
+      QGraphicsPixmapItem *item8= new QGraphicsPixmapItem( QPixmap::fromImage(holi8));
+      item8->setPos(0,100);
+      item8->setScale(0.55);
+      item8->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+      scene->addItem(item8);
+      //p4
+      QImage holi9(":/imagenes/2C.png");
+      QGraphicsPixmapItem *item9= new QGraphicsPixmapItem( QPixmap::fromImage(holi9));
+      item9->setPos(0,100);
+      item9->setScale(0.55);
+      item9->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+      scene->addItem(item6);
+
+      QImage holi11(":/imagenes/10P.png");
+      QGraphicsPixmapItem *item11= new QGraphicsPixmapItem( QPixmap::fromImage(holi11));
+      item11->setPos(0,100);
+      item11->setScale(0.55);
+      item11->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+
+
+
+      scene->addItem(item11);
 }
+
+
 
 void Game::exit(){
 

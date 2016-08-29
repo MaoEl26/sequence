@@ -15,6 +15,8 @@
 #include <QFrame>
 #include <QCoreApplication>
 #include "boton.h"
+#include <iostream>
+using namespace std;
 
 
 class Game : public QGraphicsView
@@ -64,6 +66,9 @@ public slots:
         void play9();
         void play10();
         void play12();
+
+
+
 
 };
 

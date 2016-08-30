@@ -3,13 +3,10 @@
 Mazo::Mazo()
 {
 
-    mazoTablero(95);
-    mazoJugadores();
 }
 
 
-
-Carta* Mazo::mazoTablero(int position){
+ArrayCarta<Carta*> Mazo::mazoTablero(){
     ArrayCarta<Carta*>*cartasTablero = new ArrayCarta<Carta*>(100);
     //Fila 0
     cartasTablero->append(new Carta ("6" ,"diamante","rojo",":/imagenes/6D.png"));
@@ -30,7 +27,7 @@ Carta* Mazo::mazoTablero(int position){
     cartasTablero->append(new Carta ("5" ,"pica","negro",":/imagenes/5P.png"));
     cartasTablero->append(new Carta ("6" ,"pica","negro",":/imagenes/6P.png"));
     cartasTablero->append(new Carta ("7" ,"pica","negro",":/imagenes/7P.png"));
-    cartasTablero->append(new Carta ("A" ,"trebol","negro",":/imagenes/AP.png"));
+    cartasTablero->append(new Carta ("A" ,"trebol","negro",":/imagenes/AT.png"));
 
     //Fila 2
     cartasTablero->append(new Carta ("4" ,"diamante","rojo",":/imagenes/4D.png"));
@@ -54,7 +51,7 @@ Carta* Mazo::mazoTablero(int position){
     cartasTablero->append(new Carta ("8" ,"corazon","rojo",":/imagenes/8C.png"));
     cartasTablero->append(new Carta ("9" ,"trebol","negro",":/imagenes/9T.png"));
     cartasTablero->append(new Carta ("9" ,"pica","negro",":/imagenes/9P.png"));
-    cartasTablero->append(new Carta ("Q" ,"trebol","negro",":/imagenes/Qt.png"));
+    cartasTablero->append(new Carta ("Q" ,"trebol","negro",":/imagenes/QT.png"));
 
     //Fila 4
     cartasTablero->append(new Carta ("2" ,"diamante","rojo",":/imagenes/2D.png"));
@@ -126,12 +123,12 @@ Carta* Mazo::mazoTablero(int position){
     cartasTablero->append(new Carta ("3" ,"pica","negro",":/imagenes/3P.png"));
     cartasTablero->append(new Carta ("2" ,"pica","negro",":/imagenes/2P.png"));
 
-    cout<< cartasTablero->returnPos(position)->getPath();
-    return cartasTablero->returnPos(position);
+    return *cartasTablero;
 }
 
-ArrayCarta<Carta*> Mazo::tableroRandom()
+ArrayCarta<Carta *> Mazo::tableroRandom()
 {
+    ArrayCarta<Carta*> original =  mazoTablero();
     ArrayCarta<Carta*>*cartas = new ArrayCarta<Carta*>(105);
     ArrayCarta<int> arrayInt(104);
     for (int i =0; i<96; i++) arrayInt.append(i);
@@ -141,7 +138,7 @@ ArrayCarta<Carta*> Mazo::tableroRandom()
         int num;
         srand(time(NULL));
         num = 1 + rand() % (arrayInt.getSize()- 0);
-        cartas->append(mazoTablero(num));
+        cartas->append(original.returnPos(num));
         arrayInt.remove(num);
     }
 
@@ -150,7 +147,7 @@ ArrayCarta<Carta*> Mazo::tableroRandom()
 
 ArrayCarta<Carta *> Mazo::mazoJugadores()
 {
-    ArrayCarta<Carta*> mazoCartas= tableroRandom();
+    ArrayCarta<Carta*> mazoCartas = tableroRandom();
     int num;
     srand(time(NULL));
     num = 1 + rand() % (mazoCartas.getSize()- 0);

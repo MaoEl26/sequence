@@ -1,6 +1,6 @@
 #include "carta.h"
 
-Carta::Carta(string valor, string simbolo, string color, string path)
+Carta::Carta(QString valor, QString simbolo, QString color, QString path)
 {
     this->valor = valor;
     this->simbolo = simbolo;
@@ -9,22 +9,22 @@ Carta::Carta(string valor, string simbolo, string color, string path)
 
 }
 
-string Carta::getValor()
+QString Carta::getValor()
 {
     return valor;
 }
 
-string Carta::getSimbolo()
+QString Carta::getSimbolo()
 {
     return simbolo;
 }
 
-string Carta::getColor()
+QString Carta::getColor()
 {
     return color;
 }
 
-string Carta::getPath()
+QString Carta::getPath()
 {
     return path;
 }

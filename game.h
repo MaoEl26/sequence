@@ -22,10 +22,12 @@
 using namespace std;
 
 
-class Game : public QGraphicsView
+class Game : public QGraphicsView, public Mazo
 {
     Q_OBJECT
 
+protected:
+    bool key=false;
 public:
     Game();
 

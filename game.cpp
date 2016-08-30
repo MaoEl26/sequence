@@ -1,7 +1,8 @@
 #include "game.h"
 #include "jugador.h"
-
-
+#include "mazo.h"
+#include "carta.h"
+#include "arraycarta.h"
 
 Game::Game()
 {
@@ -180,120 +181,134 @@ void Game::Table(){
     scene->setBackgroundBrush(QBrush(QImage(":/imagenes/fondo.png")));//Inserta el nuevo fondo
     QString Comodin = ":/imagenes/COMODIN.png";
 
-    //Vertical
+
+    ArrayCarta<Carta*> matrizCartas = tableroRandom();
+
+
+    //Fila 0
     Pos000 = new BotonCarta(Comodin);//Comodin
-    Pos001 = new BotonCarta(Comodin);
-    Pos002 = new BotonCarta(Comodin);
-    Pos003 = new BotonCarta(Comodin);
-    Pos004 = new BotonCarta(Comodin);
-    Pos005 = new BotonCarta(Comodin);
-    Pos006 = new BotonCarta(Comodin);
-    Pos007 = new BotonCarta(Comodin);
-    Pos008 = new BotonCarta(Comodin);
+    Pos001 = new BotonCarta(matrizCartas.returnPos(0)->getPath());
+    Pos002 = new BotonCarta(matrizCartas.returnPos(1)->getPath());
+    Pos003 = new BotonCarta(matrizCartas.returnPos(2)->getPath());
+    Pos004 = new BotonCarta(matrizCartas.returnPos(3)->getPath());
+    Pos005 = new BotonCarta(matrizCartas.returnPos(4)->getPath());
+    Pos006 = new BotonCarta(matrizCartas.returnPos(5)->getPath());
+    Pos007 = new BotonCarta(matrizCartas.returnPos(6)->getPath());
+    Pos008 = new BotonCarta(matrizCartas.returnPos(7)->getPath());
     Pos009 = new BotonCarta(Comodin);//Comodin
 
-    Pos010 = new BotonCarta(Comodin);
-    Pos011 = new BotonCarta(Comodin);
-    Pos012 = new BotonCarta(Comodin);
-    Pos013 = new BotonCarta(Comodin);
-    Pos014 = new BotonCarta(Comodin);
-    Pos015 = new BotonCarta(Comodin);
-    Pos016 = new BotonCarta(Comodin);
-    Pos017 = new BotonCarta(Comodin);
-    Pos018 = new BotonCarta(Comodin);
-    Pos019 = new BotonCarta(Comodin);
+    //Fila 1
+    Pos010 = new BotonCarta(matrizCartas.returnPos(8)->getPath());
+    Pos011 = new BotonCarta(matrizCartas.returnPos(9)->getPath());
+    Pos012 = new BotonCarta(matrizCartas.returnPos(10)->getPath());
+    Pos013 = new BotonCarta(matrizCartas.returnPos(11)->getPath());
+    Pos014 = new BotonCarta(matrizCartas.returnPos(12)->getPath());
+    Pos015 = new BotonCarta(matrizCartas.returnPos(13)->getPath());
+    Pos016 = new BotonCarta(matrizCartas.returnPos(14)->getPath());
+    Pos017 = new BotonCarta(matrizCartas.returnPos(15)->getPath());
+    Pos018 = new BotonCarta(matrizCartas.returnPos(16)->getPath());
+    Pos019 = new BotonCarta(matrizCartas.returnPos(17)->getPath());
 
-    Pos020 = new BotonCarta(Comodin);
-    Pos021 = new BotonCarta(Comodin);
-    Pos022 = new BotonCarta(Comodin);
-    Pos023 = new BotonCarta(Comodin);
-    Pos024 = new BotonCarta(Comodin);
-    Pos025 = new BotonCarta(Comodin);
-    Pos026 = new BotonCarta(Comodin);
-    Pos027 = new BotonCarta(Comodin);
-    Pos028 = new BotonCarta(Comodin);
-    Pos029 = new BotonCarta(Comodin);
+    //Fila 2
+    Pos020 = new BotonCarta(matrizCartas.returnPos(18)->getPath());
+    Pos021 = new BotonCarta(matrizCartas.returnPos(19)->getPath());
+    Pos022 = new BotonCarta(matrizCartas.returnPos(20)->getPath());
+    Pos023 = new BotonCarta(matrizCartas.returnPos(21)->getPath());
+    Pos024 = new BotonCarta(matrizCartas.returnPos(22)->getPath());
+    Pos025 = new BotonCarta(matrizCartas.returnPos(23)->getPath());
+    Pos026 = new BotonCarta(matrizCartas.returnPos(24)->getPath());
+    Pos027 = new BotonCarta(matrizCartas.returnPos(25)->getPath());
+    Pos028 = new BotonCarta(matrizCartas.returnPos(26)->getPath());
+    Pos029 = new BotonCarta(matrizCartas.returnPos(27)->getPath());
 
-    Pos030 = new BotonCarta(Comodin);
-    Pos031 = new BotonCarta(Comodin);
-    Pos032 = new BotonCarta(Comodin);
-    Pos033 = new BotonCarta(Comodin);
-    Pos034 = new BotonCarta(Comodin);
-    Pos035 = new BotonCarta(Comodin);
-    Pos036 = new BotonCarta(Comodin);
-    Pos037 = new BotonCarta(Comodin);
-    Pos038 = new BotonCarta(Comodin);
-    Pos039 = new BotonCarta(Comodin);
+    //Fila 3
+    Pos030 = new BotonCarta(matrizCartas.returnPos(28)->getPath());
+    Pos031 = new BotonCarta(matrizCartas.returnPos(29)->getPath());
+    Pos032 = new BotonCarta(matrizCartas.returnPos(30)->getPath());
+    Pos033 = new BotonCarta(matrizCartas.returnPos(31)->getPath());
+    Pos034 = new BotonCarta(matrizCartas.returnPos(32)->getPath());
+    Pos035 = new BotonCarta(matrizCartas.returnPos(33)->getPath());
+    Pos036 = new BotonCarta(matrizCartas.returnPos(34)->getPath());
+    Pos037 = new BotonCarta(matrizCartas.returnPos(35)->getPath());
+    Pos038 = new BotonCarta(matrizCartas.returnPos(36)->getPath());
+    Pos039 = new BotonCarta(matrizCartas.returnPos(37)->getPath());
 
-    Pos040 = new BotonCarta(Comodin);
-    Pos041 = new BotonCarta(Comodin);
-    Pos042 = new BotonCarta(Comodin);
-    Pos043 = new BotonCarta(Comodin);
-    Pos044 = new BotonCarta(Comodin);
-    Pos045 = new BotonCarta(Comodin);
-    Pos046 = new BotonCarta(Comodin);
-    Pos047 = new BotonCarta(Comodin);
-    Pos048 = new BotonCarta(Comodin);
-    Pos049 = new BotonCarta(Comodin);
+    //Fila 4
+    Pos040 = new BotonCarta(matrizCartas.returnPos(38)->getPath());
+    Pos041 = new BotonCarta(matrizCartas.returnPos(39)->getPath());
+    Pos042 = new BotonCarta(matrizCartas.returnPos(40)->getPath());
+    Pos043 = new BotonCarta(matrizCartas.returnPos(41)->getPath());
+    Pos044 = new BotonCarta(matrizCartas.returnPos(42)->getPath());
+    Pos045 = new BotonCarta(matrizCartas.returnPos(43)->getPath());
+    Pos046 = new BotonCarta(matrizCartas.returnPos(44)->getPath());
+    Pos047 = new BotonCarta(matrizCartas.returnPos(45)->getPath());
+    Pos048 = new BotonCarta(matrizCartas.returnPos(46)->getPath());
+    Pos049 = new BotonCarta(matrizCartas.returnPos(47)->getPath());
 
-    Pos050 = new BotonCarta(Comodin);
-    Pos051 = new BotonCarta(Comodin);
-    Pos052 = new BotonCarta(Comodin);
-    Pos053 = new BotonCarta(Comodin);
-    Pos054 = new BotonCarta(Comodin);
-    Pos055 = new BotonCarta(Comodin);
-    Pos056 = new BotonCarta(Comodin);
-    Pos057 = new BotonCarta(Comodin);
-    Pos058 = new BotonCarta(Comodin);
-    Pos059 = new BotonCarta(Comodin);
+    //Fila 5
+    Pos050 = new BotonCarta(matrizCartas.returnPos(48)->getPath());
+    Pos051 = new BotonCarta(matrizCartas.returnPos(49)->getPath());
+    Pos052 = new BotonCarta(matrizCartas.returnPos(50)->getPath());
+    Pos053 = new BotonCarta(matrizCartas.returnPos(51)->getPath());
+    Pos054 = new BotonCarta(matrizCartas.returnPos(52)->getPath());
+    Pos055 = new BotonCarta(matrizCartas.returnPos(53)->getPath());
+    Pos056 = new BotonCarta(matrizCartas.returnPos(54)->getPath());
+    Pos057 = new BotonCarta(matrizCartas.returnPos(55)->getPath());
+    Pos058 = new BotonCarta(matrizCartas.returnPos(56)->getPath());
+    Pos059 = new BotonCarta(matrizCartas.returnPos(57)->getPath());
 
-    Pos060 = new BotonCarta(Comodin);
-    Pos061 = new BotonCarta(Comodin);
-    Pos062 = new BotonCarta(Comodin);
-    Pos063 = new BotonCarta(Comodin);
-    Pos064 = new BotonCarta(Comodin);
-    Pos065 = new BotonCarta(Comodin);
-    Pos066 = new BotonCarta(Comodin);
-    Pos067 = new BotonCarta(Comodin);
-    Pos068 = new BotonCarta(Comodin);
-    Pos069 = new BotonCarta(Comodin);
+    //Fila 6
+    Pos060 = new BotonCarta(matrizCartas.returnPos(58)->getPath());
+    Pos061 = new BotonCarta(matrizCartas.returnPos(59)->getPath());
+    Pos062 = new BotonCarta(matrizCartas.returnPos(60)->getPath());
+    Pos063 = new BotonCarta(matrizCartas.returnPos(61)->getPath());
+    Pos064 = new BotonCarta(matrizCartas.returnPos(62)->getPath());
+    Pos065 = new BotonCarta(matrizCartas.returnPos(63)->getPath());
+    Pos066 = new BotonCarta(matrizCartas.returnPos(64)->getPath());
+    Pos067 = new BotonCarta(matrizCartas.returnPos(65)->getPath());
+    Pos068 = new BotonCarta(matrizCartas.returnPos(66)->getPath());
+    Pos069 = new BotonCarta(matrizCartas.returnPos(67)->getPath());
 
-    Pos070 = new BotonCarta(Comodin);
-    Pos071 = new BotonCarta(Comodin);
-    Pos072 = new BotonCarta(Comodin);
-    Pos073 = new BotonCarta(Comodin);
-    Pos074 = new BotonCarta(Comodin);
-    Pos075 = new BotonCarta(Comodin);
-    Pos076 = new BotonCarta(Comodin);
-    Pos077 = new BotonCarta(Comodin);
-    Pos078 = new BotonCarta(Comodin);
-    Pos079 = new BotonCarta(Comodin);
+    //Fila 7
+    Pos070 = new BotonCarta(matrizCartas.returnPos(68)->getPath());
+    Pos071 = new BotonCarta(matrizCartas.returnPos(69)->getPath());
+    Pos072 = new BotonCarta(matrizCartas.returnPos(70)->getPath());
+    Pos073 = new BotonCarta(matrizCartas.returnPos(71)->getPath());
+    Pos074 = new BotonCarta(matrizCartas.returnPos(72)->getPath());
+    Pos075 = new BotonCarta(matrizCartas.returnPos(73)->getPath());
+    Pos076 = new BotonCarta(matrizCartas.returnPos(74)->getPath());
+    Pos077 = new BotonCarta(matrizCartas.returnPos(75)->getPath());
+    Pos078 = new BotonCarta(matrizCartas.returnPos(76)->getPath());
+    Pos079 = new BotonCarta(matrizCartas.returnPos(77)->getPath());
 
-    Pos080 = new BotonCarta(Comodin);
-    Pos081 = new BotonCarta(Comodin);
-    Pos082 = new BotonCarta(Comodin);
-    Pos083 = new BotonCarta(Comodin);
-    Pos084 = new BotonCarta(Comodin);
-    Pos085 = new BotonCarta(Comodin);
-    Pos086 = new BotonCarta(Comodin);
-    Pos087 = new BotonCarta(Comodin);
-    Pos088 = new BotonCarta(Comodin);
-    Pos089 = new BotonCarta(Comodin);
+    //Fila 8
+    Pos080 = new BotonCarta(matrizCartas.returnPos(78)->getPath());
+    Pos081 = new BotonCarta(matrizCartas.returnPos(79)->getPath());
+    Pos082 = new BotonCarta(matrizCartas.returnPos(80)->getPath());
+    Pos083 = new BotonCarta(matrizCartas.returnPos(81)->getPath());
+    Pos084 = new BotonCarta(matrizCartas.returnPos(82)->getPath());
+    Pos085 = new BotonCarta(matrizCartas.returnPos(83)->getPath());
+    Pos086 = new BotonCarta(matrizCartas.returnPos(84)->getPath());
+    Pos087 = new BotonCarta(matrizCartas.returnPos(85)->getPath());
+    Pos088 = new BotonCarta(matrizCartas.returnPos(86)->getPath());
+    Pos089 = new BotonCarta(matrizCartas.returnPos(87)->getPath());
 
+    //Fila 9
     Pos090 = new BotonCarta(Comodin);//Comodin
-    Pos091 = new BotonCarta(Comodin);
-    Pos092 = new BotonCarta(Comodin);
-    Pos093 = new BotonCarta(Comodin);
-    Pos094 = new BotonCarta(Comodin);
-    Pos095 = new BotonCarta(Comodin);
-    Pos096 = new BotonCarta(Comodin);
-    Pos097 = new BotonCarta(Comodin);
-    Pos098 = new BotonCarta(Comodin);
+    Pos091 = new BotonCarta(matrizCartas.returnPos(88)->getPath());
+    Pos092 = new BotonCarta(matrizCartas.returnPos(89)->getPath());
+    Pos093 = new BotonCarta(matrizCartas.returnPos(90)->getPath());
+    Pos094 = new BotonCarta(matrizCartas.returnPos(91)->getPath());
+    Pos095 = new BotonCarta(matrizCartas.returnPos(92)->getPath());
+    Pos096 = new BotonCarta(matrizCartas.returnPos(93)->getPath());
+    Pos097 = new BotonCarta(matrizCartas.returnPos(94)->getPath());
+    Pos098 = new BotonCarta(matrizCartas.returnPos(95)->getPath());
     Pos099 = new BotonCarta(Comodin);//Comodin
 
     connect(Pos000,SIGNAL(clicked()),this,SLOT(seteoBotones()));
 
-    //Coordenadas Vertical
+    //Coordenadas
+    //Fila 0
     Pos000->setPos(290,35);//Mantener posición
     Pos001->setPos(375,35);
     Pos002->setPos(460,35);
@@ -305,6 +320,7 @@ void Game::Table(){
     Pos008->setPos(970,35);
     Pos009->setPos(1055,35);
 
+    //Fila 1
     Pos010->setPos(290,93);
     Pos011->setPos(375,93);
     Pos012->setPos(460,93);
@@ -316,6 +332,7 @@ void Game::Table(){
     Pos018->setPos(970,93);
     Pos019->setPos(1055,93);
 
+    //Fila 2
     Pos020->setPos(290,151);
     Pos021->setPos(375,151);
     Pos022->setPos(460,151);
@@ -327,6 +344,7 @@ void Game::Table(){
     Pos028->setPos(970,151);
     Pos029->setPos(1055,151);
 
+    //Fila 3
     Pos030->setPos(290,209);
     Pos031->setPos(375,209);
     Pos032->setPos(460,209);
@@ -338,6 +356,7 @@ void Game::Table(){
     Pos038->setPos(970,209);
     Pos039->setPos(1055,209);
 
+    //Fila 4
     Pos040->setPos(290,267);
     Pos041->setPos(375,267);
     Pos042->setPos(460,267);
@@ -349,6 +368,7 @@ void Game::Table(){
     Pos048->setPos(970,267);
     Pos049->setPos(1055,267);
 
+    //Fila 5
     Pos050->setPos(290,325);
     Pos051->setPos(375,325);
     Pos052->setPos(460,325);
@@ -360,6 +380,7 @@ void Game::Table(){
     Pos058->setPos(970,325);
     Pos059->setPos(1055,325);
 
+    //Fila 6
     Pos060->setPos(290,383);
     Pos061->setPos(375,383);
     Pos062->setPos(460,383);
@@ -371,6 +392,7 @@ void Game::Table(){
     Pos068->setPos(970,383);
     Pos069->setPos(1055,383);
 
+    //Fila 7
     Pos070->setPos(290,441);
     Pos071->setPos(375,441);
     Pos072->setPos(460,441);
@@ -382,6 +404,7 @@ void Game::Table(){
     Pos078->setPos(970,441);
     Pos079->setPos(1055,441);
 
+    //Fila 8
     Pos080->setPos(290,499);
     Pos081->setPos(375,499);
     Pos082->setPos(460,499);
@@ -393,6 +416,7 @@ void Game::Table(){
     Pos088->setPos(970,499);
     Pos089->setPos(1055,499);
 
+    //Fila 9
     Pos090->setPos(290,557);
     Pos091->setPos(375,557);
     Pos092->setPos(460,557);
@@ -405,6 +429,7 @@ void Game::Table(){
     Pos099->setPos(1055,557);
 
     //Agrega a Pantalla
+    //Fila 0
     scene->addItem(Pos000);
     scene->addItem(Pos001);
     scene->addItem(Pos002);
@@ -416,6 +441,7 @@ void Game::Table(){
     scene->addItem(Pos008);
     scene->addItem(Pos009);
 
+    //Fila 1
     scene->addItem(Pos010);
     scene->addItem(Pos011);
     scene->addItem(Pos012);
@@ -427,6 +453,7 @@ void Game::Table(){
     scene->addItem(Pos018);
     scene->addItem(Pos019);
 
+    //Fila 2
     scene->addItem(Pos020);
     scene->addItem(Pos021);
     scene->addItem(Pos022);
@@ -438,6 +465,7 @@ void Game::Table(){
     scene->addItem(Pos028);
     scene->addItem(Pos029);
 
+    //Fila 3
     scene->addItem(Pos030);
     scene->addItem(Pos031);
     scene->addItem(Pos032);
@@ -449,6 +477,7 @@ void Game::Table(){
     scene->addItem(Pos038);
     scene->addItem(Pos039);
 
+    //Fila 4
     scene->addItem(Pos040);
     scene->addItem(Pos041);
     scene->addItem(Pos042);
@@ -460,6 +489,7 @@ void Game::Table(){
     scene->addItem(Pos048);
     scene->addItem(Pos049);
 
+    //Fila 5
     scene->addItem(Pos050);
     scene->addItem(Pos051);
     scene->addItem(Pos052);
@@ -471,6 +501,7 @@ void Game::Table(){
     scene->addItem(Pos058);
     scene->addItem(Pos059);
 
+    //Fila 6
     scene->addItem(Pos060);
     scene->addItem(Pos061);
     scene->addItem(Pos062);
@@ -482,6 +513,7 @@ void Game::Table(){
     scene->addItem(Pos068);
     scene->addItem(Pos069);
 
+    //Fila 7
     scene->addItem(Pos070);
     scene->addItem(Pos071);
     scene->addItem(Pos072);
@@ -493,6 +525,7 @@ void Game::Table(){
     scene->addItem(Pos078);
     scene->addItem(Pos079);
 
+    //Fila 8
     scene->addItem(Pos080);
     scene->addItem(Pos081);
     scene->addItem(Pos082);
@@ -504,6 +537,7 @@ void Game::Table(){
     scene->addItem(Pos088);
     scene->addItem(Pos089);
 
+    //Fila 9
     scene->addItem(Pos090);
     scene->addItem(Pos091);
     scene->addItem(Pos092);
@@ -514,7 +548,4 @@ void Game::Table(){
     scene->addItem(Pos097);
     scene->addItem(Pos098);
     scene->addItem(Pos099);
-
-
-
 }

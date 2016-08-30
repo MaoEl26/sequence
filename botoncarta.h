@@ -1,12 +1,14 @@
 #ifndef BOTONCARTA_H
 #define BOTONCARTA_H
 
+#include <QString>
 #include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
 #include <QBrush>
 #include <QGraphicsTextItem>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsEffect>
+using namespace std;
 
 class BotonCarta:public QObject, public QGraphicsPixmapItem
     {

@@ -6,18 +6,18 @@ using namespace std;
 class Carta
 {
 public:
-    Carta(string valor, string simbolo, string color, string path);
-    string getValor();
-    string getSimbolo();
-    string getColor();
-    string getPath();
+    Carta(QString valor, QString simbolo, QString color, QString path);
+    QString getValor();
+    QString getSimbolo();
+    QString getColor();
+    QString getPath();
 
 
 private:
-    string color;
-    string simbolo;
-    string valor;
-    string path;
+    QString color;
+    QString simbolo;
+    QString valor;
+    QString path;
 };
 
 #endif // CARTA_H

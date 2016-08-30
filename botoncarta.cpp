@@ -10,7 +10,7 @@ BotonCarta::BotonCarta(QString Url)
     //y la posición
     this->setPixmap(Url);
     this->setScale(0.55);
-    this->setRotation(90);
+  //  this->setRotation(90);
     this->setPos(121,122);
     setAcceptHoverEvents(true);
 }

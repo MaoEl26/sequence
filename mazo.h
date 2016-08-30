@@ -11,7 +11,7 @@ class Mazo
 {
 public:
     Mazo();
-    Carta* mazoTablero(int position); 
+    ArrayCarta<Carta *> mazoTablero();
     ArrayCarta<Carta*> tableroRandom();
     ArrayCarta<Carta*> mazoJugadores();
 };

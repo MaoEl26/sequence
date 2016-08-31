@@ -17,6 +17,8 @@
 #include "boton.h"
 #include "botoncarta.h"
 #include "mazo.h"
+#include "carta.h"
+#include "arraycarta.h"
 
 #include <iostream>
 using namespace std;
@@ -27,13 +29,18 @@ class Game : public QGraphicsView, public Mazo
     Q_OBJECT
 
 protected:
+
     bool key=false;
+    QString Comodin = ":/imagenes/COMODIN.png";
+    //ArrayCarta<Carta*> matrizCartas;
+
 public:
     Game();
 
     void ambiente();
     void agregarBotonJugar();
     void Table();
+    void botonesTablero(ArrayCarta<Carta*> matrizCartas);
 
     QGraphicsScene *scene;
 
@@ -172,6 +179,7 @@ public slots:
         void wiki();
         void exit();
         void seteoBotones();
+        void random();
 
         void play2();
         void play3();

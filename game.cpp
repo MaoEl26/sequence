@@ -4,7 +4,9 @@
 #include "carta.h"
 #include "arraycarta.h"
 
-Game::Game(){
+
+Game::Game()
+{
     ambiente();
     agregarBotonJugar();
     show();
@@ -17,6 +19,8 @@ void Game::ambiente(){
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(1350,680);
+
+
 }
 
 void Game::agregarBotonJugar(){
@@ -89,6 +93,11 @@ void Game::start(){
     backButton = new Boton("Atrás",":/imagenes/backButton.png");//Crea el botón de back
     backButton->setPos(0,0);//Establece la posición en la que se va a ubicar
     connect(backButton,SIGNAL(clicked()),this,SLOT(seteoBotones()));//Establece la acción que va a realizar
+
+
+
+
+
 
     //Añade los botones a la pantalla
     scene->addItem(plays2B);
@@ -168,12 +177,23 @@ void Game::exit(){
     QCoreApplication::quit();
 }
 
+void Game::random(){
+    key=true;
+}
+
 void Game::Table(){
     scene->clear();
     scene->setBackgroundBrush(QBrush(QImage(":/imagenes/fondo.png")));//Inserta el nuevo fondo
-    QString Comodin = ":/imagenes/COMODIN.png";
 
-    ArrayCarta<Carta*> matrizCartas = mazoTablero();
+    if (key){
+        botonesTablero(tableroRandom());
+    }else{
+        botonesTablero(mazoTablero());
+    }
+
+}
+
+void Game::botonesTablero(ArrayCarta<Carta*> matrizCartas){
 
     //Fila 0
     Pos000 = new BotonCarta(Comodin);//Comodin
@@ -299,124 +319,124 @@ void Game::Table(){
 
     //Coordenadas
     //Fila 0
-    Pos000->setPos(290,35);//Mantener posición
-    Pos001->setPos(375,35);
-    Pos002->setPos(460,35);
-    Pos003->setPos(545,35);
-    Pos004->setPos(630,35);
-    Pos005->setPos(715,35);
-    Pos006->setPos(800,35);
-    Pos007->setPos(885,35);
-    Pos008->setPos(970,35);
-    Pos009->setPos(1055,35);
+    Pos000->setPos(230,35);//Mantener posición
+    Pos001->setPos(315,35);
+    Pos002->setPos(400,35);
+    Pos003->setPos(485,35);
+    Pos004->setPos(570,35);
+    Pos005->setPos(655,35);
+    Pos006->setPos(740,35);
+    Pos007->setPos(825,35);
+    Pos008->setPos(910,35);
+    Pos009->setPos(995,35);
 
     //Fila 1
-    Pos010->setPos(290,93);
-    Pos011->setPos(375,93);
-    Pos012->setPos(460,93);
-    Pos013->setPos(545,93);
-    Pos014->setPos(630,93);
-    Pos015->setPos(715,93);
-    Pos016->setPos(800,93);
-    Pos017->setPos(885,93);
-    Pos018->setPos(970,93);
-    Pos019->setPos(1055,93);
+    Pos010->setPos(230,93);
+    Pos011->setPos(315,93);
+    Pos012->setPos(400,93);
+    Pos013->setPos(485,93);
+    Pos014->setPos(570,93);
+    Pos015->setPos(655,93);
+    Pos016->setPos(740,93);
+    Pos017->setPos(825,93);
+    Pos018->setPos(910,93);
+    Pos019->setPos(995,93);
 
     //Fila 2
-    Pos020->setPos(290,151);
-    Pos021->setPos(375,151);
-    Pos022->setPos(460,151);
-    Pos023->setPos(545,151);
-    Pos024->setPos(630,151);
-    Pos025->setPos(715,151);
-    Pos026->setPos(800,151);
-    Pos027->setPos(885,151);
-    Pos028->setPos(970,151);
-    Pos029->setPos(1055,151);
+    Pos020->setPos(230,151);
+    Pos021->setPos(315,151);
+    Pos022->setPos(400,151);
+    Pos023->setPos(485,151);
+    Pos024->setPos(570,151);
+    Pos025->setPos(655,151);
+    Pos026->setPos(740,151);
+    Pos027->setPos(825,151);
+    Pos028->setPos(910,151);
+    Pos029->setPos(995,151);
 
     //Fila 3
-    Pos030->setPos(290,209);
-    Pos031->setPos(375,209);
-    Pos032->setPos(460,209);
-    Pos033->setPos(545,209);
-    Pos034->setPos(630,209);
-    Pos035->setPos(715,209);
-    Pos036->setPos(800,209);
-    Pos037->setPos(885,209);
-    Pos038->setPos(970,209);
-    Pos039->setPos(1055,209);
+    Pos030->setPos(230,209);
+    Pos031->setPos(315,209);
+    Pos032->setPos(400,209);
+    Pos033->setPos(485,209);
+    Pos034->setPos(570,209);
+    Pos035->setPos(655,209);
+    Pos036->setPos(740,209);
+    Pos037->setPos(825,209);
+    Pos038->setPos(910,209);
+    Pos039->setPos(995,209);
 
     //Fila 4
-    Pos040->setPos(290,267);
-    Pos041->setPos(375,267);
-    Pos042->setPos(460,267);
-    Pos043->setPos(545,267);
-    Pos044->setPos(630,267);
-    Pos045->setPos(715,267);
-    Pos046->setPos(800,267);
-    Pos047->setPos(885,267);
-    Pos048->setPos(970,267);
-    Pos049->setPos(1055,267);
+    Pos040->setPos(230,267);
+    Pos041->setPos(315,267);
+    Pos042->setPos(400,267);
+    Pos043->setPos(485,267);
+    Pos044->setPos(570,267);
+    Pos045->setPos(655,267);
+    Pos046->setPos(740,267);
+    Pos047->setPos(825,267);
+    Pos048->setPos(910,267);
+    Pos049->setPos(995,267);
 
     //Fila 5
-    Pos050->setPos(290,325);
-    Pos051->setPos(375,325);
-    Pos052->setPos(460,325);
-    Pos053->setPos(545,325);
-    Pos054->setPos(630,325);
-    Pos055->setPos(715,325);
-    Pos056->setPos(800,325);
-    Pos057->setPos(885,325);
-    Pos058->setPos(970,325);
-    Pos059->setPos(1055,325);
+    Pos050->setPos(230,325);
+    Pos051->setPos(315,325);
+    Pos052->setPos(400,325);
+    Pos053->setPos(485,325);
+    Pos054->setPos(570,325);
+    Pos055->setPos(655,325);
+    Pos056->setPos(740,325);
+    Pos057->setPos(825,325);
+    Pos058->setPos(910,325);
+    Pos059->setPos(995,325);
 
     //Fila 6
-    Pos060->setPos(290,383);
-    Pos061->setPos(375,383);
-    Pos062->setPos(460,383);
-    Pos063->setPos(545,383);
-    Pos064->setPos(630,383);
-    Pos065->setPos(715,383);
-    Pos066->setPos(800,383);
-    Pos067->setPos(885,383);
-    Pos068->setPos(970,383);
-    Pos069->setPos(1055,383);
+    Pos060->setPos(230,383);
+    Pos061->setPos(315,383);
+    Pos062->setPos(400,383);
+    Pos063->setPos(485,383);
+    Pos064->setPos(570,383);
+    Pos065->setPos(655,383);
+    Pos066->setPos(740,383);
+    Pos067->setPos(825,383);
+    Pos068->setPos(910,383);
+    Pos069->setPos(995,383);
 
     //Fila 7
-    Pos070->setPos(290,441);
-    Pos071->setPos(375,441);
-    Pos072->setPos(460,441);
-    Pos073->setPos(545,441);
-    Pos074->setPos(630,441);
-    Pos075->setPos(715,441);
-    Pos076->setPos(800,441);
-    Pos077->setPos(885,441);
-    Pos078->setPos(970,441);
-    Pos079->setPos(1055,441);
+    Pos070->setPos(230,441);
+    Pos071->setPos(315,441);
+    Pos072->setPos(400,441);
+    Pos073->setPos(485,441);
+    Pos074->setPos(570,441);
+    Pos075->setPos(655,441);
+    Pos076->setPos(740,441);
+    Pos077->setPos(825,441);
+    Pos078->setPos(910,441);
+    Pos079->setPos(995,441);
 
     //Fila 8
-    Pos080->setPos(290,499);
-    Pos081->setPos(375,499);
-    Pos082->setPos(460,499);
-    Pos083->setPos(545,499);
-    Pos084->setPos(630,499);
-    Pos085->setPos(715,499);
-    Pos086->setPos(800,499);
-    Pos087->setPos(885,499);
-    Pos088->setPos(970,499);
-    Pos089->setPos(1055,499);
+    Pos080->setPos(230,499);
+    Pos081->setPos(315,499);
+    Pos082->setPos(400,499);
+    Pos083->setPos(485,499);
+    Pos084->setPos(570,499);
+    Pos085->setPos(655,499);
+    Pos086->setPos(740,499);
+    Pos087->setPos(825,499);
+    Pos088->setPos(910,499);
+    Pos089->setPos(995,499);
 
     //Fila 9
-    Pos090->setPos(290,557);
-    Pos091->setPos(375,557);
-    Pos092->setPos(460,557);
-    Pos093->setPos(545,557);
-    Pos094->setPos(630,557);
-    Pos095->setPos(715,557);
-    Pos096->setPos(800,557);
-    Pos097->setPos(885,557);
-    Pos098->setPos(970,557);
-    Pos099->setPos(1055,557);
+    Pos090->setPos(230,557);
+    Pos091->setPos(315,557);
+    Pos092->setPos(400,557);
+    Pos093->setPos(485,557);
+    Pos094->setPos(570,557);
+    Pos095->setPos(655,557);
+    Pos096->setPos(740,557);
+    Pos097->setPos(825,557);
+    Pos098->setPos(910,557);
+    Pos099->setPos(995,557);
 
     //Agrega a Pantalla
     //Fila 0

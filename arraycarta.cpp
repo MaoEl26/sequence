@@ -16,8 +16,7 @@ ArrayCarta<E>::ArrayCarta(int pMax)
 
 template <class E>
 E ArrayCarta<E>::getValue(){
-
-        return elements [pos];
+    return elements [pos];
 }
 
 template <class E>
@@ -43,13 +42,12 @@ void ArrayCarta<E>::goToEnd(){
 template <class E>
 void ArrayCarta<E>::goToPos (int pos){
 
-    //validar pos existe
     this->pos = pos;
 }
 
 template <class E>
 void ArrayCarta<E>::previous(){
-    // Validaciones
+
     pos--;
 }
 
@@ -62,18 +60,13 @@ void ArrayCarta<E>::next(){
 
 template <class E>
 void ArrayCarta<E>::append(E pElement){
-    if (size == max){
-        throw runtime_error ("List Full");
-    }
     elements [size] = pElement;
     size++;
 }
 
 template <class E>
 void ArrayCarta<E>::insert(E pElement){
-    if (size == max){
-        throw runtime_error ("List Full");
-    }
+
     for (int i= size; i> pos; i--){
         elements [i] = elements[i-1];
     }
@@ -83,17 +76,14 @@ void ArrayCarta<E>::insert(E pElement){
 
 template <class E>
 E ArrayCarta<E>::remove(int pos){
-    if (size == 0){
-        throw runtime_error ("Empty List");
-    }else{
-        goToPos(pos);
-        E deletedElement = elements [pos];
-        for (int i = pos; i < size; i++){
-            elements[i]= elements [i+1];
-        }
-        size --;
-        return deletedElement;
+
+    goToPos(pos);
+    E deletedElement = elements [pos];
+    for (int i = pos; i < size; i++){
+        elements[i]= elements [i+1];
     }
+    size --;
+    return deletedElement;
 }
 
 template <class E>

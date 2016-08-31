@@ -1,5 +1,10 @@
 #include "mazo.h"
 
+#define TamannoTablero 95 //Cantidad de cartas que van a estar en la matriz del tablero 0 a 95
+#define TamannoMazo 103 //Cantidad de cartas en el mazo 0 a 103
+
+#include <iostream>
+using namespace std;
 Mazo::Mazo()
 {
 
@@ -7,7 +12,7 @@ Mazo::Mazo()
 
 
 ArrayCarta<Carta*> Mazo::mazoTablero(){
-    ArrayCarta<Carta*>*cartasTablero = new ArrayCarta<Carta*>(100);
+    ArrayCarta<Carta*> *cartasTablero = new ArrayCarta<Carta*>(TamannoTablero);
     //Fila 0
     cartasTablero->append(new Carta ("6" ,"diamante","rojo",":/imagenes/6D.png"));
     cartasTablero->append(new Carta ("7" ,"diamante","rojo",":/imagenes/7D.png"));
@@ -126,30 +131,42 @@ ArrayCarta<Carta*> Mazo::mazoTablero(){
     return *cartasTablero;
 }
 
-ArrayCarta<Carta *> Mazo::tableroRandom()
-{
+ArrayCarta<Carta*> Mazo::tableroRandom(){
+
+    ArrayCarta<Carta*> *cartas = new ArrayCarta<Carta*>(TamannoMazo);
     ArrayCarta<Carta*> original =  mazoTablero();
-    ArrayCarta<Carta*>*cartas = new ArrayCarta<Carta*>(105);
-    ArrayCarta<int> arrayInt(104);
-    for (int i =0; i<96; i++) arrayInt.append(i);
+    ArrayCarta<int> *arrayInt=new ArrayCarta<int>(TamannoTablero);
 
-    int cont=0 ;
-    while (cont < arrayInt.getSize()){
-        int num;
-        srand(time(NULL));
-        num = 1 + rand() % (arrayInt.getSize()- 0);
-        cartas->append(original.returnPos(num));
-        arrayInt.remove(num);
+    for (int i =0; i<=TamannoTablero; i++){arrayInt->append(i);}
+
+    srand(time(NULL)); //llamada al random
+    int num; //Variable en la que se almacena el numero random
+    int cont = 0;//Inicializa el contador en 0
+    int maxCards = (arrayInt->getSize());//almacena el tamaño del array que va a crear
+
+    while (cont < maxCards){
+
+        num = rand() % (arrayInt->getSize());
+
+        cartas->append(new Carta (original.returnPos(arrayInt->returnPos(num))->getValor(),
+                                  original.returnPos(arrayInt->returnPos(num))->getSimbolo(),
+                                  original.returnPos(arrayInt->returnPos(num))->getColor(),
+                                  original.returnPos(arrayInt->returnPos(num))->getPath()) );
+
+        arrayInt->remove(num);
+        cont++;
     }
-
     return *cartas;
 }
 
 ArrayCarta<Carta *> Mazo::mazoJugadores()
 {
     ArrayCarta<Carta*> mazoCartas = tableroRandom();
+
     int num;
     srand(time(NULL));
+
+    for(int i=0;i<2;i++){
     num = 1 + rand() % (mazoCartas.getSize()- 0);
     mazoCartas.goToPos(num);
     mazoCartas.insert(new Carta ("J" ,"corazon","rojo",":/imagenes/JC.png"));
@@ -165,6 +182,7 @@ ArrayCarta<Carta *> Mazo::mazoJugadores()
     num = 1 + rand() % (mazoCartas.getSize()- 0);
     mazoCartas.goToPos(num);
     mazoCartas.insert(new Carta ("J" ,"pica","negro",":/imagenes/JP.png"));
+    }
 
     return mazoCartas;
 }

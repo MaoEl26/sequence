@@ -5,6 +5,7 @@
 #include <time.h>
 #include "ArrayCarta.h"
 #include "carta.h"
+#include <QString>
 using namespace std;
 
 class Mazo

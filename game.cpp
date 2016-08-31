@@ -4,8 +4,7 @@
 #include "carta.h"
 #include "arraycarta.h"
 
-Game::Game()
-{
+Game::Game(){
     ambiente();
     agregarBotonJugar();
     show();
@@ -18,8 +17,6 @@ void Game::ambiente(){
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(1350,680);
-
-
 }
 
 void Game::agregarBotonJugar(){
@@ -92,11 +89,6 @@ void Game::start(){
     backButton = new Boton("Atrás",":/imagenes/backButton.png");//Crea el botón de back
     backButton->setPos(0,0);//Establece la posición en la que se va a ubicar
     connect(backButton,SIGNAL(clicked()),this,SLOT(seteoBotones()));//Establece la acción que va a realizar
-
-
-
-
-
 
     //Añade los botones a la pantalla
     scene->addItem(plays2B);
@@ -181,9 +173,7 @@ void Game::Table(){
     scene->setBackgroundBrush(QBrush(QImage(":/imagenes/fondo.png")));//Inserta el nuevo fondo
     QString Comodin = ":/imagenes/COMODIN.png";
 
-
-    ArrayCarta<Carta*> matrizCartas = tableroRandom();
-
+    ArrayCarta<Carta*> matrizCartas = mazoTablero();
 
     //Fila 0
     Pos000 = new BotonCarta(Comodin);//Comodin

@@ -32,7 +32,6 @@ protected:
 
     bool key=false;
     QString Comodin = ":/imagenes/COMODIN.png";
-    //ArrayCarta<Carta*> matrizCartas;
 
 public:
     Game();

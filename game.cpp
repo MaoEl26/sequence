@@ -4,6 +4,17 @@
 #include "carta.h"
 #include "arraycarta.h"
 
+//Define la cantidad de jugadores que pueden ser utilizados
+#define players2 2
+#define players3 3
+#define players4 4
+#define players6 6
+#define players8 8
+#define players9 9
+#define players10 10
+#define players12 12
+
+
 
 Game::Game()
 {
@@ -121,35 +132,37 @@ void Game::start(){
 
 void Game::play2(){
     Table();
-    Jugador(2);
+    Jugador(players2);
 }
 
 void Game::play3(){
-    Jugador(3);
+    Table();
+    Jugador(players3);
 }
 
 void Game::play4(){
-    Jugador(4);
+    Table();
+    Jugador(players4);
 }
 
 void Game::play6(){
-   Jugador(6);
+   Jugador(players6);
 }
 
 void Game::play8(){
-    Jugador(8);
+    Jugador(players8);
 }
 
 void Game::play9(){
-    Jugador(9);
+    Jugador(players9);
 }
 
 void Game::play10(){
-    Jugador(10);
+    Jugador(players10);
 }
 
 void Game::play12(){
-    Jugador(12);
+    Jugador(players12);
 }
 
 void Game::wiki(){
@@ -183,9 +196,15 @@ void Game::random(){
 
 void Game::Table(){
     scene->clear();
+
     scene->setBackgroundBrush(QBrush(QImage(":/imagenes/fondo.png")));//Inserta el nuevo fondo
 
-    if (key){
+    backButton = new Boton("Atrás",":/imagenes/backButton.png");//Crea el botón de Back
+    backButton->setPos(0,0);//Establece la posícion
+    connect(backButton,SIGNAL(clicked()),this,SLOT(seteoBotones()));//Establece la acción que va a realizar
+    scene->addItem(backButton);//Añade el botón a la pantalla
+
+    if (true){
         botonesTablero(tableroRandom());
     }else{
         botonesTablero(mazoTablero());
@@ -315,7 +334,7 @@ void Game::botonesTablero(ArrayCarta<Carta*> matrizCartas){
     Pos098 = new BotonCarta(matrizCartas.returnPos(95)->getPath());
     Pos099 = new BotonCarta(Comodin);//Comodin
 
-    connect(Pos000,SIGNAL(clicked()),this,SLOT(seteoBotones()));
+    //connect(Pos000,SIGNAL(clicked()),this,SLOT(seteoBotones()));
 
     //Coordenadas
     //Fila 0

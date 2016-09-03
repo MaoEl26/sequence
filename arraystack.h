@@ -1,15 +1,17 @@
 #ifndef ARRAYSTACK_H
 #define ARRAYSTACK_H
+#include "carta.h"
 #include <iostream>
-using namespace std;
 
+using namespace std;
+template<class E>
 class ArrayStack
 {
     public:
         ArrayStack(int pMax);
-        void push(int value);
-        int pop();
-        int topValue();
+        void push(E value);
+        E pop();
+        E topValue();
         bool isFull();
         bool isEmpty();
         void goToPos(int pos);
@@ -23,7 +25,7 @@ class ArrayStack
         int size;
         int max;
         int pos;
-        int* elements;
+        E* elements;
 };
 
 #endif // ARRAYSTACK_H

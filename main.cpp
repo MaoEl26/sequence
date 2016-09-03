@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Carta.h"
 #include "arraycarta.h"
+#include "arraystack.h"
 #include <QString>
 #include <iostream>
 #include <mazo.h>

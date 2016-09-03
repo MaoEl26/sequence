@@ -1,26 +1,31 @@
 #include "ArrayStack.h"
 
-ArrayStack::ArrayStack(int pMax)
+template <class E>
+ArrayStack<E>::ArrayStack(int pMax)
 {
     max = pMax;
     size = 0;
     pos = 0;
-    elements = new int [pMax];
+    elements = new E [pMax];
     top = 0;
 }
 
-int ArrayStack::getSize(){
+template <class E>
+int ArrayStack<E>::getSize(){
     return size;
 }
-void ArrayStack::push(int value){
+
+template <class E>
+void ArrayStack<E>::push(E value){
     elements [size] = value;
     size++;
     top = size-1;
 }
 
-int ArrayStack::pop(){
+template <class E>
+E ArrayStack<E>::pop(){
     goToPos(top);
-    int deletedElement = elements [top];
+    E deletedElement = elements [top];
     for (int i = top; i < size; i++){
         elements[i]= elements [i+1];
     }
@@ -32,30 +37,43 @@ int ArrayStack::pop(){
     return deletedElement;
 }
 
-void ArrayStack::goToPos (int pos){
+
+template <class E>
+void ArrayStack<E>::goToPos (int pos){
     this->pos = pos;
 }
 
-int ArrayStack::topValue(){
+
+template <class E>
+E ArrayStack<E>::topValue(){
     return elements[top];
 }
 
-
-void ArrayStack::clear(){
+template <class E>
+void ArrayStack<E>::clear(){
     size= 0;
     pos = 0;
     delete[]elements;
 }
 
-void ArrayStack::print(){
+
+template <class E>
+void ArrayStack<E>::print(){
     cout<< "\n[ ";
     for (int i =0; i<size; i++){
         cout <<elements[i]<<" ";
     }
     cout<< "]";
 }
-ArrayStack::~ArrayStack()
+
+template <class E>
+ArrayStack<E>::~ArrayStack()
 {
     clear();
 
 }
+
+
+template class ArrayStack<Carta*>;
+template class ArrayStack<string>;
+template class ArrayStack<int>;

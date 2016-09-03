@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     jugador.cpp \
     ficha.cpp \
     arraycarta.cpp \
-    botoncarta.cpp
+    botoncarta.cpp \
+    arraystack.cpp
 
 HEADERS  += \
     game.h \
@@ -30,7 +31,8 @@ HEADERS  += \
     jugador.h \
     ficha.h \
     arraycarta.h \
-    botoncarta.h
+    botoncarta.h \
+    arraystack.h
 
 FORMS    +=
 

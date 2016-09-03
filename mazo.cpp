@@ -167,21 +167,21 @@ ArrayCarta<Carta *> Mazo::mazoJugadores()
     srand(time(NULL));
 
     for(int i=0;i<2;i++){
-    num = 1 + rand() % (mazoCartas.getSize()- 0);
-    mazoCartas.goToPos(num);
-    mazoCartas.insert(new Carta ("J" ,"corazon","rojo",":/imagenes/JC.png"));
+        num = 1 + rand() % (mazoCartas.getSize()- 0);
+        mazoCartas.goToPos(num);
+        mazoCartas.insert(new Carta ("J" ,"corazon","rojo",":/imagenes/JC.png"));
 
-    num = 1 + rand() % (mazoCartas.getSize()- 0);
-    mazoCartas.goToPos(num);
-    mazoCartas.insert(new Carta ("J" ,"diamante","rojo",":/imagenes/JD.png"));
+        num = 1 + rand() % (mazoCartas.getSize()- 0);
+        mazoCartas.goToPos(num);
+        mazoCartas.insert(new Carta ("J" ,"diamante","rojo",":/imagenes/JD.png"));
 
-    num = 1 + rand() % (mazoCartas.getSize()- 0);
-    mazoCartas.goToPos(num);
-    mazoCartas.insert(new Carta ("J" ,"trebol","negro",":/imagenes/JT.png"));
+        num = 1 + rand() % (mazoCartas.getSize()- 0);
+        mazoCartas.goToPos(num);
+        mazoCartas.insert(new Carta ("J" ,"trebol","negro",":/imagenes/JT.png"));
 
-    num = 1 + rand() % (mazoCartas.getSize()- 0);
-    mazoCartas.goToPos(num);
-    mazoCartas.insert(new Carta ("J" ,"pica","negro",":/imagenes/JP.png"));
+        num = 1 + rand() % (mazoCartas.getSize()- 0);
+        mazoCartas.goToPos(num);
+        mazoCartas.insert(new Carta ("J" ,"pica","negro",":/imagenes/JP.png"));
     }
 
     return mazoCartas;

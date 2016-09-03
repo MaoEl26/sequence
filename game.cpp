@@ -191,7 +191,8 @@ void Game::exit(){
 }
 
 void Game::random(){
-    key=true;
+    botonesTablero(tableroRandom());
+
 }
 
 void Game::Table(){
@@ -204,13 +205,27 @@ void Game::Table(){
     connect(backButton,SIGNAL(clicked()),this,SLOT(seteoBotones()));//Establece la acción que va a realizar
     scene->addItem(backButton);//Añade el botón a la pantalla
 
-    if (true){
-        botonesTablero(tableroRandom());
-    }else{
-        botonesTablero(mazoTablero());
-    }
+    randomButton = new Boton("random",":/imagenes/randomButton.png");
+    randomButton->setPos(10,600);
+    connect(randomButton,SIGNAL(clicked()),this,SLOT(random()));
+    scene->addItem(randomButton);
+
+    redoButton = new Boton("redo",":/imagenes/redoButton.png");
+    redoButton->setPos(110,560);
+    scene->addItem(redoButton);
+
+    undoButton = new Boton("undo",":/imagenes/UndoButton.png");
+    undoButton->setPos(00,560);
+    scene->addItem(undoButton);
+
+    botonesTablero(mazoTablero());
 
 }
+
+//void Game::cartasJugador(){
+//    carta01 = new Boton("carta1", ":/imagenes/AT.png");
+
+//}
 
 void Game::botonesTablero(ArrayCarta<Carta*> matrizCartas){
 

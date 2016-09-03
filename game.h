@@ -48,6 +48,11 @@ public:
     Boton *wikiButton;
     Boton *exitButton; 
     Boton *backButton;
+    Boton *randomButton;
+    Boton *nextButton;
+    Boton *undoButton;
+    Boton *redoButton;
+
 
     //Botones jugadores
     Boton *plays2B;

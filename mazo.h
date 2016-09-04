@@ -6,6 +6,7 @@
 #include "ArrayCarta.h"
 #include "carta.h"
 #include <QString>
+#include "arraystack.h"
 using namespace std;
 
 class Mazo
@@ -14,7 +15,7 @@ public:
     Mazo();
     ArrayCarta<Carta *> mazoTablero();
     ArrayCarta<Carta*> tableroRandom();
-    ArrayCarta<Carta*> mazoJugadores();
+    ArrayStack<Carta *> mazoJugadores();
 };
 
 #endif // MAZO_H

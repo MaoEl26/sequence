@@ -159,9 +159,10 @@ ArrayCarta<Carta*> Mazo::tableroRandom(){
     return *cartas;
 }
 
-ArrayCarta<Carta *> Mazo::mazoJugadores()
+ArrayStack<Carta *> Mazo::mazoJugadores()
 {
     ArrayCarta<Carta*> mazoCartas = tableroRandom();
+    ArrayStack<Carta*> *stackCartas = new ArrayStack <Carta*> (TamannoMazo);
 
     int num;
     srand(time(NULL));
@@ -184,7 +185,11 @@ ArrayCarta<Carta *> Mazo::mazoJugadores()
         mazoCartas.insert(new Carta ("J" ,"pica","negro",":/imagenes/JP.png"));
     }
 
-    return mazoCartas;
+    for (int i =0; i< mazoCartas.getSize(); i++){
+        stackCartas->push(mazoCartas.returnPos(i));
+    }
+
+    return *stackCartas;
 }
 
 

@@ -1,5 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
+//Opciones para diseño
 #include <QGraphicsRectItem>
 #include <QGraphicsTextItem>
 #include <QGraphicsView>
@@ -14,11 +15,17 @@
 #include <QGraphicsItem>
 #include <QFrame>
 #include <QCoreApplication>
+//Inclusion de funciones del programa
 #include "boton.h"
 #include "botoncarta.h"
 #include "mazo.h"
 #include "carta.h"
 #include "arraycarta.h"
+#include "arraystack.h"
+#include "jugador.h"
+
+//#define TamannoMazo 103 //Cantidad de cartas en el mazo 0 a 103
+
 
 #include <iostream>
 using namespace std;
@@ -30,18 +37,33 @@ class Game : public QGraphicsView, public Mazo
 
 protected:
 
+
     bool key=false;
     QString Comodin = ":/imagenes/COMODIN.png";
+    ArrayStack<Carta*> *descartes;
+
 
 public:
     Game();
 
+    //Metodos de funcionamiento principales
     void ambiente();
     void agregarBotonJugar();
     void Table();
     void botonesTablero(ArrayCarta<Carta*> matrizCartas);
+    void cartasJugador(ArrayCarta<Carta *> cartasJgd);
+    void mazoCartasDescartes();
+    void listaCartas(ArrayStack<Carta*> matrizCartas);
+    void cantidadJugadores(int players);
 
+    //Escena del juego
     QGraphicsScene *scene;
+
+    Jugador *jugador1;
+    Jugador *jugador2;
+    Jugador *jugador3;
+    Jugador *jugador4;
+
 
     //Botones de Menú
     Boton *startButton;
@@ -179,12 +201,14 @@ public:
 
 public slots:
         /// aqui va la respuesta de los boton
-        void start();
+        void startMenu();
         void wiki();
         void exit();
         void seteoBotones();
         void random();
+        void next();
 
+        ///Funciones de los botones de jugador
         void play2();
         void play3();
         void play4();
@@ -193,9 +217,6 @@ public slots:
         void play9();
         void play10();
         void play12();
-
-
-
 
 };
 

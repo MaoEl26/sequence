@@ -15,9 +15,9 @@
 #define players12 12
 
 
-
 Game::Game()
 {
+
     ambiente();
     agregarBotonJugar();
     show();
@@ -42,7 +42,7 @@ void Game::agregarBotonJugar(){
 
     startButton= new Boton("Start Game",":/imagenes/startButton.png");
     startButton->setPos(388,440);
-    connect(startButton, SIGNAL(clicked()), this, SLOT(start()));
+    connect(startButton, SIGNAL(clicked()), this, SLOT(startMenu()));
 
     //Botón de menu de ayuda
     wikiButton= new Boton("Help",":/imagenes/Helpbutton.png");
@@ -64,7 +64,7 @@ void Game::seteoBotones(){
     agregarBotonJugar();
 }
 
-void Game::start(){
+void Game::startMenu(){
 
     scene->clear();//Limpia la escena
     scene->setBackgroundBrush(QBrush(QImage(":/imagenes/fondoJugadores.png")));//Cambia el fondo
@@ -106,10 +106,6 @@ void Game::start(){
     connect(backButton,SIGNAL(clicked()),this,SLOT(seteoBotones()));//Establece la acción que va a realizar
 
 
-
-
-
-
     //Añade los botones a la pantalla
     scene->addItem(plays2B);
     scene->addItem(plays3B);
@@ -132,37 +128,37 @@ void Game::start(){
 
 void Game::play2(){
     Table();
-    Jugador(players2);
+    cantidadJugadores(players2);
 }
 
 void Game::play3(){
     Table();
-    Jugador(players3);
+    cantidadJugadores(players3);
 }
 
 void Game::play4(){
     Table();
-    Jugador(players4);
+    cantidadJugadores(players4);
 }
 
 void Game::play6(){
-   Jugador(players6);
+   cantidadJugadores(players6);
 }
 
 void Game::play8(){
-    Jugador(players8);
+    cantidadJugadores(players8);
 }
 
 void Game::play9(){
-    Jugador(players9);
+    cantidadJugadores(players9);
 }
 
 void Game::play10(){
-    Jugador(players10);
+    cantidadJugadores(players10);
 }
 
 void Game::play12(){
-    Jugador(players12);
+    cantidadJugadores(players12);
 }
 
 void Game::wiki(){
@@ -190,12 +186,42 @@ void Game::exit(){
     QCoreApplication::quit();
 }
 
+void Game::cantidadJugadores(int players){
+    ArrayStack<Carta*> cartas = mazoJugadores();
+    //Crea las fichas a utilizar
+    Ficha *ficha1 = new Ficha(1,"Azul",":/imagenes/FICHA _AZUL.png");
+    Ficha *ficha2 = new Ficha(2,"Morado",":/imagenes/FICHA _MORADA.png");
+    Ficha *ficha3 = new Ficha(3,"Verde",":/imagenes/FICHA _VERDE.png");
+    //Crea para 2 jugadores
+    if (players==players2){
+        jugador1 = new Jugador("Jugador 1",ficha1,7,cartas);
+        //cartasJugador(jugador1->repartoCartas(cartas));
+        jugador2 = new Jugador("Jugador 2",ficha3,7,cartas);
+    }
+    //crea para 3 jugadores
+    if (players==players3){
+        jugador1 = new Jugador("Jugador 1",ficha1,7,cartas);
+        cartasJugador(jugador1->getCards());
+        jugador2 = new Jugador("Jugador 2",ficha2,7,cartas);
+        jugador3 = new Jugador("Jugador 3",ficha3,7,cartas);
+    }
+    //crea para 4 jugadores
+    if (players==players4){
+        jugador1 = new Jugador("Jugador 1",ficha1,6,cartas);
+        //cartasJugador(jugador1->repartoCartas(cartas));
+        jugador2 = new Jugador("Jugador 2",ficha2,6,cartas);
+        jugador3 = new Jugador("Jugador 3",ficha1,6,cartas);
+        jugador4 = new Jugador("Jugador 4",ficha2,6,cartas);
+    }
+}
+
 void Game::random(){
     botonesTablero(tableroRandom());
-
 }
 
 void Game::Table(){
+    descartes = new ArrayStack<Carta*>(103);
+
     scene->clear();
 
     scene->setBackgroundBrush(QBrush(QImage(":/imagenes/fondo.png")));//Inserta el nuevo fondo
@@ -215,17 +241,73 @@ void Game::Table(){
     scene->addItem(redoButton);
 
     undoButton = new Boton("undo",":/imagenes/UndoButton.png");
-    undoButton->setPos(00,560);
+    undoButton->setPos(0,560);
     scene->addItem(undoButton);
+
+    nextButton = new Boton("next",":/imagenes/NextButton.png");
+    nextButton->setPos(1120,600);
+    scene->addItem(nextButton);
 
     botonesTablero(mazoTablero());
 
+    //cartasJugador(mazoTablero());
+
 }
 
-//void Game::cartasJugador(){
-//    carta01 = new Boton("carta1", ":/imagenes/AT.png");
+void Game::next(){
+    //Aumenta jugador
+    //llama lista carta
 
-//}
+}
+
+void Game::mazoCartasDescartes(){
+    //se almacena la instancia de la carta en la pila
+    //Se obtiene el path y lo presenta en la carta
+    //elimina el path de la pila mazo
+
+}
+
+void Game::listaCartas(ArrayStack<Carta*>matrizCartas){
+    //crea las listas de los jugadores **provicional aquí
+}
+
+void Game::cartasJugador(ArrayCarta<Carta *> cartasJgd){
+    //recibe lista y despliega
+
+
+    Carta01 = new Boton("carta1", cartasJgd.returnPos(0)->getPath());
+    Carta02 = new Boton("carta2", cartasJgd.returnPos(1)->getPath());
+    Carta03 = new Boton("carta3", cartasJgd.returnPos(2)->getPath());
+    Carta04 = new Boton("carta4", cartasJgd.returnPos(3)->getPath());
+    Carta05 = new Boton("carta5", cartasJgd.returnPos(4)->getPath());
+    Carta06 = new Boton("carta6", cartasJgd.returnPos(5)->getPath());
+    Carta07 = new Boton("carta7", cartasJgd.returnPos(6)->getPath());
+
+    Carta01->setPos(1145,95);
+    Carta02->setPos(1145,165);
+    Carta03->setPos(1145,235);
+    Carta04->setPos(1145,305);
+    Carta05->setPos(1145,375);
+    Carta06->setPos(1145,445);
+    Carta07->setPos(1145,515);
+
+    Carta01->setScale(0.65);
+    Carta02->setScale(0.65);
+    Carta03->setScale(0.65);
+    Carta04->setScale(0.65);
+    Carta05->setScale(0.65);
+    Carta06->setScale(0.65);
+    Carta07->setScale(0.65);
+
+    scene->addItem(Carta01);
+    scene->addItem(Carta02);
+    scene->addItem(Carta03);
+    scene->addItem(Carta04);
+    scene->addItem(Carta05);
+    scene->addItem(Carta06);
+    scene->addItem(Carta07);
+
+}
 
 void Game::botonesTablero(ArrayCarta<Carta*> matrizCartas){
 

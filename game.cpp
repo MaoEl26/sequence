@@ -194,6 +194,7 @@ void Game::exit(){
 
 void Game::cantidadJugadores(int players){
 
+    jugadores= new ArrayCarta<Jugador*>(players);
     //Crea las fichas a utilizar
     Ficha *ficha1 = new Ficha(1,"Azul",":/imagenes/FICHA _AZUL.png");
     Ficha *ficha2 = new Ficha(2,"Morado",":/imagenes/FICHA _MORADA.png");
@@ -208,6 +209,8 @@ void Game::cantidadJugadores(int players){
         manoJugador=listaCartas(cantCartas);
         jugador2 = new Jugador("Jugador 2",ficha3,cantCartas,manoJugador);
 
+        jugadores->append(jugador1);
+        jugadores->append(jugador2);
         cartasJugador(jugador1->getCards());
     }
     //crea para 3 jugadores
@@ -223,6 +226,9 @@ void Game::cantidadJugadores(int players){
         manoJugador=listaCartas(cantCartas);
         jugador3 = new Jugador("Jugador 3",ficha3,cantCartas,manoJugador);
 
+        jugadores->append(jugador1);
+        jugadores->append(jugador2);
+        jugadores->append(jugador3);
         cartasJugador(jugador1->getCards());
     }
     //crea para 4 jugadores
@@ -241,6 +247,10 @@ void Game::cantidadJugadores(int players){
         manoJugador=listaCartas(cantCartas);
         jugador4 = new Jugador("Jugador 4",ficha2,cantCartas,manoJugador);
 
+        jugadores->append(jugador1);
+        jugadores->append(jugador2);
+        jugadores->append(jugador3);
+        jugadores->append(jugador4);
         cartasJugador(jugador1->getCards());
     }
 }
@@ -295,13 +305,19 @@ void Game::Table(){
 
     muestraCartaDescarte();
     botonesTablero(mazoTablero());
-
+    nextPlay =1;
 }
 
 void Game::next(){
     //Aumenta jugador
     //llama lista carta
-    cartasJugador(jugador2->getCards());
+    cartasJugador(jugadores->returnPos(nextPlay)->getCards());
+    if (nextPlay+1 < jugadores->getSize()){
+        nextPlay++;
+    }
+    else{
+        nextPlay=0;
+    }
 
 }
 

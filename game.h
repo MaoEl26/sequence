@@ -42,6 +42,8 @@ protected:
     QString Comodin = ":/imagenes/COMODIN.png";
     ArrayStack<Carta*> *descartes;
     ArrayStack<Carta*> *cartas;
+    ArrayCarta<Jugador*> *jugadores;
+    int nextPlay;
 
 public:
     Game();

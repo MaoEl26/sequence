@@ -1,6 +1,7 @@
 #ifndef ARRAYCARTA_H
 #define ARRAYCARTA_H
 #include "carta.h"
+
 template<class E>
 class ArrayCarta
 {

@@ -3,6 +3,7 @@
 #define default_max_size 1024
 #include <stdexcept>
 #include <iostream>
+#include "jugador.h"
 using namespace std;
 
 template <class E>
@@ -100,3 +101,4 @@ ArrayCarta<E>::~ArrayCarta (){
 template class ArrayCarta<Carta*>;
 template class ArrayCarta<string>;
 template class ArrayCarta<int>;
+template class ArrayCarta<Jugador*>;

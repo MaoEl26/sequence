@@ -37,11 +37,11 @@ class Game : public QGraphicsView, public Mazo
 
 protected:
 
-
+    int cantCartas;
     bool key=false;
     QString Comodin = ":/imagenes/COMODIN.png";
     ArrayStack<Carta*> *descartes;
-
+    ArrayStack<Carta*> *cartas;
 
 public:
     Game();
@@ -53,8 +53,9 @@ public:
     void botonesTablero(ArrayCarta<Carta*> matrizCartas);
     void cartasJugador(ArrayCarta<Carta *> cartasJgd);
     void mazoCartasDescartes();
-    void listaCartas(ArrayStack<Carta*> matrizCartas);
+    ArrayCarta<Carta *> *listaCartas(int cantCartas);
     void cantidadJugadores(int players);
+    void muestraCartaDescarte();
 
     //Escena del juego
     QGraphicsScene *scene;
@@ -87,13 +88,13 @@ public:
     Boton *plays12B;
 
     //Botones Cartas Jugadores
-    Boton *Carta01;
-    Boton *Carta02;
-    Boton *Carta03;
-    Boton *Carta04;
-    Boton *Carta05;
-    Boton *Carta06;
-    Boton *Carta07;
+    BotonCarta *Carta01;
+    BotonCarta *Carta02;
+    BotonCarta *Carta03;
+    BotonCarta *Carta04;
+    BotonCarta *Carta05;
+    BotonCarta *Carta06;
+    BotonCarta *Carta07;
 
     //Botones Matriz
     BotonCarta *Pos000;

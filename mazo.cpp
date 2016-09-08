@@ -159,7 +159,7 @@ ArrayCarta<Carta*> Mazo::tableroRandom(){
     return *cartas;
 }
 
-ArrayStack<Carta *> Mazo::mazoJugadores()
+ArrayStack<Carta *>* Mazo::mazoJugadores()
 {
     ArrayCarta<Carta*> mazoCartas = tableroRandom();
     ArrayStack<Carta*> *stackCartas = new ArrayStack <Carta*> (TamannoMazo);
@@ -189,7 +189,7 @@ ArrayStack<Carta *> Mazo::mazoJugadores()
         stackCartas->push(mazoCartas.returnPos(i));
     }
 
-    return *stackCartas;
+    return stackCartas;
 }
 
 

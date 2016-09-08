@@ -93,9 +93,9 @@ E ArrayCarta<E>::returnPos(int pos){
 
 template <class E>
 ArrayCarta<E>::~ArrayCarta (){
-    size= 0;
-    pos = 0;
-    delete[]elements;
+//    size= 0;
+//    pos = 0;
+//    delete[]elements;
 }
 template class ArrayCarta<Carta*>;
 template class ArrayCarta<string>;

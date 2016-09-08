@@ -11,20 +11,18 @@ class Jugador:public Mazo
 {
 
     public:
-        Jugador(string name, Ficha *ficha, int cantCartas,ArrayStack<Carta*>cartas);
+        Jugador(string name, Ficha *ficha, int cantCartas,ArrayCarta<Carta*>*cartasJugador);
         Ficha* getFicha();
         int getCantCartas();
         string getName();
         ArrayCarta<Carta*> getCards();
-        ArrayCarta<Carta *> *repartoCartas(ArrayStack<Carta*> cartas);
 
 
     protected:
         string name;
         Ficha* ficha;
         int cantCartas;
-
-        ArrayCarta<Carta*>* cards;
+        ArrayCarta<Carta*>* cartasJugador;
 };
 
 #endif // JUGADOR_H

@@ -1,12 +1,13 @@
 #include "jugador.h"
 #define largoLista 7
 
-Jugador:: Jugador(string name, Ficha* ficha, int cantCartas, ArrayCarta<Carta*> *cartasJugador)
+Jugador:: Jugador(string name, Ficha* ficha, int cantCartas,QString path, ArrayCarta<Carta*> *cartasJugador)
 {
     this->name=name;
     this->ficha=ficha;
     this->cantCartas=cantCartas;
     this->cartasJugador=cartasJugador;
+    this->path=path;
 }
 
 string Jugador::getName(){
@@ -19,6 +20,10 @@ int Jugador::getCantCartas(){
 
 Ficha* Jugador::getFicha(){
     return ficha;
+}
+
+QString Jugador::getPath(){
+    return path;
 }
 
 ArrayCarta<Carta *> Jugador::getCards(){

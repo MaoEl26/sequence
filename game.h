@@ -45,12 +45,13 @@ protected:
     ArrayCarta<Jugador*> *jugadores;
     int nextPlay;
 
+
 public:
     Game();
 
     //Metodos de funcionamiento principales
     void ambiente();
-    void agregarBotonJugar();
+    void agregarBotonesJugar();
     void Table();
     void botonesTablero(ArrayCarta<Carta*> matrizCartas);
     void cartasJugador(ArrayCarta<Carta *> cartasJgd);
@@ -58,6 +59,7 @@ public:
     ArrayCarta<Carta *> *listaCartas(int cantCartas);
     void cantidadJugadores(int players);
     void muestraCartaDescarte();
+    void muestraNombreJugador(QString JugadorPath);
 
     //Escena del juego
     QGraphicsScene *scene;

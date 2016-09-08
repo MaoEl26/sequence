@@ -24,7 +24,7 @@ Game::Game()
 {
 
     ambiente();
-    agregarBotonJugar();
+    agregarBotonesJugar();
     show();
 }
 
@@ -39,7 +39,11 @@ void Game::ambiente(){
 
 }
 
-void Game::agregarBotonJugar(){
+void Game::seteoBotones(){
+    agregarBotonesJugar();
+}
+
+void Game::agregarBotonesJugar(){
     //Boton de inicio del Juego
     scene->clear();
 
@@ -65,9 +69,6 @@ void Game::agregarBotonJugar(){
     scene->addItem(exitButton);
 }
 
-void Game::seteoBotones(){
-    agregarBotonJugar();
-}
 
 void Game::startMenu(){
     cartas = mazoJugadores();
@@ -192,82 +193,6 @@ void Game::exit(){
     QCoreApplication::quit();
 }
 
-void Game::cantidadJugadores(int players){
-
-    jugadores= new ArrayCarta<Jugador*>(players);
-    //Crea las fichas a utilizar
-    Ficha *ficha1 = new Ficha(1,"Azul",":/imagenes/FICHA _AZUL.png");
-    Ficha *ficha2 = new Ficha(2,"Morado",":/imagenes/FICHA _MORADA.png");
-    Ficha *ficha3 = new Ficha(3,"Verde",":/imagenes/FICHA _VERDE.png");
-    //Crea para 2 jugadores
-    if (players==players2){
-        cantCartas=7;
-
-        ArrayCarta<Carta*> *manoJugador=listaCartas(cantCartas);
-        jugador1 = new Jugador("Jugador 1",ficha1,cantCartas,manoJugador);
-
-        manoJugador=listaCartas(cantCartas);
-        jugador2 = new Jugador("Jugador 2",ficha3,cantCartas,manoJugador);
-
-        jugadores->append(jugador1);
-        jugadores->append(jugador2);
-        cartasJugador(jugador1->getCards());
-    }
-    //crea para 3 jugadores
-    if (players==players3){
-        cantCartas=6;
-
-        ArrayCarta<Carta*> *manoJugador=listaCartas(cantCartas);
-        jugador1 = new Jugador("Jugador 1",ficha1,cantCartas,manoJugador);
-
-        manoJugador=listaCartas(cantCartas);
-        jugador2 = new Jugador("Jugador 2",ficha2,cantCartas,manoJugador);
-
-        manoJugador=listaCartas(cantCartas);
-        jugador3 = new Jugador("Jugador 3",ficha3,cantCartas,manoJugador);
-
-        jugadores->append(jugador1);
-        jugadores->append(jugador2);
-        jugadores->append(jugador3);
-        cartasJugador(jugador1->getCards());
-    }
-    //crea para 4 jugadores
-    if (players==players4){
-        cantCartas=6;
-
-        ArrayCarta<Carta*> *manoJugador=listaCartas(cantCartas);
-        jugador1 = new Jugador("Jugador 1",ficha1,cantCartas,manoJugador);
-
-        manoJugador=listaCartas(cantCartas);
-        jugador2 = new Jugador("Jugador 2",ficha2,cantCartas,manoJugador);
-
-        manoJugador=listaCartas(cantCartas);
-        jugador3 = new Jugador("Jugador 3",ficha1,cantCartas,manoJugador);
-
-        manoJugador=listaCartas(cantCartas);
-        jugador4 = new Jugador("Jugador 4",ficha2,cantCartas,manoJugador);
-
-        jugadores->append(jugador1);
-        jugadores->append(jugador2);
-        jugadores->append(jugador3);
-        jugadores->append(jugador4);
-        cartasJugador(jugador1->getCards());
-    }
-}
-
-ArrayCarta<Carta*>* Game::listaCartas(int cantCartas){
-    ArrayCarta<Carta*>* cartasjugador= new ArrayCarta<Carta*>(largoLista);
-    for (int i=0;i<cantCartas;i++){
-        cartasjugador->append(cartas->topValue());
-        cartas->pop();
-    }
-    if (cantCartas < largoLista){
-        for (int i=cantCartas-1;i<largoLista;i++){
-            cartasjugador->append(new Carta("NULL","NULL","NULL",":/imagenes/COMODIN.png"));
-        }
-    }
-    return cartasjugador;
-}
 
 void Game::random(){
     botonesTablero(tableroRandom());
@@ -311,6 +236,7 @@ void Game::Table(){
 void Game::next(){
     //Aumenta jugador
     //llama lista carta
+    muestraNombreJugador(jugadores->returnPos(nextPlay)->getPath());
     cartasJugador(jugadores->returnPos(nextPlay)->getCards());
     if (nextPlay+1 < jugadores->getSize()){
         nextPlay++;
@@ -319,6 +245,16 @@ void Game::next(){
         nextPlay=0;
     }
 
+}
+
+void Game::muestraNombreJugador(QString JugadorPath){
+    QImage jugadorImagen(JugadorPath);
+
+    QGraphicsPixmapItem *item= new QGraphicsPixmapItem( QPixmap::fromImage(jugadorImagen));
+    item->setPos(1115,40);
+    item->setScale(0.7);
+
+    scene->addItem(item);
 }
 
 void Game::muestraCartaDescarte(){
@@ -335,6 +271,89 @@ void Game::mazoCartasDescartes(){
     //se almacena la instancia de la carta en la pila
     //Se obtiene el path y lo presenta en la carta
     //elimina el path de la pila mazo
+}
+
+void Game::cantidadJugadores(int players){
+
+    jugadores= new ArrayCarta<Jugador*>(players);
+    //Crea las fichas a utilizar
+    Ficha *ficha1 = new Ficha(1,"Azul",":/imagenes/FICHA _AZUL.png");
+    Ficha *ficha2 = new Ficha(2,"Morado",":/imagenes/FICHA _MORADA.png");
+    Ficha *ficha3 = new Ficha(3,"Verde",":/imagenes/FICHA _VERDE.png");
+    //Crea para 2 jugadores
+    if (players==players2){
+        cantCartas=7;
+
+        ArrayCarta<Carta*> *manoJugador=listaCartas(cantCartas);
+        jugador1 = new Jugador("Jugador 1",ficha1,cantCartas,":/imagenes/etiquetaJug1.png",manoJugador);
+
+        manoJugador=listaCartas(cantCartas);
+        jugador2 = new Jugador("Jugador 2",ficha3,cantCartas,":/imagenes/etiquetaJug2.png",manoJugador);
+
+        jugadores->append(jugador1);
+        jugadores->append(jugador2);
+
+        muestraNombreJugador(jugador1->getPath());
+        cartasJugador(jugador1->getCards());
+    }
+    //crea para 3 jugadores
+    if (players==players3){
+        cantCartas=6;
+
+        ArrayCarta<Carta*> *manoJugador=listaCartas(cantCartas);
+        jugador1 = new Jugador("Jugador 1",ficha1,cantCartas,":/imagenes/etiquetaJug1.png",manoJugador);
+
+        manoJugador=listaCartas(cantCartas);
+        jugador2 = new Jugador("Jugador 2",ficha2,cantCartas,":/imagenes/etiquetaJug2.png",manoJugador);
+
+        manoJugador=listaCartas(cantCartas);
+        jugador3 = new Jugador("Jugador 3",ficha3,cantCartas,":/imagenes/etiquetaJug3.png",manoJugador);
+
+        jugadores->append(jugador1);
+        jugadores->append(jugador2);
+        jugadores->append(jugador3);
+
+        muestraNombreJugador(jugador1->getPath());
+        cartasJugador(jugador1->getCards());
+    }
+    //crea para 4 jugadores
+    if (players==players4){
+        cantCartas=6;
+
+        ArrayCarta<Carta*> *manoJugador=listaCartas(cantCartas);
+        jugador1 = new Jugador("Jugador 1",ficha1,cantCartas,":/imagenes/TEAM1.png",manoJugador);
+
+        manoJugador=listaCartas(cantCartas);
+        jugador2 = new Jugador("Jugador 2",ficha2,cantCartas,":/imagenes/TEAM2.png",manoJugador);
+
+        manoJugador=listaCartas(cantCartas);
+        jugador3 = new Jugador("Jugador 3",ficha1,cantCartas,":/imagenes/TEAM1.png",manoJugador);
+
+        manoJugador=listaCartas(cantCartas);
+        jugador4 = new Jugador("Jugador 4",ficha2,cantCartas,":/imagenes/TEAM2.png",manoJugador);
+
+        jugadores->append(jugador1);
+        jugadores->append(jugador2);
+        jugadores->append(jugador3);
+        jugadores->append(jugador4);
+
+        muestraNombreJugador(jugador1->getPath());
+        cartasJugador(jugador1->getCards());
+    }
+}
+
+ArrayCarta<Carta*>* Game::listaCartas(int cantCartas){
+    ArrayCarta<Carta*>* cartasjugador= new ArrayCarta<Carta*>(largoLista);
+    for (int i=0;i<cantCartas;i++){
+        cartasjugador->append(cartas->topValue());
+        cartas->pop();
+    }
+    if (cantCartas < largoLista){
+        for (int i=cantCartas-1;i<largoLista;i++){
+            cartasjugador->append(new Carta("NULL","NULL","NULL",":/imagenes/COMODIN.png"));
+        }
+    }
+    return cartasjugador;
 }
 
 void Game::cartasJugador(ArrayCarta<Carta *> cartasJgd){

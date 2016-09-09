@@ -1,6 +1,6 @@
 #include "ficha.h"
 
-Ficha::Ficha(int ID, string color, string path)
+Ficha::Ficha(int ID, QString color, QString path)
 {
     this->ID=ID;
     this->color=color;
@@ -11,10 +11,10 @@ int Ficha::getID(){
     return ID;
 }
 
-string Ficha::getColor(){
+QString Ficha::getColor(){
     return color;
 }
 
-string Ficha::getPath(){
+QString Ficha::getPath(){
     return path;
 }

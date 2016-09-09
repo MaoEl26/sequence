@@ -21,6 +21,8 @@ class BotonCarta:public QObject, public QGraphicsPixmapItem
         int posX();
         int posY();
 
+        QString getPath();
+
     signals:
         void clicked();
 

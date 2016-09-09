@@ -18,6 +18,7 @@ BotonCarta::BotonCarta(QString Url, int x, int y)
 }
 
 void BotonCarta::mousePressEvent(QGraphicsSceneMouseEvent *event){
+
     emit clicked();
 }
 
@@ -46,5 +47,11 @@ int BotonCarta::posY()
 {
     return y;
 }
+
+QString BotonCarta::getPath(){
+    return Url;
+}
+
+
 
 

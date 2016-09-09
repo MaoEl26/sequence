@@ -7,17 +7,17 @@ using namespace std;
 class Ficha
 {
 public:
-    Ficha(int ID, string color, string path);
+    Ficha(int ID, QString color, QString path);
 
     int getID();
 
-    string getColor();
+    QString getColor();
 
-    string getPath();
+    QString getPath();
 
 protected:
-    string color;
-    string path;
+    QString color;
+    QString path;
     int ID;
 };
 

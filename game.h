@@ -37,14 +37,25 @@ class Game : public QGraphicsView, public Mazo
 
 protected:
 
+    int nextPlay;
     int cantCartas;
+
     bool key=false;
+
     QString Comodin = ":/imagenes/COMODIN.png";
+    QString seleccionJugador;
+
     ArrayStack<Carta*> *descartes;
     ArrayStack<Carta*> *cartas;
+
     ArrayCarta<Jugador*> *jugadores;
+
     QGraphicsPixmapItem *nombreJugador;
-    int nextPlay;
+    QGraphicsPixmapItem *itemBaraja;
+    QGraphicsPixmapItem *itemFicha;
+    QGraphicsPixmapItem *itemFicha2;
+    QGraphicsPixmapItem *itemFicha3;
+    QGraphicsPixmapItem *itemDescarte;
 
 
 public:
@@ -53,14 +64,23 @@ public:
     //Metodos de funcionamiento principales
     void ambiente();
     void agregarBotonesJugar();
+
     void Table();
     void botonesTablero(ArrayCarta<Carta*> matrizCartas);
     void cartasJugador(ArrayCarta<Carta *> cartasJgd);
+
     void mazoCartasDescartes();
-    ArrayCarta<Carta *> *listaCartas(int cantCartas);
+
     void cantidadJugadores(int players);
+
     void muestraCartaDescarte();
+    void muestraCartaMazo();
+    void muestraFichaJugador(QString pathFicha);
     void muestraNombreJugador(QString JugadorPath);
+
+    ArrayCarta<Carta *> *listaCartas(int cantCartas);
+
+    QImage holi;
 
     //Escena del juego
     QGraphicsScene *scene;
@@ -203,8 +223,6 @@ public:
     BotonCarta *Pos098;
     BotonCarta *Pos099;
 
-    QImage holi;
-
 public slots:
         /// aqui va la respuesta de los boton
         void startMenu();
@@ -224,6 +242,9 @@ public slots:
         void play10();
         void play12();
 
+        ///Almacena Path's y compara
+        void evaluaFicha();
+        void obtienePathCarta();
 };
 
 #endif // GAME_H

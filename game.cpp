@@ -193,6 +193,128 @@ void Game::exit(){
 
 
 void Game::random(){
+
+    //Elimina las cartas
+    //Fila 0
+    delete Pos000;
+    delete Pos001;
+    delete Pos002;
+    delete Pos003;
+    delete Pos004;
+    delete Pos005;
+    delete Pos006;
+    delete Pos007;
+    delete Pos008;
+    delete Pos009;
+
+    //Fila 1
+    delete Pos010;
+    delete Pos011;
+    delete Pos012;
+    delete Pos013;
+    delete Pos014;
+    delete Pos015;
+    delete Pos016;
+    delete Pos017;
+    delete Pos018;
+    delete Pos019;
+
+    //Fila 2
+    delete Pos020;
+    delete Pos021;
+    delete Pos022;
+    delete Pos023;
+    delete Pos024;
+    delete Pos025;
+    delete Pos026;
+    delete Pos027;
+    delete Pos028;
+    delete Pos029;
+
+    //Fila 3
+    delete Pos030;
+    delete Pos031;
+    delete Pos032;
+    delete Pos033;
+    delete Pos034;
+    delete Pos035;
+    delete Pos036;
+    delete Pos037;
+    delete Pos038;
+    delete Pos039;
+
+    //Fila 4
+    delete Pos040;
+    delete Pos041;
+    delete Pos042;
+    delete Pos043;
+    delete Pos044;
+    delete Pos045;
+    delete Pos046;
+    delete Pos047;
+    delete Pos048;
+    delete Pos049;
+
+    //Fila 5
+    delete Pos050;
+    delete Pos051;
+    delete Pos052;
+    delete Pos053;
+    delete Pos054;
+    delete Pos055;
+    delete Pos056;
+    delete Pos057;
+    delete Pos058;
+    delete Pos059;
+
+    //Fila 6
+    delete Pos060;
+    delete Pos061;
+    delete Pos062;
+    delete Pos063;
+    delete Pos064;
+    delete Pos065;
+    delete Pos066;
+    delete Pos067;
+    delete Pos068;
+    delete Pos069;
+
+    //Fila 7
+    delete Pos070;
+    delete Pos071;
+    delete Pos072;
+    delete Pos073;
+    delete Pos074;
+    delete Pos075;
+    delete Pos076;
+    delete Pos077;
+    delete Pos078;
+    delete Pos079;
+
+    //Fila 8
+    delete Pos080;
+    delete Pos081;
+    delete Pos082;
+    delete Pos083;
+    delete Pos084;
+    delete Pos085;
+    delete Pos086;
+    delete Pos087;
+    delete Pos088;
+    delete Pos089;
+
+    //Fila 9
+    delete Pos090;
+    delete Pos091;
+    delete Pos092;
+    delete Pos093;
+    delete Pos094;
+    delete Pos095;
+    delete Pos096;
+    delete Pos097;
+    delete Pos098;
+    delete Pos099;
+
     botonesTablero(tableroRandom());
 }
 
@@ -227,6 +349,7 @@ void Game::Table(){
     scene->addItem(nextButton);
 
     muestraCartaDescarte();
+    muestraCartaMazo();
     botonesTablero(mazoTablero());
     nextPlay =1;
 }
@@ -234,8 +357,26 @@ void Game::Table(){
 void Game::next(){
     //Aumenta jugador
     //llama lista carta
+
     delete nombreJugador; //Elimina la imagen con el nombre del jugador actual
-    muestraNombreJugador(jugadores->returnPos(nextPlay)->getPath()); //Muestra el nombre del siguiente jugador
+
+    //Elimina las fichas para no sobreescribir
+    delete itemFicha;
+    delete itemFicha2;
+    delete itemFicha3;
+
+    //Elimina las cartas para no sobreescribir
+    delete Carta01;
+    delete Carta02;
+    delete Carta03;
+    delete Carta04;
+    delete Carta05;
+    delete Carta06;
+    delete Carta07;
+
+    muestraFichaJugador(jugadores->returnPos(nextPlay)->getFicha()->getPath());
+    muestraNombreJugador(jugadores->returnPos(nextPlay)->getPath());
+    //Muestra el nombre del siguiente jugador
     cartasJugador(jugadores->returnPos(nextPlay)->getCards());
     if (nextPlay+1 < jugadores->getSize()){
         nextPlay++;
@@ -244,6 +385,21 @@ void Game::next(){
         nextPlay=0;
     }
 
+}
+void Game::muestraFichaJugador(QString pathFicha){
+    QImage representacionFicha(pathFicha);
+    itemFicha= new QGraphicsPixmapItem( QPixmap::fromImage(representacionFicha));
+    itemFicha2= new QGraphicsPixmapItem( QPixmap::fromImage(representacionFicha));
+    itemFicha3 = new QGraphicsPixmapItem( QPixmap::fromImage(representacionFicha));
+
+    itemFicha->setPos(55,100);
+    itemFicha2->setPos(25,130);
+    itemFicha3->setPos(85,130);
+
+    //itemFicha->setScale(0.7);
+    scene->addItem(itemFicha3);
+    scene->addItem(itemFicha2);
+    scene->addItem(itemFicha);
 }
 
 void Game::muestraNombreJugador(QString JugadorPath){
@@ -258,18 +414,28 @@ void Game::muestraNombreJugador(QString JugadorPath){
 
 void Game::muestraCartaDescarte(){
     QImage descarte(":/imagenes/basepila.png");
-    QGraphicsPixmapItem *item= new QGraphicsPixmapItem( QPixmap::fromImage(descarte));
+    itemDescarte= new QGraphicsPixmapItem( QPixmap::fromImage(descarte));
 
-    item->setPos(30,400);
-    item->setScale(0.7);
-    //item11->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
-    scene->addItem(item);
+    itemDescarte->setPos(45,400);
+    itemDescarte->setScale(0.7);
+
+    scene->addItem(itemDescarte);
 }
 
 void Game::mazoCartasDescartes(){
     //se almacena la instancia de la carta en la pila
     //Se obtiene el path y lo presenta en la carta
     //elimina el path de la pila mazo
+}
+
+void Game::muestraCartaMazo(){
+    QImage baraja(":/imagenes/REVERSO.png");
+    itemBaraja= new QGraphicsPixmapItem( QPixmap::fromImage(baraja));
+
+    itemBaraja->setPos(45,270);
+    itemBaraja->setScale(0.7);
+
+    scene->addItem(itemBaraja);
 }
 
 void Game::cantidadJugadores(int players){
@@ -292,6 +458,7 @@ void Game::cantidadJugadores(int players){
         jugadores->append(jugador1);
         jugadores->append(jugador2);
 
+        muestraFichaJugador(jugador1->getFicha()->getPath());
         muestraNombreJugador(jugador1->getPath());
         cartasJugador(jugador1->getCards());
     }
@@ -312,6 +479,7 @@ void Game::cantidadJugadores(int players){
         jugadores->append(jugador2);
         jugadores->append(jugador3);
 
+        muestraFichaJugador(jugador1->getFicha()->getPath());
         muestraNombreJugador(jugador1->getPath());
         cartasJugador(jugador1->getCards());
     }
@@ -320,22 +488,23 @@ void Game::cantidadJugadores(int players){
         cantCartas=6;
 
         ArrayCarta<Carta*> *manoJugador=listaCartas(cantCartas);
-        jugador1 = new Jugador("Jugador 1",ficha1,cantCartas,":/imagenes/TEAM1.png",manoJugador);
+        jugador1 = new Jugador("Jugador 1",ficha1,cantCartas,":/imagenes/etiquetaJug1.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador2 = new Jugador("Jugador 2",ficha2,cantCartas,":/imagenes/TEAM2.png",manoJugador);
+        jugador2 = new Jugador("Jugador 2",ficha3,cantCartas,":/imagenes/etiquetaJug2.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador3 = new Jugador("Jugador 3",ficha1,cantCartas,":/imagenes/TEAM1.png",manoJugador);
+        jugador3 = new Jugador("Jugador 3",ficha1,cantCartas,":/imagenes/etiquetaJug3.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador4 = new Jugador("Jugador 4",ficha2,cantCartas,":/imagenes/TEAM2.png",manoJugador);
+        jugador4 = new Jugador("Jugador 4",ficha3,cantCartas,":/imagenes/TEAM2.png",manoJugador);
 
         jugadores->append(jugador1);
         jugadores->append(jugador2);
         jugadores->append(jugador3);
         jugadores->append(jugador4);
 
+        muestraFichaJugador(jugador1->getFicha()->getPath());
         muestraNombreJugador(jugador1->getPath());
         cartasJugador(jugador1->getCards());
     }
@@ -349,10 +518,14 @@ ArrayCarta<Carta*>* Game::listaCartas(int cantCartas){
     }
     if (cantCartas < largoLista){
         for (int i=cantCartas-1;i<largoLista;i++){
-            cartasjugador->append(new Carta("NULL","NULL","NULL",":/imagenes/COMODIN.png"));
+            cartasjugador->append(new Carta("NULL","NULL","NULL",":/imagenes/REVERSO.png"));
         }
     }
     return cartasjugador;
+}
+
+void Game::evaluaFicha(){
+
 }
 
 void Game::cartasJugador(ArrayCarta<Carta *> cartasJgd){
@@ -366,7 +539,7 @@ void Game::cartasJugador(ArrayCarta<Carta *> cartasJgd){
     Carta06 = new BotonCarta( cartasJgd.returnPos(5)->getPath(),1145,445);
     Carta07 = new BotonCarta( cartasJgd.returnPos(6)->getPath(),1145,515);
 
-    //Carta01->setOpacity(0.9);
+
 
     Carta01->setPos(Carta01->posX(),Carta01->posY());
     Carta02->setPos(Carta02->posX(),Carta02->posY());
@@ -384,6 +557,14 @@ void Game::cartasJugador(ArrayCarta<Carta *> cartasJgd){
     Carta06->setScale(0.65);
     Carta07->setScale(0.65);
 
+    connect(Carta01,SIGNAL(clicked()),this,SLOT(obtienePathCarta()));
+    connect(Carta02,SIGNAL(clicked()),this,SLOT(obtienePathCarta()));
+    connect(Carta03,SIGNAL(clicked()),this,SLOT(obtienePathCarta()));
+    connect(Carta04,SIGNAL(clicked()),this,SLOT(obtienePathCarta()));
+    connect(Carta05,SIGNAL(clicked()),this,SLOT(obtienePathCarta()));
+    connect(Carta06,SIGNAL(clicked()),this,SLOT(obtienePathCarta()));
+    connect(Carta07,SIGNAL(clicked()),this,SLOT(obtienePathCarta()));
+
     scene->addItem(Carta01);
     scene->addItem(Carta02);
     scene->addItem(Carta03);
@@ -392,6 +573,12 @@ void Game::cartasJugador(ArrayCarta<Carta *> cartasJgd){
     scene->addItem(Carta06);
     scene->addItem(Carta07);
 
+}
+
+void Game::obtienePathCarta(){
+    cout<<"holi"<<endl;
+    seleccionJugador= Carta01->getPath();
+    cout<<Carta01->getPath().toStdString();
 }
 
 void Game::botonesTablero(ArrayCarta<Carta*> matrizCartas){
@@ -516,7 +703,127 @@ void Game::botonesTablero(ArrayCarta<Carta*> matrizCartas){
     Pos098 = new BotonCarta(matrizCartas.returnPos(95)->getPath(),910,557);
     Pos099 = new BotonCarta(Comodin,995,557);//Comodin
 
-    //connect(Pos000,SIGNAL(clicked()),this,SLOT(seteoBotones()));
+    //Funciones de los botones
+    //Fila 0
+    connect(Pos000,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos001,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos002,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos003,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos004,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos005,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos006,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos007,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos008,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos009,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+
+    //Fila 1
+    connect(Pos010,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos011,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos012,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos013,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos014,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos015,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos016,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos017,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos018,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos019,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+
+    //Fila 2
+    connect(Pos020,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos021,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos022,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos023,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos024,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos025,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos026,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos027,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos028,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos029,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+
+    //Fila 3
+    connect(Pos030,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos031,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos032,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos033,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos034,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos035,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos036,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos037,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos038,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos039,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+
+    //Fila 4
+    connect(Pos040,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos041,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos042,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos043,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos044,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos045,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos046,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos047,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos048,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos049,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+
+    //Fila 5
+    connect(Pos050,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos051,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos052,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos053,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos054,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos055,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos056,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos057,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos058,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos059,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+
+    //Fila 6
+    connect(Pos060,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos061,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos062,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos063,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos064,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos065,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos066,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos067,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos068,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos069,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+
+    //Fila 7
+    connect(Pos070,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos071,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos072,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos073,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos074,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos075,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos076,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos077,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos078,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos079,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+
+    //Fila 8
+    connect(Pos080,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos081,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos082,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos083,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos084,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos085,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos086,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos087,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos088,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos089,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+
+    //Fila 9
+    connect(Pos090,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos091,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos092,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos093,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos094,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos095,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos096,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos097,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos098,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos099,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+
 
     //Coordenadas
     //Fila 0

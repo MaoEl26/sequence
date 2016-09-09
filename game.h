@@ -43,6 +43,7 @@ protected:
     ArrayStack<Carta*> *descartes;
     ArrayStack<Carta*> *cartas;
     ArrayCarta<Jugador*> *jugadores;
+    QGraphicsPixmapItem *nombreJugador;
     int nextPlay;
 
 

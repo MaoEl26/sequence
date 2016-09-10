@@ -351,7 +351,7 @@ void Game::Table(){
     muestraCartaDescarte();
     muestraCartaMazo();
     botonesTablero(mazoTablero());
-    nextPlay =1;
+    nextPlay =0;
 }
 
 void Game::next(){
@@ -374,15 +374,21 @@ void Game::next(){
     delete Carta06;
     delete Carta07;
 
-    muestraFichaJugador(jugadores->returnPos(nextPlay)->getFicha()->getPath());
-    muestraNombreJugador(jugadores->returnPos(nextPlay)->getPath());
+
     //Muestra el nombre del siguiente jugador
-    cartasJugador(jugadores->returnPos(nextPlay)->getCards());
+
+
     if (nextPlay+1 < jugadores->getSize()){
         nextPlay++;
+        muestraFichaJugador(jugadores->returnPos(nextPlay)->getFicha()->getPath());
+        muestraNombreJugador(jugadores->returnPos(nextPlay)->getPath());
+        cartasJugador(jugadores->returnPos(nextPlay)->getCards());
     }
     else{
         nextPlay=0;
+        muestraFichaJugador(jugadores->returnPos(nextPlay)->getFicha()->getPath());
+        muestraNombreJugador(jugadores->returnPos(nextPlay)->getPath());
+        cartasJugador(jugadores->returnPos(nextPlay)->getCards());
     }
 
 }
@@ -410,6 +416,17 @@ void Game::muestraNombreJugador(QString JugadorPath){
     nombreJugador->setScale(0.7);
 
     scene->addItem(nombreJugador);
+}
+
+void Game::muestraFichaTablero(int coorX, int coorY){
+
+    QImage jugadorImagen(jugadores->returnPos(nextPlay)->getFicha()->getPath());
+
+    itemFichaTablero= new QGraphicsPixmapItem( QPixmap::fromImage(jugadorImagen));
+    itemFichaTablero->setPos(coorX+20,coorY+5);
+    itemFichaTablero->setScale(0.5);
+
+    scene->addItem(itemFichaTablero);
 }
 
 void Game::muestraCartaDescarte(){
@@ -524,10 +541,6 @@ ArrayCarta<Carta*>* Game::listaCartas(int cantCartas){
     return cartasjugador;
 }
 
-void Game::evaluaFicha(){
-
-}
-
 void Game::cartasJugador(ArrayCarta<Carta *> cartasJgd){
 
     //recibe lista y despliega
@@ -557,13 +570,13 @@ void Game::cartasJugador(ArrayCarta<Carta *> cartasJgd){
     Carta06->setScale(0.65);
     Carta07->setScale(0.65);
 
-    connect(Carta01,SIGNAL(clicked()),this,SLOT(obtienePathCarta()));
-    connect(Carta02,SIGNAL(clicked()),this,SLOT(obtienePathCarta()));
-    connect(Carta03,SIGNAL(clicked()),this,SLOT(obtienePathCarta()));
-    connect(Carta04,SIGNAL(clicked()),this,SLOT(obtienePathCarta()));
-    connect(Carta05,SIGNAL(clicked()),this,SLOT(obtienePathCarta()));
-    connect(Carta06,SIGNAL(clicked()),this,SLOT(obtienePathCarta()));
-    connect(Carta07,SIGNAL(clicked()),this,SLOT(obtienePathCarta()));
+    connect(Carta01,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(obtienePathCarta(BotonCarta*)));
+    connect(Carta02,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(obtienePathCarta(BotonCarta*)));
+    connect(Carta03,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(obtienePathCarta(BotonCarta*)));
+    connect(Carta04,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(obtienePathCarta(BotonCarta*)));
+    connect(Carta05,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(obtienePathCarta(BotonCarta*)));
+    connect(Carta06,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(obtienePathCarta(BotonCarta*)));
+    connect(Carta07,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(obtienePathCarta(BotonCarta*)));
 
     scene->addItem(Carta01);
     scene->addItem(Carta02);
@@ -575,10 +588,35 @@ void Game::cartasJugador(ArrayCarta<Carta *> cartasJgd){
 
 }
 
-void Game::obtienePathCarta(){
-    cout<<"holi"<<endl;
-    seleccionJugador= Carta01->getPath();
-    cout<<Carta01->getPath().toStdString();
+void Game::obtienePathCarta(BotonCarta* boton){
+    seleccionJugador= boton;
+    cout<<seleccionJugador->getPath().toStdString()<<endl;
+}
+
+void Game::evaluaFicha(BotonCarta *botonTablero){
+    pathCartaTablero= botonTablero->getPath();
+    if (seleccionJugador->getPath()== pathCartaTablero){
+
+        muestraFichaTablero(botonTablero->posX(), botonTablero->posY());
+        cout<<pathCartaTablero.toStdString()<<endl;
+        botonTablero->setEnabled(false);
+
+    }else{
+        if ((seleccionJugador->getPath() == ":/imagenes/JD.png")||
+                (seleccionJugador->getPath() == ":/imagenes/JT.png")){
+
+            muestraFichaTablero(botonTablero->posX(), botonTablero->posY());
+            botonTablero->setEnabled(false);
+        }else{
+            if ((seleccionJugador->getPath() == ":/imagenes/JP.png")||
+                    (seleccionJugador->getPath() == ":/imagenes/JC.png")){
+                if (botonTablero->isEnabled() == false){
+                    cout<<"yeah";
+                }
+            }
+        }
+    }
+
 }
 
 void Game::botonesTablero(ArrayCarta<Carta*> matrizCartas){
@@ -705,125 +743,124 @@ void Game::botonesTablero(ArrayCarta<Carta*> matrizCartas){
 
     //Funciones de los botones
     //Fila 0
-    connect(Pos000,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos001,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos002,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos003,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos004,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos005,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos006,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos007,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos008,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos009,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos000,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos001,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos002,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos003,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos004,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos005,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos006,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos007,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos008,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos009,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
 
     //Fila 1
-    connect(Pos010,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos011,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos012,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos013,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos014,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos015,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos016,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos017,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos018,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos019,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos010,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos011,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos012,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos013,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos014,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos015,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos016,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos017,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos018,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos019,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
 
     //Fila 2
-    connect(Pos020,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos021,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos022,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos023,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos024,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos025,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos026,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos027,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos028,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos029,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos020,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos021,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos022,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos023,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos024,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos025,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos026,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos027,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos028,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos029,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
 
     //Fila 3
-    connect(Pos030,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos031,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos032,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos033,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos034,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos035,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos036,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos037,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos038,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos039,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos030,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos031,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos032,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos033,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos034,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos035,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos036,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos037,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos038,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos039,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
 
     //Fila 4
-    connect(Pos040,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos041,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos042,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos043,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos044,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos045,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos046,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos047,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos048,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos049,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos040,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos041,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos042,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos043,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos044,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos045,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos046,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos047,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos048,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos049,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
 
     //Fila 5
-    connect(Pos050,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos051,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos052,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos053,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos054,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos055,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos056,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos057,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos058,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos059,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos050,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos051,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos052,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos053,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos054,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos055,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos056,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos057,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos058,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos059,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
 
     //Fila 6
-    connect(Pos060,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos061,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos062,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos063,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos064,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos065,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos066,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos067,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos068,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos069,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos060,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos061,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos062,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos063,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos064,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos065,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos066,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos067,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos068,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos069,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
 
     //Fila 7
-    connect(Pos070,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos071,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos072,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos073,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos074,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos075,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos076,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos077,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos078,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos079,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos070,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos071,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos072,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos073,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos074,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos075,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos076,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos077,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos078,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos079,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
 
     //Fila 8
-    connect(Pos080,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos081,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos082,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos083,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos084,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos085,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos086,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos087,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos088,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos089,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
+    connect(Pos080,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos081,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos082,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos083,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos084,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos085,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos086,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos087,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos088,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos089,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
 
     //Fila 9
-    connect(Pos090,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos091,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos092,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos093,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos094,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos095,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos096,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos097,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos098,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-    connect(Pos099,SIGNAL(clicked()),this,SLOT(evaluaFicha()));
-
+    connect(Pos090,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos091,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos092,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos093,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos094,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos095,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos096,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos097,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos098,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
+    connect(Pos099,SIGNAL(getSignalPath(BotonCarta*)),this,SLOT(evaluaFicha(BotonCarta*)));
 
     //Coordenadas
     //Fila 0

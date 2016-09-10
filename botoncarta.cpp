@@ -19,7 +19,8 @@ BotonCarta::BotonCarta(QString Url, int x, int y)
 
 void BotonCarta::mousePressEvent(QGraphicsSceneMouseEvent *event){
 
-    emit clicked();
+
+    emit getSignalPath(object);
 }
 
 void BotonCarta::hoverEnterEvent(QGraphicsSceneHoverEvent *event){

@@ -43,7 +43,8 @@ protected:
     bool key=false;
 
     QString Comodin = ":/imagenes/COMODIN.png";
-    QString seleccionJugador;
+    BotonCarta *seleccionJugador;
+    QString pathCartaTablero;
 
     ArrayStack<Carta*> *descartes;
     ArrayStack<Carta*> *cartas;
@@ -56,6 +57,7 @@ protected:
     QGraphicsPixmapItem *itemFicha2;
     QGraphicsPixmapItem *itemFicha3;
     QGraphicsPixmapItem *itemDescarte;
+    QGraphicsPixmapItem *itemFichaTablero;
 
 
 public:
@@ -77,6 +79,7 @@ public:
     void muestraCartaMazo();
     void muestraFichaJugador(QString pathFicha);
     void muestraNombreJugador(QString JugadorPath);
+    void muestraFichaTablero(int coorX,int coorY);
 
     ArrayCarta<Carta *> *listaCartas(int cantCartas);
 
@@ -243,8 +246,8 @@ public slots:
         void play12();
 
         ///Almacena Path's y compara
-        void evaluaFicha();
-        void obtienePathCarta();
+        void evaluaFicha(BotonCarta *botonTablero);
+        void obtienePathCarta(BotonCarta *boton);
 };
 
 #endif // GAME_H

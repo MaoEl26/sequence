@@ -24,9 +24,12 @@ class BotonCarta:public QObject, public QGraphicsPixmapItem
         QString getPath();
 
     signals:
+
+        void getSignalPath(BotonCarta *object);
         void clicked();
 
     private:
+        BotonCarta *object = this;
         QString Url;
         int x;
         int y;

@@ -71,11 +71,11 @@ public:
     void botonesTablero(ArrayCarta<Carta*> matrizCartas);
     void cartasJugador(ArrayCarta<Carta *> cartasJgd);
 
-    void mazoCartasDescartes();
+    void mazoCartasDescartes(BotonCarta *cartaDescarte);
 
     void cantidadJugadores(int players);
 
-    void muestraCartaDescarte();
+    void muestraCartaDescarte(QString pathDescarte);
     void muestraCartaMazo();
     void muestraFichaJugador(QString pathFicha);
     void muestraNombreJugador(QString JugadorPath);

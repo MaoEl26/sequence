@@ -348,7 +348,7 @@ void Game::Table(){
     connect(nextButton,SIGNAL(clicked()),this,SLOT(next()));
     scene->addItem(nextButton);
 
-    muestraCartaDescarte();
+    muestraCartaDescarte(":/imagenes/basepila.png");
     muestraCartaMazo();
     botonesTablero(mazoTablero());
     nextPlay =0;
@@ -429,8 +429,8 @@ void Game::muestraFichaTablero(int coorX, int coorY){
     scene->addItem(itemFichaTablero);
 }
 
-void Game::muestraCartaDescarte(){
-    QImage descarte(":/imagenes/basepila.png");
+void Game::muestraCartaDescarte(QString pathDescarte){
+    QImage descarte(pathDescarte);
     itemDescarte= new QGraphicsPixmapItem( QPixmap::fromImage(descarte));
 
     itemDescarte->setPos(45,400);
@@ -439,10 +439,13 @@ void Game::muestraCartaDescarte(){
     scene->addItem(itemDescarte);
 }
 
-void Game::mazoCartasDescartes(){
+void Game::mazoCartasDescartes(BotonCarta *cartaDescarte){
     //se almacena la instancia de la carta en la pila
     //Se obtiene el path y lo presenta en la carta
     //elimina el path de la pila mazo
+
+    delete itemDescarte;
+    muestraCartaDescarte(cartaDescarte->getPath());
 }
 
 void Game::muestraCartaMazo(){
@@ -451,6 +454,10 @@ void Game::muestraCartaMazo(){
 
     itemBaraja->setPos(45,270);
     itemBaraja->setScale(0.7);
+
+    QGraphicsDropShadowEffect* brush = new QGraphicsDropShadowEffect;
+    brush->setColor(Qt::black);
+    itemBaraja->setGraphicsEffect(brush);
 
     scene->addItem(itemBaraja);
 }
@@ -590,7 +597,7 @@ void Game::cartasJugador(ArrayCarta<Carta *> cartasJgd){
 
 void Game::obtienePathCarta(BotonCarta* boton){
     seleccionJugador= boton;
-    cout<<seleccionJugador->getPath().toStdString()<<endl;
+    //cout<<seleccionJugador->getPath().toStdString()<<endl;
 }
 
 void Game::evaluaFicha(BotonCarta *botonTablero){
@@ -598,7 +605,7 @@ void Game::evaluaFicha(BotonCarta *botonTablero){
     if (seleccionJugador->getPath()== pathCartaTablero){
 
         muestraFichaTablero(botonTablero->posX(), botonTablero->posY());
-        cout<<pathCartaTablero.toStdString()<<endl;
+        mazoCartasDescartes(seleccionJugador);
         botonTablero->setEnabled(false);
 
     }else{
@@ -606,6 +613,7 @@ void Game::evaluaFicha(BotonCarta *botonTablero){
                 (seleccionJugador->getPath() == ":/imagenes/JT.png")){
 
             muestraFichaTablero(botonTablero->posX(), botonTablero->posY());
+            mazoCartasDescartes(seleccionJugador);
             botonTablero->setEnabled(false);
         }else{
             if ((seleccionJugador->getPath() == ":/imagenes/JP.png")||

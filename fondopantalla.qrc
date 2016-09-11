@@ -80,8 +80,7 @@
         <file>imagenes/etiquetaJug1.png</file>
         <file>imagenes/etiquetaJug2.png</file>
         <file>imagenes/etiquetaJug3.png</file>
-        <file>imagenes/TEAM1.png</file>
-        <file>imagenes/TEAM2.png</file>
         <file>imagenes/basepila.png</file>
+        <file>imagenes/etiquetaJug4.png</file>
     </qresource>
 </RCC>

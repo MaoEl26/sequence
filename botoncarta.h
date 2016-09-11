@@ -20,7 +20,7 @@ class BotonCarta:public QObject, public QGraphicsPixmapItem
         void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
         int posX();
         int posY();
-
+        void setPath(QString path);
         QString getPath();
 
     signals:

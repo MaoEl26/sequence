@@ -67,7 +67,6 @@ void Game::agregarBotonesJugar(){
     scene->addItem(exitButton);
 }
 
-
 void Game::startMenu(){
     cartas = mazoJugadores();
 
@@ -190,7 +189,6 @@ void Game::exit(){
     //LLama a CoreApp para la salida del programa
     QCoreApplication::quit();
 }
-
 
 void Game::random(){
 
@@ -358,14 +356,17 @@ void Game::next(){
     //Aumenta jugador
     //llama lista carta
 
+    if(turno==false){
     delete nombreJugador; //Elimina la imagen con el nombre del jugador actual
 
     //Elimina las fichas para no sobreescribir
     delete itemFicha;
     delete itemFicha2;
     delete itemFicha3;
+    delete reverso;
 
     //Elimina las cartas para no sobreescribir
+
     delete Carta01;
     delete Carta02;
     delete Carta03;
@@ -374,7 +375,10 @@ void Game::next(){
     delete Carta06;
     delete Carta07;
 
-
+    //Indica que el siguiente jugador ya puede poner su fica
+    turno= true;
+    //Set seleccion jugador
+    seleccionJugador=new BotonCarta("NULL",0,0);
     //Muestra el nombre del siguiente jugador
 
 
@@ -390,8 +394,10 @@ void Game::next(){
         muestraNombreJugador(jugadores->returnPos(nextPlay)->getPath());
         cartasJugador(jugadores->returnPos(nextPlay)->getCards());
     }
+    }
 
 }
+
 void Game::muestraFichaJugador(QString pathFicha){
     QImage representacionFicha(pathFicha);
     itemFicha= new QGraphicsPixmapItem( QPixmap::fromImage(representacionFicha));
@@ -420,6 +426,8 @@ void Game::muestraNombreJugador(QString JugadorPath){
 
 void Game::muestraFichaTablero(int coorX, int coorY){
 
+    if (turno){
+
     QImage jugadorImagen(jugadores->returnPos(nextPlay)->getFicha()->getPath());
 
     itemFichaTablero= new QGraphicsPixmapItem( QPixmap::fromImage(jugadorImagen));
@@ -427,9 +435,21 @@ void Game::muestraFichaTablero(int coorX, int coorY){
     itemFichaTablero->setScale(0.5);
 
     scene->addItem(itemFichaTablero);
+    //Turno de jugador actual a finalizado
+    turno= false;
+
+    QImage borrar(":/imagenes/REVERSO.png");
+
+    reverso= new QGraphicsPixmapItem( QPixmap::fromImage(borrar));
+    reverso->setPos(seleccionJugador->posX(),seleccionJugador->posY());
+    reverso->setScale(0.65);
+    scene->addItem(reverso);
+    }
 }
 
 void Game::muestraCartaDescarte(QString pathDescarte){
+    //Muestra en la pila de descartes la ultima carta utilizada
+    //por lo jugadores
     QImage descarte(pathDescarte);
     itemDescarte= new QGraphicsPixmapItem( QPixmap::fromImage(descarte));
 
@@ -438,6 +458,7 @@ void Game::muestraCartaDescarte(QString pathDescarte){
 
     scene->addItem(itemDescarte);
 }
+
 
 void Game::mazoCartasDescartes(BotonCarta *cartaDescarte){
     //se almacena la instancia de la carta en la pila
@@ -469,7 +490,7 @@ void Game::cantidadJugadores(int players){
     Ficha *ficha1 = new Ficha(1,"Azul",":/imagenes/FICHA _AZUL.png");
     Ficha *ficha2 = new Ficha(2,"Morado",":/imagenes/FICHA _MORADA.png");
     Ficha *ficha3 = new Ficha(3,"Verde",":/imagenes/FICHA _VERDE.png");
-    //Crea para 2 jugadores
+    //Crea 2 jugadores
     if (players==players2){
         cantCartas=7;
 
@@ -486,7 +507,7 @@ void Game::cantidadJugadores(int players){
         muestraNombreJugador(jugador1->getPath());
         cartasJugador(jugador1->getCards());
     }
-    //crea para 3 jugadores
+    //crea 3 jugadores
     if (players==players3){
         cantCartas=6;
 
@@ -507,7 +528,7 @@ void Game::cantidadJugadores(int players){
         muestraNombreJugador(jugador1->getPath());
         cartasJugador(jugador1->getCards());
     }
-    //crea para 4 jugadores
+    //crea 4 jugadores
     if (players==players4){
         cantCartas=6;
 
@@ -521,7 +542,7 @@ void Game::cantidadJugadores(int players){
         jugador3 = new Jugador("Jugador 3",ficha1,cantCartas,":/imagenes/etiquetaJug3.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador4 = new Jugador("Jugador 4",ficha3,cantCartas,":/imagenes/TEAM2.png",manoJugador);
+        jugador4 = new Jugador("Jugador 4",ficha3,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
 
         jugadores->append(jugador1);
         jugadores->append(jugador2);
@@ -560,7 +581,6 @@ void Game::cartasJugador(ArrayCarta<Carta *> cartasJgd){
     Carta07 = new BotonCarta( cartasJgd.returnPos(6)->getPath(),1145,515);
 
 
-
     Carta01->setPos(Carta01->posX(),Carta01->posY());
     Carta02->setPos(Carta02->posX(),Carta02->posY());
     Carta03->setPos(Carta03->posX(),Carta03->posY());
@@ -595,9 +615,10 @@ void Game::cartasJugador(ArrayCarta<Carta *> cartasJgd){
 
 }
 
-void Game::obtienePathCarta(BotonCarta* boton){
-    seleccionJugador= boton;
-    //cout<<seleccionJugador->getPath().toStdString()<<endl;
+void Game::obtienePathCarta(BotonCarta* boton){ 
+    if(turno){
+           seleccionJugador= boton;
+    }
 }
 
 void Game::evaluaFicha(BotonCarta *botonTablero){

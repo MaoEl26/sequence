@@ -40,18 +40,20 @@ protected:
     int nextPlay;
     int cantCartas;
 
+    bool turno=true;
     bool key=false;
 
     QString Comodin = ":/imagenes/COMODIN.png";
-    BotonCarta *seleccionJugador;
+    BotonCarta *seleccionJugador=new BotonCarta( "NULL",0,0);
     QString pathCartaTablero;
-
+    BotonCarta *cartaBorrada;
     ArrayStack<Carta*> *descartes;
     ArrayStack<Carta*> *cartas;
 
     ArrayCarta<Jugador*> *jugadores;
 
     QGraphicsPixmapItem *nombreJugador;
+    QGraphicsPixmapItem *reverso;
     QGraphicsPixmapItem *itemBaraja;
     QGraphicsPixmapItem *itemFicha;
     QGraphicsPixmapItem *itemFicha2;
@@ -80,6 +82,7 @@ public:
     void muestraFichaJugador(QString pathFicha);
     void muestraNombreJugador(QString JugadorPath);
     void muestraFichaTablero(int coorX,int coorY);
+
 
     ArrayCarta<Carta *> *listaCartas(int cantCartas);
 

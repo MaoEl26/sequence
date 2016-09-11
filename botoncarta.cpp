@@ -54,6 +54,9 @@ QString BotonCarta::getPath(){
     return Url;
 }
 
+void BotonCarta::setPath(QString path){
+    Url=path;
+}
 
 
 

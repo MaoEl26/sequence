@@ -185,7 +185,6 @@ void Game::wiki(){
 }
 
 void Game::exit(){
-
     //LLama a CoreApp para la salida del programa
     QCoreApplication::quit();
 }
@@ -435,11 +434,12 @@ void Game::muestraFichaTablero(int coorX, int coorY){
     itemFichaTablero->setScale(0.5);
 
     scene->addItem(itemFichaTablero);
+
     //Turno de jugador actual a finalizado
     turno= false;
 
+    //Muestra el reverso de la carta cuando ya es utilizada
     QImage borrar(":/imagenes/REVERSO.png");
-
     reverso= new QGraphicsPixmapItem( QPixmap::fromImage(borrar));
     reverso->setPos(seleccionJugador->posX(),seleccionJugador->posY());
     reverso->setScale(0.65);
@@ -579,7 +579,6 @@ void Game::cartasJugador(ArrayCarta<Carta *> cartasJgd){
     Carta05 = new BotonCarta( cartasJgd.returnPos(4)->getPath(),1145,375);
     Carta06 = new BotonCarta( cartasJgd.returnPos(5)->getPath(),1145,445);
     Carta07 = new BotonCarta( cartasJgd.returnPos(6)->getPath(),1145,515);
-
 
     Carta01->setPos(Carta01->posX(),Carta01->posY());
     Carta02->setPos(Carta02->posX(),Carta02->posY());

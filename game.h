@@ -52,7 +52,11 @@ protected:
     ArrayStack<Carta*> *cartas;
 
     ArrayCarta<Jugador*> *jugadores;
+    ArrayCarta<Ficha*> *arrayFichas;
+    ArrayCarta<int> *arrayCoorX;
+    ArrayCarta<int> *arrayCoorY;
 
+    QGraphicsPixmapItem *cartaItem;
     QGraphicsPixmapItem *nombreJugador;
     QGraphicsPixmapItem *reverso;
     QGraphicsPixmapItem *itemBaraja;
@@ -79,15 +83,17 @@ public:
     void cantidadJugadores(int players);
 
     void muestraCartaDescarte(QString pathDescarte);
-    void muestraCartaMazo();
+    void muestraCartaMazo(QString pathMazo);
     void muestraFichaJugador(QString pathFicha);
     void muestraNombreJugador(QString JugadorPath);
     void muestraFichaTablero(int coorX,int coorY);
 
+    void almacenaFicha(Ficha* ficha, int x, int y);
+    void borrarFicha(int x,int y);
 
     ArrayCarta<Carta *> *listaCartas(int cantCartas);
 
-    QImage holi;
+    Ficha* analizarFicha(int x, int y);
 
     //Escena del juego
     QGraphicsScene *scene;

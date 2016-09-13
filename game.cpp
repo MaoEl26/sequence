@@ -130,41 +130,6 @@ void Game::startMenu(){
 
 }
 
-void Game::play2(){
-    Table();
-    cantidadJugadores(players2);
-}
-
-void Game::play3(){
-    Table();
-    cantidadJugadores(players3);
-}
-
-void Game::play4(){
-    Table();
-    cantidadJugadores(players4);
-}
-
-void Game::play6(){
-   cantidadJugadores(players6);
-}
-
-void Game::play8(){
-    cantidadJugadores(players8);
-}
-
-void Game::play9(){
-    cantidadJugadores(players9);
-}
-
-void Game::play10(){
-    cantidadJugadores(players10);
-}
-
-void Game::play12(){
-    cantidadJugadores(players12);
-}
-
 void Game::wiki(){
     //Crea el wiki
     scene->clear();//Limpia la Pantalla
@@ -317,6 +282,9 @@ void Game::random(){
 
 void Game::Table(){
     descartes = new ArrayStack<Carta*>(103);
+    arrayFichas= new ArrayCarta<Ficha*>(100);
+    arrayCoorX= new ArrayCarta<int>(100);
+    arrayCoorY= new ArrayCarta<int> (100);
 
     scene->clear();
 
@@ -346,7 +314,7 @@ void Game::Table(){
     scene->addItem(nextButton);
 
     muestraCartaDescarte(":/imagenes/basepila.png");
-    muestraCartaMazo();
+    muestraCartaMazo(":/imagenes/REVERSO.png");
     botonesTablero(mazoTablero());
     nextPlay =0;
 }
@@ -481,6 +449,7 @@ void Game::mazoCartasDescartes(BotonCarta *cartaDescarte){
 
     if (cartas->isEmpty()){
            jugadores->returnPos(nextPlay)->getCards().insert(new Carta("NULL","NULL","NULL",":/imagenes/REVERSO.png"));
+           muestraCartaMazo(":/imagenes/basepila.png");
     }
     else{
 
@@ -491,16 +460,18 @@ void Game::mazoCartasDescartes(BotonCarta *cartaDescarte){
 
 }
 
-void Game::muestraCartaMazo(){
-    QImage baraja(":/imagenes/REVERSO.png");
+void Game::muestraCartaMazo(QString pathMazo){
+    QImage baraja(pathMazo);
     itemBaraja= new QGraphicsPixmapItem( QPixmap::fromImage(baraja));
 
     itemBaraja->setPos(45,270);
     itemBaraja->setScale(0.7);
 
-    QGraphicsDropShadowEffect* brush = new QGraphicsDropShadowEffect;
-    brush->setColor(Qt::black);
-    itemBaraja->setGraphicsEffect(brush);
+    if (pathMazo!=":/imagenes/basepila.png"){
+        QGraphicsDropShadowEffect* brush = new QGraphicsDropShadowEffect;
+        brush->setColor(Qt::black);
+        itemBaraja->setGraphicsEffect(brush);
+    }
 
     scene->addItem(itemBaraja);
 }
@@ -642,26 +613,89 @@ void Game::obtienePathCarta(BotonCarta* boton){
     }
 }
 
+void Game::almacenaFicha(Ficha* ficha, int x, int y){
+    arrayFichas->append(ficha);
+    arrayCoorX->append(x);
+    arrayCoorY->append(y);
+}
+
+Ficha* Game::analizarFicha(int x, int y){
+    Ficha *ficha = new Ficha(0,"NULL","NULL");
+    int largoArrayFichas = arrayFichas->getSize();
+    for(int i=0;i < largoArrayFichas;i++){
+        if ((arrayCoorX->returnPos(i)== x) && (arrayCoorY->returnPos(i)==y)){
+            return arrayFichas->returnPos(i);
+        }
+    }
+    return ficha;
+}
+
+void Game::borrarFicha(int x,int y){
+
+    int largoArrayFichas = arrayFichas->getSize();
+    for(int i=0;i < largoArrayFichas;i++){
+        if ((arrayCoorX->returnPos(i)== x) && (arrayCoorY->returnPos(i)==y)){
+            arrayCoorX->remove(i);
+            arrayCoorY->remove(i);
+            arrayFichas->remove(i);
+        }
+    }
+}
+
 void Game::evaluaFicha(BotonCarta *botonTablero){
     pathCartaTablero= botonTablero->getPath();
     if (seleccionJugador->getPath()== pathCartaTablero){
+        if(analizarFicha(botonTablero->posX(),botonTablero->posY())->getID()==0){
 
-        muestraFichaTablero(botonTablero->posX(), botonTablero->posY());
-        mazoCartasDescartes(seleccionJugador);
-        //botonTablero->setEnabled(false);
-
-    }else{
-        if ((seleccionJugador->getPath() == ":/imagenes/JD.png")||
-                (seleccionJugador->getPath() == ":/imagenes/JT.png")){
+            almacenaFicha(jugadores->returnPos(nextPlay)->getFicha()
+                          ,botonTablero->posX(),botonTablero->posY());
 
             muestraFichaTablero(botonTablero->posX(), botonTablero->posY());
+
             mazoCartasDescartes(seleccionJugador);
-            //botonTablero->setEnabled(false);
+        }
+
+    }else{
+        if (((seleccionJugador->getPath() == ":/imagenes/JD.png")||
+                (seleccionJugador->getPath() == ":/imagenes/JT.png"))&&
+                (pathCartaTablero != Comodin )){
+
+            if(analizarFicha(botonTablero->posX(),botonTablero->posY())->getID()==0){
+
+                almacenaFicha(jugadores->returnPos(nextPlay)->getFicha()
+                              ,botonTablero->posX(),botonTablero->posY());
+
+                muestraFichaTablero(botonTablero->posX(), botonTablero->posY());
+
+                mazoCartasDescartes(seleccionJugador);
+
+            }
+
         }else{
             if ((seleccionJugador->getPath() == ":/imagenes/JP.png")||
                     (seleccionJugador->getPath() == ":/imagenes/JC.png")){
-                if (botonTablero->isEnabled() == false){
-                    cout<<"yeah";
+
+                if((analizarFicha(botonTablero->posX(),botonTablero->posY())->getID()!=0)
+                         &&(analizarFicha(botonTablero->posX(),botonTablero->posY())->getID()
+                            != jugadores->returnPos(nextPlay)->getFicha()->getID())){
+
+                   mazoCartasDescartes(seleccionJugador);
+
+                   borrarFicha(botonTablero->posX(),botonTablero->posY());
+
+                   QImage carta(pathCartaTablero);
+                   cartaItem= new QGraphicsPixmapItem( QPixmap::fromImage(carta));
+                   cartaItem->setPos(botonTablero->posX(),botonTablero->posY());
+                   cartaItem->setScale(0.55);
+                   scene->addItem(cartaItem);
+
+                   QImage borrar(":/imagenes/REVERSO.png");
+                   reverso= new QGraphicsPixmapItem( QPixmap::fromImage(borrar));
+                   reverso->setPos(seleccionJugador->posX(),seleccionJugador->posY());
+                   reverso->setScale(0.65);
+                   scene->addItem(reverso);
+
+                   turno = false;
                 }
             }
         }
@@ -1154,4 +1188,39 @@ void Game::botonesTablero(ArrayCarta<Carta*> matrizCartas){
     scene->addItem(Pos097);
     scene->addItem(Pos098);
     scene->addItem(Pos099);
+}
+
+void Game::play2(){
+    Table();
+    cantidadJugadores(players2);
+}
+
+void Game::play3(){
+    Table();
+    cantidadJugadores(players3);
+}
+
+void Game::play4(){
+    Table();
+    cantidadJugadores(players4);
+}
+
+void Game::play6(){
+   cantidadJugadores(players6);
+}
+
+void Game::play8(){
+    cantidadJugadores(players8);
+}
+
+void Game::play9(){
+    cantidadJugadores(players9);
+}
+
+void Game::play10(){
+    cantidadJugadores(players10);
+}
+
+void Game::play12(){
+    cantidadJugadores(players12);
 }

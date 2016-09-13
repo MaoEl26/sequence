@@ -102,3 +102,4 @@ template class ArrayCarta<Carta*>;
 template class ArrayCarta<string>;
 template class ArrayCarta<int>;
 template class ArrayCarta<Jugador*>;
+template class ArrayCarta<Ficha*>;

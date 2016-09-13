@@ -645,18 +645,17 @@ void Game::obtienePathCarta(BotonCarta* boton){
 void Game::evaluaFicha(BotonCarta *botonTablero){
     pathCartaTablero= botonTablero->getPath();
     if (seleccionJugador->getPath()== pathCartaTablero){
-
+        
         muestraFichaTablero(botonTablero->posX(), botonTablero->posY());
         mazoCartasDescartes(seleccionJugador);
-        //botonTablero->setEnabled(false);
-
+        
     }else{
         if ((seleccionJugador->getPath() == ":/imagenes/JD.png")||
                 (seleccionJugador->getPath() == ":/imagenes/JT.png")){
 
             muestraFichaTablero(botonTablero->posX(), botonTablero->posY());
             mazoCartasDescartes(seleccionJugador);
-            //botonTablero->setEnabled(false);
+            
         }else{
             if ((seleccionJugador->getPath() == ":/imagenes/JP.png")||
                     (seleccionJugador->getPath() == ":/imagenes/JC.png")){

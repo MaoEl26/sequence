@@ -14,13 +14,14 @@ class BotonCarta:public QObject, public QGraphicsPixmapItem
     {
         Q_OBJECT
     public:
-        BotonCarta(QString Url, int x , int y);
+        BotonCarta(QString Url, int x , int y, int IDCarta);
         void mousePressEvent(QGraphicsSceneMouseEvent *event);
         void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
         void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
         int posX();
         int posY();
-        void setPath(QString path);
+        int getIDCarta();
+
         QString getPath();
 
     signals:
@@ -33,6 +34,7 @@ class BotonCarta:public QObject, public QGraphicsPixmapItem
         QString Url;
         int x;
         int y;
+        int IDCarta;
 
     };
 

@@ -12,7 +12,6 @@ class ArrayStack
         void push(E value);
         E pop();
         E topValue();
-        bool isFull();
         bool isEmpty();
         void goToPos(int pos);
         void clear();

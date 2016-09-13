@@ -43,6 +43,10 @@ void ArrayStack<E>::goToPos (int pos){
     this->pos = pos;
 }
 
+template <class E>
+bool ArrayStack<E>::isEmpty(){
+    return size==0;
+}
 
 template <class E>
 E ArrayStack<E>::topValue(){
@@ -54,16 +58,6 @@ void ArrayStack<E>::clear(){
     size= 0;
     pos = 0;
     delete[]elements;
-}
-
-
-template <class E>
-void ArrayStack<E>::print(){
-    cout<< "\n[ ";
-    for (int i =0; i<size; i++){
-        cout <<elements[i]<<" ";
-    }
-    cout<< "]";
 }
 
 template <class E>

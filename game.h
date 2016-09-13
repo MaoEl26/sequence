@@ -46,7 +46,7 @@ protected:
     QString Comodin = ":/imagenes/COMODIN.png";
     QString pathCartaTablero;
 
-    BotonCarta *seleccionJugador=new BotonCarta( "NULL",0,0);
+    BotonCarta *seleccionJugador=new BotonCarta( "NULL",0,0,0);
 
     ArrayStack<Carta*> *descartes;
     ArrayStack<Carta*> *cartas;

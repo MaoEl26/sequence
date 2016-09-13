@@ -2,7 +2,7 @@
 
 
 
-BotonCarta::BotonCarta(QString Url, int x, int y)
+BotonCarta::BotonCarta(QString Url, int x, int y, int IDCarta)
 {
     //Almacena la ubicación de la imagen para luego se utilizada
     this->Url=Url;
@@ -14,6 +14,7 @@ BotonCarta::BotonCarta(QString Url, int x, int y)
     this->setPos(121,122);
     this->x = x;
     this->y = y;
+    this->IDCarta = IDCarta;
 
     setAcceptHoverEvents(true);
 }
@@ -54,8 +55,8 @@ QString BotonCarta::getPath(){
     return Url;
 }
 
-void BotonCarta::setPath(QString path){
-    Url=path;
+int BotonCarta::getIDCarta(){
+    return IDCarta;
 }
 
 

@@ -346,6 +346,11 @@ void Game::Table(){
     connect(randomButton,SIGNAL(clicked()),this,SLOT(random()));
     scene->addItem(randomButton);
 
+    deleteButton = new Boton("delete",":/imagenes/deleteButton.png");
+    deleteButton->setPos(10,505);
+    connect(deleteButton,SIGNAL(clicked()),this,SLOT(eliminaCarta()));
+    scene->addItem(deleteButton);
+
     redoButton = new Boton("redo",":/imagenes/redoButton.png");
     redoButton->setPos(110,560);
     scene->addItem(redoButton);
@@ -473,7 +478,7 @@ void Game::muestraCartaDescarte(QString pathDescarte){
     QImage descarte(pathDescarte);
     itemDescarte= new QGraphicsPixmapItem( QPixmap::fromImage(descarte));
 
-    itemDescarte->setPos(45,400);
+    itemDescarte->setPos(45,395);
     itemDescarte->setScale(0.7);
 
     if (pathDescarte!=basePila){
@@ -483,6 +488,21 @@ void Game::muestraCartaDescarte(QString pathDescarte){
     }
 
     scene->addItem(itemDescarte);
+
+}
+
+void Game::eliminaCarta(){
+    if ((turno)&&(seleccionJugador->getPath()!=cartaReverso)){
+
+        QImage borrar(cartaReverso);
+        reverso= new QGraphicsPixmapItem( QPixmap::fromImage(borrar));
+        reverso->setPos(seleccionJugador->posX(),seleccionJugador->posY());
+        reverso->setScale(0.65);
+        scene->addItem(reverso);
+
+        mazoCartasDescartes(seleccionJugador);
+        turno = false;
+    }
 
 }
 
@@ -533,7 +553,7 @@ void Game::cantidadJugadores(int players){
 
     //inicializa en array de jugadores con el largo correspondiente
     jugadores= new ArrayCarta<Jugador*>(players);
-
+    turno = true;
     //Crea las fichas a utilizar
     Ficha *ficha1 = new Ficha(1,"Azul",":/imagenes/FICHA _AZUL.png");
     Ficha *ficha2 = new Ficha(2,"Morado",":/imagenes/FICHA _MORADA.png");

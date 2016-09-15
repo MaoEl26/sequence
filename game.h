@@ -40,7 +40,7 @@ protected:
     int nextPlay;
     int cantCartas;
 
-    bool turno=true;
+    bool turno;
     bool key=false;
 
     //QString Comodin = ":/imagenes/COMODIN.png";
@@ -127,6 +127,7 @@ public:
     Boton *nextButton;
     Boton *undoButton;
     Boton *redoButton;
+    Boton *deleteButton;
 
 
     //Botones jugadores
@@ -260,6 +261,7 @@ public slots:
         void next();
         void undo();
         //void redo();
+        void eliminaCarta();
 
         ///Funciones de los botones de jugador
         void play2();

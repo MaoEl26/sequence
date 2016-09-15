@@ -43,7 +43,7 @@ protected:
     bool turno=true;
     bool key=false;
 
-    QString Comodin = ":/imagenes/COMODIN.png";
+    //QString Comodin = ":/imagenes/COMODIN.png";
     QString pathCartaTablero;
 
     BotonCarta *seleccionJugador=new BotonCarta( "NULL",0,0,0);
@@ -88,12 +88,16 @@ public:
     void muestraNombreJugador(QString JugadorPath);
     void muestraFichaTablero(int coorX,int coorY);
 
-    void almacenaFicha(Ficha* ficha, int x, int y);
-    void borrarFicha(int x,int y);
+    void almacenaFicha(Ficha* ficha, int coorX, int coorY);
+    void borrarFicha(int coorX,int coorY);
+
+    void evaluaGameHorizontal(int coorX,int coorY);
+    void evaluaGameVertical();
+
 
     ArrayCarta<Carta *> *listaCartas(int cantCartas);
 
-    Ficha* analizarFicha(int x, int y);
+    Ficha* analizarFicha(int coorX, int coorY);
 
     //Escena del juego
     QGraphicsScene *scene;
@@ -102,6 +106,14 @@ public:
     Jugador *jugador2;
     Jugador *jugador3;
     Jugador *jugador4;
+    Jugador *jugador5;
+    Jugador *jugador6;
+    Jugador *jugador7;
+    Jugador *jugador8;
+    Jugador *jugador9;
+    Jugador *jugador10;
+    Jugador *jugador11;
+    Jugador *jugador12;
 
 
     //Botones de Menú
@@ -244,6 +256,8 @@ public slots:
         void seteoBotones();
         void random();
         void next();
+        void undo();
+        //void redo();
 
         ///Funciones de los botones de jugador
         void play2();

@@ -2,7 +2,7 @@
 
 
 
-BotonCarta::BotonCarta(QString Url, int x, int y, int IDCarta)
+BotonCarta::BotonCarta(QString Url, int coorX, int coorY, int IDCarta)
 {
     //Almacena la ubicación de la imagen para luego se utilizada
     this->Url=Url;
@@ -12,8 +12,8 @@ BotonCarta::BotonCarta(QString Url, int x, int y, int IDCarta)
     this->setPixmap(Url);
     this->setScale(0.55);
     this->setPos(121,122);
-    this->x = x;
-    this->y = y;
+    this->coorX = coorX;
+    this->coorY = coorY;
     this->IDCarta = IDCarta;
 
     setAcceptHoverEvents(true);
@@ -43,12 +43,12 @@ void BotonCarta::hoverLeaveEvent(QGraphicsSceneHoverEvent *event){
 
 int BotonCarta::posX()
 {
-    return x;
+    return coorX;
 }
 
 int BotonCarta::posY()
 {
-    return y;
+    return coorY;
 }
 
 QString BotonCarta::getPath(){

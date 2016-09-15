@@ -20,6 +20,7 @@ class ArrayCarta
         void append (E pElement);
         void insert(E pElement);
         void print();
+        void clear();
         ~ArrayCarta();
         E returnPos(int pos);
 protected:

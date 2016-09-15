@@ -93,6 +93,14 @@ E ArrayCarta<E>::returnPos(int pos){
 }
 
 template <class E>
+void ArrayCarta<E>::clear(){
+    int largoLista = size;
+    for (int i= largoLista;i>0;i--){
+        remove(i);
+    }
+}
+
+template <class E>
 ArrayCarta<E>::~ArrayCarta (){
 //    size= 0;
 //    pos = 0;

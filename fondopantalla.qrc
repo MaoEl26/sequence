@@ -82,5 +82,14 @@
         <file>imagenes/etiquetaJug3.png</file>
         <file>imagenes/basepila.png</file>
         <file>imagenes/etiquetaJug4.png</file>
+        <file>imagenes/deleteButton.png</file>
+        <file>imagenes/etiquetaJug5.png</file>
+        <file>imagenes/etiquetaJug6.png</file>
+        <file>imagenes/etiquetaJug7.png</file>
+        <file>imagenes/etiquetaJug8.png</file>
+        <file>imagenes/etiquetaJug9.png</file>
+        <file>imagenes/etiquetaJug10.png</file>
+        <file>imagenes/etiquetaJug11.png</file>
+        <file>imagenes/etiquetaJug12.png</file>
     </qresource>
 </RCC>

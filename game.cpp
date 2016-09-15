@@ -41,8 +41,19 @@ using namespace std;
 #define cartaReverso ":/imagenes/REVERSO.png"
 #define basePila ":/imagenes/basepila.png"
 
+//Avance Coordenadas en el tablero
+#define avanceCoorX 85
+#define avanceCoorY 58
 
+//Tope de coordenadas
+#define topeSuperior 35
+#define topeIzquierdo 230
+#define topeInferior 557
+#define topeDerecho 995
 
+//Control de las secuencias
+#define secuenciaFicha 5
+#define largoSecuencia 4
 
 Game::Game()
 {
@@ -144,13 +155,6 @@ void Game::startMenu(){
     scene->addItem(plays10B);
     scene->addItem(plays12B);
     scene->addItem(backButton);
-
-    //Se Deshabilitan los botones de jugadores que se agregan después
-    //plays6B->setEnabled(false);
-//    plays8B->setEnabled(false);
-//    plays9B->setEnabled(false);
-//    plays10B->setEnabled(false);
-//    plays12B->setEnabled(false);
 
 }
 
@@ -507,16 +511,6 @@ void Game::mazoCartasDescartes(BotonCarta *cartaDescarte){
 
 }
 
-void Game::evaluaGameHorizontal(int coorX, int coorY){
-    int largoArrayFichas = arrayFichas->getSize();
-    int IDfichaJugadorActual=jugadores->returnPos(nextPlay)->getFicha()->getID();
-    for(int i=0;i < largoArrayFichas;i++){
-        if (IDfichaJugadorActual){
-
-        }
-   }
-}
-
 void Game::muestraCartaMazo(QString pathMazo){
 
     //Muestra la imagen de la pila de descartes
@@ -625,10 +619,10 @@ void Game::cantidadJugadores(int players){
         jugador4 = new Jugador("Jugador 4",ficha1,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador5 = new Jugador("Jugador 5",ficha2,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador5 = new Jugador("Jugador 5",ficha2,cantCartas,":/imagenes/etiquetaJug5.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador6 = new Jugador("Jugador 6",ficha3,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador6 = new Jugador("Jugador 6",ficha3,cantCartas,":/imagenes/etiquetaJug6.png",manoJugador);
 
         jugadores->append(jugador1);
         jugadores->append(jugador2);
@@ -658,16 +652,16 @@ void Game::cantidadJugadores(int players){
         jugador4 = new Jugador("Jugador 4",ficha3,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador5 = new Jugador("Jugador 5",ficha1,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador5 = new Jugador("Jugador 5",ficha1,cantCartas,":/imagenes/etiquetaJug5.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador6 = new Jugador("Jugador 6",ficha3,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador6 = new Jugador("Jugador 6",ficha3,cantCartas,":/imagenes/etiquetaJug6.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador7 = new Jugador("Jugador 7",ficha1,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador7 = new Jugador("Jugador 7",ficha1,cantCartas,":/imagenes/etiquetaJug7.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador8 = new Jugador("Jugador 8",ficha3,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador8 = new Jugador("Jugador 8",ficha3,cantCartas,":/imagenes/etiquetaJug8.png",manoJugador);
 
         jugadores->append(jugador1);
         jugadores->append(jugador2);
@@ -699,19 +693,19 @@ void Game::cantidadJugadores(int players){
         jugador4 = new Jugador("Jugador 4",ficha1,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador5 = new Jugador("Jugador 5",ficha2,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador5 = new Jugador("Jugador 5",ficha2,cantCartas,":/imagenes/etiquetaJug5.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador6 = new Jugador("Jugador 6",ficha3,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador6 = new Jugador("Jugador 6",ficha3,cantCartas,":/imagenes/etiquetaJug6.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador7 = new Jugador("Jugador 7",ficha1,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador7 = new Jugador("Jugador 7",ficha1,cantCartas,":/imagenes/etiquetaJug7.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador8 = new Jugador("Jugador 8",ficha2,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador8 = new Jugador("Jugador 8",ficha2,cantCartas,":/imagenes/etiquetaJug8.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador9 = new Jugador("Jugador 9",ficha3,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador9 = new Jugador("Jugador 9",ficha3,cantCartas,":/imagenes/etiquetaJug9.png",manoJugador);
 
         jugadores->append(jugador1);
         jugadores->append(jugador2);
@@ -744,22 +738,22 @@ void Game::cantidadJugadores(int players){
         jugador4 = new Jugador("Jugador 4",ficha3,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador5 = new Jugador("Jugador 5",ficha1,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador5 = new Jugador("Jugador 5",ficha1,cantCartas,":/imagenes/etiquetaJug5.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador6 = new Jugador("Jugador 6",ficha3,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador6 = new Jugador("Jugador 6",ficha3,cantCartas,":/imagenes/etiquetaJug6.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador7 = new Jugador("Jugador 7",ficha1,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador7 = new Jugador("Jugador 7",ficha1,cantCartas,":/imagenes/etiquetaJug7.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador8 = new Jugador("Jugador 8",ficha3,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador8 = new Jugador("Jugador 8",ficha3,cantCartas,":/imagenes/etiquetaJug8.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador9 = new Jugador("Jugador 9",ficha1,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador9 = new Jugador("Jugador 9",ficha1,cantCartas,":/imagenes/etiquetaJug9.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador10 = new Jugador("Jugador 10",ficha3,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador10 = new Jugador("Jugador 10",ficha3,cantCartas,":/imagenes/etiquetaJug10.png",manoJugador);
 
         jugadores->append(jugador1);
         jugadores->append(jugador2);
@@ -793,28 +787,28 @@ void Game::cantidadJugadores(int players){
         jugador4 = new Jugador("Jugador 4",ficha1,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador5 = new Jugador("Jugador 5",ficha2,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador5 = new Jugador("Jugador 5",ficha2,cantCartas,":/imagenes/etiquetaJug5.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador6 = new Jugador("Jugador 6",ficha3,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador6 = new Jugador("Jugador 6",ficha3,cantCartas,":/imagenes/etiquetaJug6.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador7 = new Jugador("Jugador 7",ficha1,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador7 = new Jugador("Jugador 7",ficha1,cantCartas,":/imagenes/etiquetaJug7.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador8 = new Jugador("Jugador 8",ficha2,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador8 = new Jugador("Jugador 8",ficha2,cantCartas,":/imagenes/etiquetaJug8.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador9 = new Jugador("Jugador 9",ficha3,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador9 = new Jugador("Jugador 9",ficha3,cantCartas,":/imagenes/etiquetaJug9.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador10 = new Jugador("Jugador 10",ficha1,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador10 = new Jugador("Jugador 10",ficha1,cantCartas,":/imagenes/etiquetaJug10.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador11 = new Jugador("Jugador 11",ficha2,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador11 = new Jugador("Jugador 11",ficha2,cantCartas,":/imagenes/etiquetaJug11.png",manoJugador);
 
         manoJugador=listaCartas(cantCartas);
-        jugador12 = new Jugador("Jugador 12",ficha3,cantCartas,":/imagenes/etiquetaJug4.png",manoJugador);
+        jugador12 = new Jugador("Jugador 12",ficha3,cantCartas,":/imagenes/etiquetaJug12.png",manoJugador);
 
         jugadores->append(jugador1);
         jugadores->append(jugador2);
@@ -949,6 +943,11 @@ void Game::evaluaFicha(BotonCarta *botonTablero){
             muestraFichaTablero(botonTablero->posX(), botonTablero->posY());
 
             mazoCartasDescartes(seleccionJugador);
+
+            evaluaGameVertical(botonTablero->posX(),botonTablero->posY());
+            evaluaGameHorizontal(botonTablero->posX(),botonTablero->posY());
+            evaluaGameDiagonalDerecho(botonTablero->posX(),botonTablero->posY());
+            evaluaGameDiagonalIzquierdo(botonTablero->posX(),botonTablero->posY());
         }
 
     }else{
@@ -965,6 +964,10 @@ void Game::evaluaFicha(BotonCarta *botonTablero){
 
                 mazoCartasDescartes(seleccionJugador);
 
+                evaluaGameVertical(botonTablero->posX(),botonTablero->posY());
+                evaluaGameHorizontal(botonTablero->posX(),botonTablero->posY());
+                evaluaGameDiagonalDerecho(botonTablero->posX(),botonTablero->posY());
+                evaluaGameDiagonalIzquierdo(botonTablero->posX(),botonTablero->posY());
             }
 
         }else{
@@ -997,6 +1000,219 @@ void Game::evaluaFicha(BotonCarta *botonTablero){
         }
     }
 
+}
+
+void Game::evaluaGameHorizontal(int pCoorX, int pCoorY){
+    cout<<"Horizontal"<<endl;
+    int coorX = pCoorX-avanceCoorX;
+    int IDfichaJugadorActual=jugadores->returnPos(nextPlay)->getFicha()->getID();
+    bool flag = true;
+    int contadorCiclo = 0;
+    int cantidadFichas = 1;
+
+    while ((contadorCiclo < largoSecuencia)&&(flag)){
+        if (coorX >= topeIzquierdo){
+            if (analizarFicha(coorX,pCoorY)->getID()==IDfichaJugadorActual){
+                cantidadFichas++;
+
+            }
+            else if (evaluaComodin(coorX,pCoorY)){
+                cantidadFichas++;
+            } else {
+                flag = false;
+            }
+
+        }
+        coorX-=avanceCoorX;
+        contadorCiclo++;
+    }
+    cout<<cantidadFichas<<endl;
+
+    if (cantidadFichas != secuenciaFicha){
+        coorX = pCoorX+avanceCoorX;
+        flag = true;
+        contadorCiclo = 0;
+
+        while ((contadorCiclo < largoSecuencia)&&(flag)){
+            if (coorX <= topeDerecho){
+                if (analizarFicha(coorX,pCoorY)->getID()==IDfichaJugadorActual){
+                    cantidadFichas++;
+
+                }
+                else if (evaluaComodin(coorX,pCoorY)){
+                    cantidadFichas++;
+                } else {
+                    flag = false;
+                }
+
+            }
+            coorX+=avanceCoorX;
+            contadorCiclo++;
+        }
+    }
+    cout<<cantidadFichas<<" segundo ciclo horizontal"<<endl;
+}
+
+void Game::evaluaGameVertical(int pCoorX, int pCoorY){
+    cout<<"vertical"<<endl;
+    int coorY = pCoorY-avanceCoorY;
+    int IDfichaJugadorActual=jugadores->returnPos(nextPlay)->getFicha()->getID();
+    bool flag = true;
+    int contadorCiclo = 0;
+    int cantidadFichas = 1;
+
+    while ((contadorCiclo < largoSecuencia)&&(flag)){
+        if (coorY >= topeSuperior){
+            if (analizarFicha(pCoorX,coorY)->getID()==IDfichaJugadorActual){
+                cantidadFichas++;
+            }
+            else if (evaluaComodin(pCoorX,coorY)){
+                cantidadFichas++;
+            } else {
+                flag = false;
+            }
+
+        }
+        coorY-=avanceCoorY;
+        contadorCiclo++;
+    }
+    cout<<cantidadFichas<<endl;
+
+    if (cantidadFichas != secuenciaFicha){
+        coorY = pCoorY+avanceCoorY;
+        flag = true;
+        contadorCiclo = 0;
+
+        while ((contadorCiclo < largoSecuencia)&&(flag)){
+            if (coorY <= topeInferior){
+                if (analizarFicha(pCoorX,coorY)->getID()==IDfichaJugadorActual){
+                    cantidadFichas++;
+                }
+                else if (evaluaComodin(pCoorX,coorY)){
+                    cantidadFichas++;
+                } else {
+                    flag = false;
+                }
+
+            }
+            coorY+=avanceCoorY;
+            contadorCiclo++;
+        }
+    }
+    cout<<cantidadFichas<<" segundo ciclo vertical"<<endl;
+}
+
+void Game::evaluaGameDiagonalDerecho(int pCoorX, int pCoorY){
+    cout<<"Diagonal Derecho"<<endl;
+    int coorY = pCoorY-avanceCoorY;
+    int coorX = pCoorX-avanceCoorX;
+    int IDfichaJugadorActual=jugadores->returnPos(nextPlay)->getFicha()->getID();
+    bool flag = true;
+    int contadorCiclo = 0;
+    int cantidadFichas = 1;
+
+    while ((contadorCiclo < largoSecuencia)&&(flag)){
+        if ((coorY >= topeSuperior)||(coorX >= topeIzquierdo)){
+            if (analizarFicha(coorX,coorY)->getID()==IDfichaJugadorActual){
+                cantidadFichas++;
+            }
+            else if (evaluaComodin(coorX,coorY)){
+                cantidadFichas++;
+            } else {
+                flag = false;
+            }
+
+        }
+        coorY-=avanceCoorY;
+        coorX-=avanceCoorX;
+        contadorCiclo++;
+    }
+    cout<<cantidadFichas<<endl;
+
+    if (cantidadFichas != secuenciaFicha){
+        coorY = pCoorY+avanceCoorY;
+        coorX = pCoorX+avanceCoorX;
+        flag = true;
+        contadorCiclo = 0;
+
+        while ((contadorCiclo < largoSecuencia)&&(flag)){
+            if ((coorY <= topeInferior)||(coorX <=topeDerecho)){
+                if (analizarFicha(coorX,coorY)->getID()==IDfichaJugadorActual){
+                    cantidadFichas++;
+                }
+                else if (evaluaComodin(coorX,coorY)){
+                    cantidadFichas++;
+                } else {
+                    flag = false;
+                }
+
+            }
+            coorY+=avanceCoorY;
+            coorX+=avanceCoorX;
+            contadorCiclo++;
+        }
+    }
+    cout<<cantidadFichas<<" segundo ciclo diagonal derecho"<<endl;
+}
+
+void Game::evaluaGameDiagonalIzquierdo(int pCoorX,int pCoorY){
+    cout<<"Diagonal Izquierdo"<<endl;
+    int coorY = pCoorY-avanceCoorY;
+    int coorX = pCoorX+avanceCoorX;
+    int IDfichaJugadorActual=jugadores->returnPos(nextPlay)->getFicha()->getID();
+    bool flag = true;
+    int contadorCiclo = 0;
+    int cantidadFichas = 1;
+
+    while ((contadorCiclo < largoSecuencia)&&(flag)){
+        if ((coorY >= topeSuperior)||(coorX <= topeDerecho)){
+            if (analizarFicha(coorX,coorY)->getID()==IDfichaJugadorActual){
+                cantidadFichas++;
+            }
+            else if (evaluaComodin(coorX,coorY)){
+                cantidadFichas++;
+            } else {
+                flag = false;
+            }
+
+        }
+        coorY-=avanceCoorY;
+        coorX+=avanceCoorX;
+        contadorCiclo++;
+    }
+    cout<<cantidadFichas<<endl;
+
+    if (cantidadFichas != secuenciaFicha){
+        coorY = pCoorY+avanceCoorY;
+        coorX = pCoorX-avanceCoorX;
+        flag = true;
+        contadorCiclo = 0;
+
+        while ((contadorCiclo < largoSecuencia)&&(flag)){
+            if ((coorY <= topeInferior)||(coorX >=topeIzquierdo)){
+                if (analizarFicha(coorX,coorY)->getID()==IDfichaJugadorActual){
+                    cantidadFichas++;
+                }
+                else if (evaluaComodin(coorX,coorY)){
+                    cantidadFichas++;
+                } else {
+                    flag = false;
+                }
+
+            }
+            coorY+=avanceCoorY;
+            coorX-=avanceCoorX;
+            contadorCiclo++;
+        }
+    }
+    cout<<cantidadFichas<<" segundo ciclo diagonal izquierdo"<<endl;
+}
+
+bool Game::evaluaComodin(int coorX, int coorY){
+    return (((coorX == topeDerecho)&& (coorY == topeSuperior))||
+            ((coorX == topeIzquierdo)&&(coorY == topeSuperior))||
+            ((coorX == topeDerecho)&& (coorY == topeInferior))||
+            ((coorX == topeIzquierdo)&&(coorY == topeInferior)));
 }
 
 void Game::botonesTablero(ArrayCarta<Carta*> matrizCartas){

@@ -91,9 +91,11 @@ public:
     void almacenaFicha(Ficha* ficha, int coorX, int coorY);
     void borrarFicha(int coorX,int coorY);
 
-    void evaluaGameHorizontal(int coorX,int coorY);
-    void evaluaGameVertical();
-
+    void evaluaGameHorizontal(int pCoorX, int pCoorY);
+    void evaluaGameVertical(int pCoorX, int pCoorY);
+    void evaluaGameDiagonalDerecho(int pCoorX, int pCoorY);
+    void evaluaGameDiagonalIzquierdo(int pCoorX,int pCoorY);
+    bool evaluaComodin(int coorX, int coorY);
 
     ArrayCarta<Carta *> *listaCartas(int cantCartas);
 

@@ -16,6 +16,7 @@ public:
     ArrayCarta<Carta *> mazoTablero();
     ArrayCarta<Carta*> tableroRandom();
     ArrayStack<Carta *> *mazoJugadores();
+    ArrayStack<Carta *> *randomCartasDescartes(ArrayStack<Carta *> *mazoCartasDescartes);
 };
 
 #endif // MAZO_H

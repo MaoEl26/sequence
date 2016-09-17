@@ -18,7 +18,11 @@ using namespace std;
 #define players9 9
 #define players10 10
 #define players12 12
+
+//Define el largo de la lista
 #define largoLista 7
+
+//Define la cantidad de cartas por jugadores
 #define cartas2Jugadores 7
 #define cartas3Jugadores 6
 #define cartas4Jugadores 6
@@ -44,7 +48,7 @@ using namespace std;
 //Define los paths de las etiquetas de equipo
 #define team1 ":/imagenes/TEAM1.png"
 #define team2 ":/imagenes/TEAM2.png"
-#define team3 ":/imagenes/TEAM1.png"
+#define team3 ":/imagenes/TEAM3.png"
 
 //Define las coordenadas y esca
 #define coorXMensajeGane 800
@@ -177,14 +181,6 @@ void Game::wiki(){
     connect(backButton,SIGNAL(clicked()),this,SLOT(seteoBotones()));//Establece la acción que va a realizar
     scene->addItem(backButton);//Añade el botón a la pantalla
 
-    //Prueba
-      QImage holi11(":/imagenes/10P.png");
-      QGraphicsPixmapItem *item11= new QGraphicsPixmapItem( QPixmap::fromImage(holi11));
-
-      item11->setPos(0,100);
-      item11->setScale(0.55);
-      item11->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
-      scene->addItem(item11);
 }
 
 void Game::ventanaGane(){
@@ -445,6 +441,7 @@ void Game::random(){
     arrayFichas->clear();
     arrayCoorX->clear();
     arrayCoorY->clear();
+    arrayPathsCartas->clear();
 
     muestraCartaDescarte(basePila);
     muestraFichaJugador(jugador1->getFicha()->getPath());
@@ -460,6 +457,7 @@ void Game::Table(){
     arrayFichas= new ArrayCarta<Ficha*>(largoListaFichas);
     arrayCoorX= new ArrayCarta<int>(largoListaFichas);
     arrayCoorY= new ArrayCarta<int> (largoListaFichas);
+    arrayPathsCartas = new ArrayCarta<QString>(largoListaFichas);
 
     scene->clear();
 
@@ -482,6 +480,7 @@ void Game::Table(){
 
     redoButton = new Boton("redo",":/imagenes/redoButton.png");
     redoButton->setPos(110,560);
+    connect(redoButton,SIGNAL(clicked()),this,SLOT(redo()));
     scene->addItem(redoButton);
 
     undoButton = new Boton("undo",":/imagenes/UndoButton.png");
@@ -501,7 +500,97 @@ void Game::Table(){
 }
 
 void Game::undo(){
-    ventanaGane();
+
+    if (descartes->getSize()!=0){
+        int largoArrayFichas = arrayFichas->getSize()-1;
+        arrayFichas->remove(largoArrayFichas);
+
+        QImage carta(arrayPathsCartas->remove(largoArrayFichas));
+        cartaItem= new QGraphicsPixmapItem( QPixmap::fromImage(carta));
+        cartaItem->setPos(arrayCoorX->remove(largoArrayFichas),arrayCoorY->remove(largoArrayFichas));
+        cartaItem->setScale(0.55);
+        scene->addItem(cartaItem);
+
+        seleccionJugador = new BotonCarta("NULL",nulo,nulo,nulo);
+
+        delete nombreJugador;
+        delete itemDescarte;
+
+        delete itemFicha;
+        delete itemFicha2;
+        delete itemFicha3;
+
+
+        delete Carta01;
+        delete Carta02;
+        delete Carta03;
+        delete Carta04;
+        delete Carta05;
+        delete Carta06;
+        delete Carta07;
+
+        if (turno==false){
+            delete reverso;
+
+            cartas->push(jugadores->returnPos(nextPlay)->getCards().remove(nulo));
+            jugadores->returnPos(nextPlay)->getCards().goToPos(nulo);
+            jugadores->returnPos(nextPlay)->getCards().insert(descartes->pop());
+
+            if (descartes->getSize()!=0){
+                muestraCartaDescarte(descartes->topValue()->getPath());
+            }else{
+               muestraCartaDescarte(basePila);
+            }
+
+            muestraFichaJugador(jugadores->returnPos(nextPlay)->getFicha()->getPath());
+            muestraNombreJugador(jugadores->returnPos(nextPlay)->getPath());
+            cartasJugador(jugadores->returnPos(nextPlay)->getCards());
+
+            turno = true;
+
+        }else{
+            if (nextPlay-1 >= nulo){
+
+                nextPlay--;
+
+                cartas->push(jugadores->returnPos(nextPlay)->getCards().remove(nulo));
+                jugadores->returnPos(nextPlay)->getCards().goToPos(nulo);
+                jugadores->returnPos(nextPlay)->getCards().insert(descartes->pop());
+
+                if (descartes->getSize()!=0){
+                    muestraCartaDescarte(descartes->topValue()->getPath());
+                }else{
+                   muestraCartaDescarte(basePila);
+                }
+
+                muestraFichaJugador(jugadores->returnPos(nextPlay)->getFicha()->getPath());
+                muestraNombreJugador(jugadores->returnPos(nextPlay)->getPath());
+                cartasJugador(jugadores->returnPos(nextPlay)->getCards());
+            }
+            else{
+                nextPlay=jugadores->getSize()-1;
+
+                cartas->push(jugadores->returnPos(nextPlay)->getCards().remove(nulo));
+                jugadores->returnPos(nextPlay)->getCards().goToPos(nulo);
+                jugadores->returnPos(nextPlay)->getCards().insert(descartes->pop());
+
+                if (descartes->getSize()!=0){
+                    muestraCartaDescarte(descartes->topValue()->getPath());
+                }else{
+                   muestraCartaDescarte(basePila);
+                }
+
+                muestraFichaJugador(jugadores->returnPos(nextPlay)->getFicha()->getPath());
+                muestraNombreJugador(jugadores->returnPos(nextPlay)->getPath());
+                cartasJugador(jugadores->returnPos(nextPlay)->getCards());
+            }
+    }
+    }else{
+        muestraCartaDescarte(basePila);
+    }
+}
+
+void Game::redo(){
 
 }
 
@@ -568,6 +657,8 @@ void Game::muestraFichaJugador(QString pathFicha){
 }
 
 void Game::muestraNombreJugador(QString JugadorPath){
+    //delete nombreJugador; //Elimina la imagen con el nombre del jugador actual
+
     QImage jugadorImagen(JugadorPath);
 
     nombreJugador= new QGraphicsPixmapItem( QPixmap::fromImage(jugadorImagen));
@@ -604,6 +695,7 @@ void Game::muestraFichaTablero(int coorX, int coorY){
 void Game::muestraCartaDescarte(QString pathDescarte){
     //Muestra en la pila de descartes la ultima carta utilizada
     //por lo jugadores
+
     QImage descarte(pathDescarte);
     itemDescarte= new QGraphicsPixmapItem( QPixmap::fromImage(descarte));
 
@@ -621,16 +713,28 @@ void Game::muestraCartaDescarte(QString pathDescarte){
 }
 
 void Game::eliminaCarta(){
-    if ((turno)&&(seleccionJugador->getPath()!=cartaReverso)){
+    if ((turno)&&(seleccionJugador->getPath()!=cartaReverso)&&(seleccionJugador->getPath()!="NULL")){
+        int contadorCarta = nulo;
+        int largoArreglo= arrayPathsCartas->getSize();
+        int contadorCiclo = nulo;
 
-        QImage borrar(cartaReverso);
-        reverso= new QGraphicsPixmapItem( QPixmap::fromImage(borrar));
-        reverso->setPos(seleccionJugador->posX(),seleccionJugador->posY());
-        reverso->setScale(0.65);
-        scene->addItem(reverso);
+        while((contadorCarta <= 2)&&(contadorCiclo<largoArreglo)){
+            if(arrayPathsCartas->returnPos(contadorCiclo)==seleccionJugador->getPath()){
+                 contadorCarta++;
+            }
+            contadorCiclo++;
+        }
+        if (contadorCarta ==2){
 
-        mazoCartasDescartes(seleccionJugador);
-        turno = false;
+            QImage borrar(cartaReverso);
+            reverso= new QGraphicsPixmapItem( QPixmap::fromImage(borrar));
+            reverso->setPos(seleccionJugador->posX(),seleccionJugador->posY());
+            reverso->setScale(0.65);
+            scene->addItem(reverso);
+
+            mazoCartasDescartes(seleccionJugador);
+            turno = false;
+        }
     }
 
 }
@@ -647,15 +751,14 @@ void Game::mazoCartasDescartes(BotonCarta *cartaDescarte){
     descartes->push(jugadores->returnPos(nextPlay)->getCards().remove(cartaDescarte->getIDCarta()));
 
     if (cartas->isEmpty()){
+           cartas = randomCartasDescartes(descartes);
            jugadores->returnPos(nextPlay)->getCards().goToPos(nulo);
-           jugadores->returnPos(nextPlay)->getCards().insert(new Carta("NULL","NULL","NULL",cartaReverso));
-           muestraCartaMazo(basePila);
+           jugadores->returnPos(nextPlay)->getCards().insert(cartas->pop());
+
     }
     else{
         jugadores->returnPos(nextPlay)->getCards().goToPos(nulo);
-        jugadores->returnPos(nextPlay)->getCards().insert(cartas->topValue());
-
-        cartas->pop();
+        jugadores->returnPos(nextPlay)->getCards().insert(cartas->pop());
     }
 
 }
@@ -983,8 +1086,7 @@ ArrayCarta<Carta*>* Game::listaCartas(int cantCartas){
 
     ArrayCarta<Carta*>* cartasjugador= new ArrayCarta<Carta*>(largoLista);
     for (int i=0;i<cantCartas;i++){
-        cartasjugador->append(cartas->topValue());
-        cartas->pop();
+        cartasjugador->append(cartas->pop());
     }
     if (cantCartas < largoLista){
         for (int i=cantCartas-1;i<largoLista;i++){
@@ -1052,10 +1154,11 @@ void Game::obtienePathCarta(BotonCarta* boton){
     }
 }
 
-void Game::almacenaFicha(Ficha* ficha, int coorX, int coorY){
+void Game::almacenaFicha(Ficha* ficha, int coorX, int coorY,QString path){
     arrayFichas->append(ficha);
     arrayCoorX->append(coorX);
     arrayCoorY->append(coorY);
+    arrayPathsCartas->append(path);
 }
 
 Ficha* Game::analizarFicha(int coorX, int coorY){
@@ -1077,6 +1180,7 @@ void Game::borrarFicha(int coorX, int coorY){
             arrayCoorX->remove(i);
             arrayCoorY->remove(i);
             arrayFichas->remove(i);
+            arrayPathsCartas->remove(i);
         }
     }
 }
@@ -1088,7 +1192,7 @@ void Game::evaluaFicha(BotonCarta *botonTablero){
         if(analizarFicha(botonTablero->posX(),botonTablero->posY())->getID()==0){
 
             almacenaFicha(jugadores->returnPos(nextPlay)->getFicha()
-                          ,botonTablero->posX(),botonTablero->posY());
+                          ,botonTablero->posX(),botonTablero->posY(),pathCartaTablero);
 
             muestraFichaTablero(botonTablero->posX(), botonTablero->posY());
 
@@ -1116,7 +1220,7 @@ void Game::evaluaFicha(BotonCarta *botonTablero){
             if(analizarFicha(botonTablero->posX(),botonTablero->posY())->getID()==0){
 
                 almacenaFicha(jugadores->returnPos(nextPlay)->getFicha()
-                              ,botonTablero->posX(),botonTablero->posY());
+                              ,botonTablero->posX(),botonTablero->posY(),pathCartaTablero);
 
                 muestraFichaTablero(botonTablero->posX(), botonTablero->posY());
 

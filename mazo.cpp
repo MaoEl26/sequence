@@ -192,6 +192,38 @@ ArrayStack<Carta *>* Mazo::mazoJugadores()
     return stackCartas;
 }
 
+ArrayStack<Carta *> * Mazo::randomCartasDescartes(ArrayStack<Carta*> *mazoCartasDescartes){
+
+    ArrayStack<Carta*> *original = mazoCartasDescartes;
+    int largoMazo = mazoCartasDescartes->getSize();
+    ArrayStack<Carta*> *stackCartas = new ArrayStack<Carta*>(largoMazo);
+    ArrayCarta<Carta*> *cartasAuxiliar = new ArrayCarta<Carta*>(largoMazo);
+    ArrayCarta<int> *arrayInt = new ArrayCarta<int>(largoMazo);
+
+    srand(time(NULL)); //llamada al random
+    int num; //Variable en la que se almacena el numero random
+    int cont = 0;//Inicializa el contador en 0
+
+    for(int i=0;i<largoMazo;i++){
+        arrayInt->append(i);
+        cartasAuxiliar->append(original->pop());
+    }
+    while (cont < largoMazo){
+
+        num = rand() % (arrayInt->getSize());
+
+        stackCartas->push(new Carta (cartasAuxiliar->returnPos(arrayInt->returnPos(num))->getValor(),
+                                  cartasAuxiliar->returnPos(arrayInt->returnPos(num))->getSimbolo(),
+                                  cartasAuxiliar->returnPos(arrayInt->returnPos(num))->getColor(),
+                                  cartasAuxiliar->returnPos(arrayInt->returnPos(num))->getPath()) );
+
+        arrayInt->remove(num);
+        cont++;
+    }
+    cout<<"holi "<<endl;
+    return stackCartas;
+}
+
 
 
 

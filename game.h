@@ -52,6 +52,7 @@ protected:
     ArrayStack<Carta*> *descartes;
     ArrayStack<Carta*> *cartas;
 
+    ArrayCarta<QString> *arrayPathsCartas;
     ArrayCarta<Jugador*> *jugadores;
     ArrayCarta<Ficha*> *arrayFichas;
     ArrayCarta<int> *arrayCoorX;
@@ -110,7 +111,7 @@ public:
     void muestraNombreJugador(QString JugadorPath);
     void muestraFichaTablero(int coorX,int coorY);
 
-    void almacenaFicha(Ficha* ficha, int coorX, int coorY);
+    void almacenaFicha(Ficha* ficha, int coorX, int coorY, QString path);
     void borrarFicha(int coorX,int coorY);
 
     int evaluaGaneHorizontal(int pCoorX, int pCoorY);
@@ -271,7 +272,7 @@ public slots:
         void random();
         void next();
         void undo();
-        //void redo();
+        void redo();
         void eliminaCarta();
 
         ///Funciones de los botones de jugador

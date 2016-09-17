@@ -39,6 +39,7 @@ protected:
 
     int nextPlay;
     int cantCartas;
+    int secuencia;
 
     bool turno;
     bool key=false;
@@ -65,7 +66,27 @@ protected:
     QGraphicsPixmapItem *itemFicha3;
     QGraphicsPixmapItem *itemDescarte;
     QGraphicsPixmapItem *itemFichaTablero;
+    QGraphicsPixmapItem *itemLogo;
 
+    QGraphicsTextItem *winnerText;
+    QGraphicsTextItem *exitText;
+
+    Jugador *jugador1;
+    Jugador *jugador2;
+    Jugador *jugador3;
+    Jugador *jugador4;
+    Jugador *jugador5;
+    Jugador *jugador6;
+    Jugador *jugador7;
+    Jugador *jugador8;
+    Jugador *jugador9;
+    Jugador *jugador10;
+    Jugador *jugador11;
+    Jugador *jugador12;
+
+    Ficha *ficha1;
+    Ficha *ficha2;
+    Ficha *ficha3;
 
 public:
     Game();
@@ -77,6 +98,7 @@ public:
     void Table();
     void botonesTablero(ArrayCarta<Carta*> matrizCartas);
     void cartasJugador(ArrayCarta<Carta *> cartasJgd);
+    void ventanaGane();
 
     void mazoCartasDescartes(BotonCarta *cartaDescarte);
 
@@ -91,10 +113,10 @@ public:
     void almacenaFicha(Ficha* ficha, int coorX, int coorY);
     void borrarFicha(int coorX,int coorY);
 
-    void evaluaGameHorizontal(int pCoorX, int pCoorY);
-    void evaluaGameVertical(int pCoorX, int pCoorY);
-    void evaluaGameDiagonalDerecho(int pCoorX, int pCoorY);
-    void evaluaGameDiagonalIzquierdo(int pCoorX,int pCoorY);
+    int evaluaGaneHorizontal(int pCoorX, int pCoorY);
+    int evaluaGaneVertical(int pCoorX, int pCoorY);
+    int evaluaGaneDiagonalDerecho(int pCoorX, int pCoorY);
+    int evaluaGaneDiagonalIzquierdo(int pCoorX,int pCoorY);
     bool evaluaComodin(int coorX, int coorY);
 
     ArrayCarta<Carta *> *listaCartas(int cantCartas);
@@ -104,18 +126,7 @@ public:
     //Escena del juego
     QGraphicsScene *scene;
 
-    Jugador *jugador1;
-    Jugador *jugador2;
-    Jugador *jugador3;
-    Jugador *jugador4;
-    Jugador *jugador5;
-    Jugador *jugador6;
-    Jugador *jugador7;
-    Jugador *jugador8;
-    Jugador *jugador9;
-    Jugador *jugador10;
-    Jugador *jugador11;
-    Jugador *jugador12;
+
 
 
     //Botones de Menú

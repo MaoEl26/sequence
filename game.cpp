@@ -41,6 +41,16 @@ using namespace std;
 #define cartaReverso ":/imagenes/REVERSO.png"
 #define basePila ":/imagenes/basepila.png"
 
+//Define los paths de las etiquetas de equipo
+#define team1 ":/imagenes/TEAM1.png"
+#define team2 ":/imagenes/TEAM2.png"
+#define team3 ":/imagenes/TEAM1.png"
+
+//Define las coordenadas y esca
+#define coorXMensajeGane 800
+#define coorYMensajeGane 180
+#define escalaMensajeGane 0.9
+
 //Avance Coordenadas en el tablero
 #define avanceCoorX 85
 #define avanceCoorY 58
@@ -175,6 +185,125 @@ void Game::wiki(){
       item11->setScale(0.55);
       item11->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
       scene->addItem(item11);
+}
+
+void Game::ventanaGane(){
+
+    scene->clear();
+    scene->setBackgroundBrush(QBrush(QImage(":/imagenes/fondoJugadores.png")));
+
+    int players = jugadores->getSize();
+    int IDFichaJugadorActual = jugadores->returnPos(nextPlay)->getFicha()->getID();
+
+    //Crea los botones
+    startButton = new Boton("Start",":/imagenes/startButton.png");
+    exitButton = new Boton("Exit",":/imagenes/exitButton.png");
+
+    //Establece la posición de los botones
+    startButton->setPos(478,480);
+    exitButton->setPos(662,480);
+
+    //Establece la funcion de los botones
+    connect(startButton,SIGNAL(clicked()),this,SLOT(startMenu()));
+    connect(exitButton,SIGNAL(clicked()),this,SLOT(close()));
+
+    //Agrega los botones a la escena
+    scene->addItem(startButton);
+    scene->addItem(exitButton);
+
+    //Representación del logo
+    QString logoPath=":/imagenes/logo.png";
+    QImage logoImagen(logoPath);
+    itemLogo= new QGraphicsPixmapItem( QPixmap::fromImage(logoImagen));
+    itemLogo->setPos(220,60);;
+    itemLogo->setScale(0.7);
+    scene->addItem(itemLogo);
+
+    //Mensaje Jugador Ganador
+    QString winnerMessage = "El ganador de esta partida es: ";
+    winnerText = new QGraphicsTextItem(winnerMessage);
+    winnerText->setScale(3);
+    winnerText->adjustSize();
+    winnerText->setPos(490,140);
+    winnerText->setDefaultTextColor(Qt::white);
+    scene->addItem(winnerText);
+
+    //Mensaje de salida
+    QString exitMessage = "¿Desea seguir jugando?";
+    exitText = new QGraphicsTextItem(exitMessage);
+    exitText->setScale(3);
+    exitText->adjustSize();
+    exitText->setPos(460,400);
+    exitText->setDefaultTextColor(Qt::white);
+    scene->addItem(exitText);
+
+    //Representacion gane horizontal
+    if (players <=3){
+        QString JugadorPath=jugadores->returnPos(nextPlay)->getPath();
+        QImage jugadorImagen(JugadorPath);
+
+        nombreJugador= new QGraphicsPixmapItem( QPixmap::fromImage(jugadorImagen));
+        nombreJugador->setPos(coorXMensajeGane,coorYMensajeGane);
+        nombreJugador->setScale(escalaMensajeGane);
+
+        scene->addItem(nombreJugador);
+    }
+    //Representacion gane 2 equipos
+    else if ((players == 4)||(players == 8)||(players == 10)){
+        //Equipo 1
+        if (IDFichaJugadorActual == ficha1->getID()){
+            QImage jugadorImagen(team1);
+
+            nombreJugador= new QGraphicsPixmapItem( QPixmap::fromImage(jugadorImagen));
+            nombreJugador->setPos(coorXMensajeGane,coorYMensajeGane);
+            nombreJugador->setScale(escalaMensajeGane);
+
+            scene->addItem(nombreJugador);
+        }
+        //Equipo 2
+        else if (IDFichaJugadorActual == ficha3->getID()){
+            QImage jugadorImagen(team2);
+
+            nombreJugador= new QGraphicsPixmapItem( QPixmap::fromImage(jugadorImagen));
+            nombreJugador->setPos(coorXMensajeGane,coorYMensajeGane);
+            nombreJugador->setScale(escalaMensajeGane);
+
+            scene->addItem(nombreJugador);
+        }
+    }
+    //Representacion gane 3 equipos
+    else if ((players == 6)||(players == 9)||(players == 12)){
+        //Equipo 1
+        if (IDFichaJugadorActual == ficha1->getID()){
+            QImage jugadorImagen(team1);
+
+            nombreJugador= new QGraphicsPixmapItem( QPixmap::fromImage(jugadorImagen));
+            nombreJugador->setPos(coorXMensajeGane,coorYMensajeGane);
+            nombreJugador->setScale(escalaMensajeGane);
+
+            scene->addItem(nombreJugador);
+        }
+        //Equipo 2
+        else if (IDFichaJugadorActual == ficha2->getID()){
+            QImage jugadorImagen(team2);
+
+            nombreJugador= new QGraphicsPixmapItem( QPixmap::fromImage(jugadorImagen));
+            nombreJugador->setPos(coorXMensajeGane,coorYMensajeGane);
+            nombreJugador->setScale(escalaMensajeGane);
+
+            scene->addItem(nombreJugador);
+        }
+        //Equipo 3
+        else if (IDFichaJugadorActual == ficha3->getID()){
+            QImage jugadorImagen(team3);
+
+            nombreJugador= new QGraphicsPixmapItem( QPixmap::fromImage(jugadorImagen));
+            nombreJugador->setPos(coorXMensajeGane,coorYMensajeGane);
+            nombreJugador->setScale(escalaMensajeGane);
+
+            scene->addItem(nombreJugador);
+        }
+    }
 }
 
 void Game::exit(){
@@ -372,7 +501,7 @@ void Game::Table(){
 }
 
 void Game::undo(){
-
+    ventanaGane();
 
 }
 
@@ -550,14 +679,14 @@ void Game::muestraCartaMazo(QString pathMazo){
 }
 
 void Game::cantidadJugadores(int players){
-
     //inicializa en array de jugadores con el largo correspondiente
     jugadores= new ArrayCarta<Jugador*>(players);
     turno = true;
+    secuencia = nulo;
     //Crea las fichas a utilizar
-    Ficha *ficha1 = new Ficha(1,"Azul",":/imagenes/FICHA _AZUL.png");
-    Ficha *ficha2 = new Ficha(2,"Morado",":/imagenes/FICHA _MORADA.png");
-    Ficha *ficha3 = new Ficha(3,"Verde",":/imagenes/FICHA _VERDE.png");
+    ficha1 = new Ficha(1,"Azul",":/imagenes/FICHA _AZUL.png");
+    ficha2 = new Ficha(2,"Morado",":/imagenes/FICHA _MORADA.png");
+    ficha3 = new Ficha(3,"Verde",":/imagenes/FICHA _VERDE.png");
 
     //Crea 2 jugadores
     if (players==players2){
@@ -953,6 +1082,7 @@ void Game::borrarFicha(int coorX, int coorY){
 }
 
 void Game::evaluaFicha(BotonCarta *botonTablero){
+    int players = jugadores->getSize();
     pathCartaTablero= botonTablero->getPath();
     if (seleccionJugador->getPath()== pathCartaTablero){
         if(analizarFicha(botonTablero->posX(),botonTablero->posY())->getID()==0){
@@ -964,10 +1094,18 @@ void Game::evaluaFicha(BotonCarta *botonTablero){
 
             mazoCartasDescartes(seleccionJugador);
 
-            evaluaGameVertical(botonTablero->posX(),botonTablero->posY());
-            evaluaGameHorizontal(botonTablero->posX(),botonTablero->posY());
-            evaluaGameDiagonalDerecho(botonTablero->posX(),botonTablero->posY());
-            evaluaGameDiagonalIzquierdo(botonTablero->posX(),botonTablero->posY());
+            if ((evaluaGaneVertical(botonTablero->posX(),botonTablero->posY())>=secuenciaFicha)||
+            (evaluaGaneHorizontal(botonTablero->posX(),botonTablero->posY())>=secuenciaFicha)||
+            (evaluaGaneDiagonalDerecho(botonTablero->posX(),botonTablero->posY()) >=secuenciaFicha)||
+            (evaluaGaneDiagonalIzquierdo(botonTablero->posX(),botonTablero->posY())>=secuenciaFicha)){
+                secuencia++;
+                if ((players == players2)&&(secuencia!=2)){
+
+                }
+                else{
+                    ventanaGane();
+                }
+            }
         }
 
     }else{
@@ -984,10 +1122,18 @@ void Game::evaluaFicha(BotonCarta *botonTablero){
 
                 mazoCartasDescartes(seleccionJugador);
 
-                evaluaGameVertical(botonTablero->posX(),botonTablero->posY());
-                evaluaGameHorizontal(botonTablero->posX(),botonTablero->posY());
-                evaluaGameDiagonalDerecho(botonTablero->posX(),botonTablero->posY());
-                evaluaGameDiagonalIzquierdo(botonTablero->posX(),botonTablero->posY());
+                if ((evaluaGaneVertical(botonTablero->posX(),botonTablero->posY())>=secuenciaFicha)||
+                (evaluaGaneHorizontal(botonTablero->posX(),botonTablero->posY())>=secuenciaFicha)||
+                (evaluaGaneDiagonalDerecho(botonTablero->posX(),botonTablero->posY()) >=secuenciaFicha)||
+                (evaluaGaneDiagonalIzquierdo(botonTablero->posX(),botonTablero->posY())>=secuenciaFicha)){
+                    secuencia++;
+                    if ((players == players2)&&(secuencia!=2)){
+
+                    }
+                    else{
+                        ventanaGane();
+                    }
+                }
             }
 
         }else{
@@ -1022,8 +1168,8 @@ void Game::evaluaFicha(BotonCarta *botonTablero){
 
 }
 
-void Game::evaluaGameHorizontal(int pCoorX, int pCoorY){
-    cout<<"Horizontal"<<endl;
+int Game::evaluaGaneHorizontal(int pCoorX, int pCoorY){
+
     int coorX = pCoorX-avanceCoorX;
     int IDfichaJugadorActual=jugadores->returnPos(nextPlay)->getFicha()->getID();
     bool flag = true;
@@ -1046,7 +1192,6 @@ void Game::evaluaGameHorizontal(int pCoorX, int pCoorY){
         coorX-=avanceCoorX;
         contadorCiclo++;
     }
-    cout<<cantidadFichas<<endl;
 
     if (cantidadFichas != secuenciaFicha){
         coorX = pCoorX+avanceCoorX;
@@ -1070,11 +1215,11 @@ void Game::evaluaGameHorizontal(int pCoorX, int pCoorY){
             contadorCiclo++;
         }
     }
-    cout<<cantidadFichas<<" segundo ciclo horizontal"<<endl;
+    return cantidadFichas;
 }
 
-void Game::evaluaGameVertical(int pCoorX, int pCoorY){
-    cout<<"vertical"<<endl;
+int Game::evaluaGaneVertical(int pCoorX, int pCoorY){
+
     int coorY = pCoorY-avanceCoorY;
     int IDfichaJugadorActual=jugadores->returnPos(nextPlay)->getFicha()->getID();
     bool flag = true;
@@ -1096,7 +1241,6 @@ void Game::evaluaGameVertical(int pCoorX, int pCoorY){
         coorY-=avanceCoorY;
         contadorCiclo++;
     }
-    cout<<cantidadFichas<<endl;
 
     if (cantidadFichas != secuenciaFicha){
         coorY = pCoorY+avanceCoorY;
@@ -1119,11 +1263,11 @@ void Game::evaluaGameVertical(int pCoorX, int pCoorY){
             contadorCiclo++;
         }
     }
-    cout<<cantidadFichas<<" segundo ciclo vertical"<<endl;
+    return cantidadFichas;
 }
 
-void Game::evaluaGameDiagonalDerecho(int pCoorX, int pCoorY){
-    cout<<"Diagonal Derecho"<<endl;
+int Game::evaluaGaneDiagonalDerecho(int pCoorX, int pCoorY){
+
     int coorY = pCoorY-avanceCoorY;
     int coorX = pCoorX-avanceCoorX;
     int IDfichaJugadorActual=jugadores->returnPos(nextPlay)->getFicha()->getID();
@@ -1147,7 +1291,6 @@ void Game::evaluaGameDiagonalDerecho(int pCoorX, int pCoorY){
         coorX-=avanceCoorX;
         contadorCiclo++;
     }
-    cout<<cantidadFichas<<endl;
 
     if (cantidadFichas != secuenciaFicha){
         coorY = pCoorY+avanceCoorY;
@@ -1172,11 +1315,11 @@ void Game::evaluaGameDiagonalDerecho(int pCoorX, int pCoorY){
             contadorCiclo++;
         }
     }
-    cout<<cantidadFichas<<" segundo ciclo diagonal derecho"<<endl;
+    return cantidadFichas;
 }
 
-void Game::evaluaGameDiagonalIzquierdo(int pCoorX,int pCoorY){
-    cout<<"Diagonal Izquierdo"<<endl;
+int Game::evaluaGaneDiagonalIzquierdo(int pCoorX,int pCoorY){
+
     int coorY = pCoorY-avanceCoorY;
     int coorX = pCoorX+avanceCoorX;
     int IDfichaJugadorActual=jugadores->returnPos(nextPlay)->getFicha()->getID();
@@ -1200,7 +1343,6 @@ void Game::evaluaGameDiagonalIzquierdo(int pCoorX,int pCoorY){
         coorX+=avanceCoorX;
         contadorCiclo++;
     }
-    cout<<cantidadFichas<<endl;
 
     if (cantidadFichas != secuenciaFicha){
         coorY = pCoorY+avanceCoorY;
@@ -1225,7 +1367,7 @@ void Game::evaluaGameDiagonalIzquierdo(int pCoorX,int pCoorY){
             contadorCiclo++;
         }
     }
-    cout<<cantidadFichas<<" segundo ciclo diagonal izquierdo"<<endl;
+    return cantidadFichas;
 }
 
 bool Game::evaluaComodin(int coorX, int coorY){

@@ -3,7 +3,6 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsSceneMouseEvent>
 #include <QBrush>
-#include <QGraphicsTextItem>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsEffect>
 
@@ -13,17 +12,19 @@ class Boton: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    Boton(QString Name,QString Url);
+    Boton(QString name, QString Url);
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event);
+
+    QString getName();
 
 signals:
     void clicked();
 
 private:
-    QGraphicsTextItem *textBoton;
     QString Url;
+    QString name;
 
 };
 

@@ -96,5 +96,15 @@
         <file>imagenes/logo.png</file>
         <file>imagenes/TEAM3.png</file>
         <file>imagenes/PreviewButton.png</file>
+        <file>imagenes/wiki1.png</file>
+        <file>imagenes/wiki2.png</file>
+        <file>imagenes/wiki3.png</file>
+        <file>imagenes/wiki4.png</file>
+        <file>imagenes/wiki5.png</file>
+        <file>imagenes/wiki6.png</file>
+        <file>imagenes/wiki7.png</file>
+        <file>imagenes/wiki8.png</file>
+        <file>imagenes/wiki9.png</file>
+        <file>imagenes/wiki10.png</file>
     </qresource>
 </RCC>

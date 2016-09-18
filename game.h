@@ -40,6 +40,7 @@ protected:
     int nextPlay;
     int cantCartas;
     int secuencia;
+    int contadorWiki;
 
     bool turno;
     bool key=false;
@@ -63,6 +64,7 @@ protected:
     ArrayCarta<int> *arrayCoorXAux;
     ArrayCarta<int> *arrayCoorYAux;
     ArrayCarta<QString> *arrayPathsCartasAux;
+    ArrayCarta<QString> *arrayPathsWiki;
 
     QGraphicsPixmapItem *cartaItem;
     QGraphicsPixmapItem *nombreJugador;
@@ -74,6 +76,7 @@ protected:
     QGraphicsPixmapItem *itemDescarte;
     QGraphicsPixmapItem *itemFichaTablero;
     QGraphicsPixmapItem *itemLogo;
+    QGraphicsPixmapItem *itemWiki;
 
     QGraphicsTextItem *winnerText;
     QGraphicsTextItem *exitText;
@@ -143,6 +146,7 @@ public:
     Boton *backButton;
     Boton *randomButton;
     Boton *nextButton;
+    Boton *previouButton;
     Boton *undoButton;
     Boton *redoButton;
     Boton *deleteButton;
@@ -280,6 +284,9 @@ public slots:
         void undo();
         void redo();
         void eliminaCarta();
+
+        void previousWiki();
+        void nextWiki();
 
         ///Funciones de los botones de jugador
         void play2();

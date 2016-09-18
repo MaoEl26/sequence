@@ -35,6 +35,7 @@ using namespace std;
 //Define el largo de las listas a utilizar
 #define largoListaFichas 100
 #define largoMazoCartas 103
+#define largoListaWiki 10
 
 //Define los paths de las cartas de mas uso
 #define jotaDiamante ":/imagenes/JD.png"
@@ -84,6 +85,12 @@ void Game::ambiente(){
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(1350,680);
+
+    arrayPathsWiki = new ArrayCarta<QString>(largoListaWiki);
+    for(int i = 1;i<=largoListaWiki;i++){
+        QString path = ":/imagenes/wiki"+QString::number(i)+".png";
+        arrayPathsWiki->append(path);
+    }
 }
 
 void Game::seteoBotones(){
@@ -93,8 +100,9 @@ void Game::seteoBotones(){
 void Game::agregarBotonesJugar(){
     //Boton de inicio del Juego
     scene->clear();
-
     scene->setBackgroundBrush(QBrush(QImage(":/imagenes/FondoInicio2.png")));
+
+    contadorWiki = 0;
 
     startButton= new Boton("Start Game",":/imagenes/startButton.png");
     startButton->setPos(388,440);
@@ -181,13 +189,45 @@ void Game::wiki(){
     connect(backButton,SIGNAL(clicked()),this,SLOT(seteoBotones()));//Establece la acción que va a realizar
     scene->addItem(backButton);//Añade el botón a la pantalla
 
+    QString wikiPath=arrayPathsWiki->returnPos(contadorWiki);
+    QImage wikiImagen(wikiPath);
+    itemWiki= new QGraphicsPixmapItem( QPixmap::fromImage(wikiImagen));
+    itemWiki->setPos(320,40);
+    scene->addItem(itemWiki);
 
-//    QString logoPath=":/imagenes/wiki5.png";
-//    QImage logoImagen(logoPath);
-//    itemLogo= new QGraphicsPixmapItem( QPixmap::fromImage(logoImagen));
-//    itemLogo->setPos(320,40);
-//    scene->addItem(itemLogo);
+    nextButton = new Boton("Next",":/imagenes/NextButton.png");
+    nextButton->setPos(1120,600);
+    connect(nextButton,SIGNAL(clicked()),this,SLOT(nextWiki()));
+    scene->addItem(nextButton);
 
+    previouButton = new Boton("Previous",":/imagenes/PreviewButton.png");
+    previouButton->setPos(10,600);
+    connect(previouButton,SIGNAL(clicked()),this,SLOT(previousWiki()));
+    scene->addItem(previouButton);
+
+}
+
+void Game::previousWiki(){
+    if (contadorWiki > nulo){
+        delete itemWiki;
+        contadorWiki--;
+        QString wikiPath=arrayPathsWiki->returnPos(contadorWiki);
+        QImage wikiImagen(wikiPath);
+        itemWiki= new QGraphicsPixmapItem( QPixmap::fromImage(wikiImagen));
+        itemWiki->setPos(320,40);
+        scene->addItem(itemWiki);
+    }
+}
+void Game::nextWiki(){
+    if (contadorWiki < largoListaWiki-1){
+        delete itemWiki;
+        contadorWiki++;
+        QString wikiPath=arrayPathsWiki->returnPos(contadorWiki);
+        QImage wikiImagen(wikiPath);
+        itemWiki= new QGraphicsPixmapItem( QPixmap::fromImage(wikiImagen));
+        itemWiki->setPos(320,40);
+        scene->addItem(itemWiki);
+    }
 }
 
 void Game::ventanaGane(){
@@ -896,6 +936,7 @@ void Game::cantidadJugadores(int players){
     jugadores= new ArrayCarta<Jugador*>(players);
     turno = true;
     secuencia = nulo;
+
     //Crea las fichas a utilizar
     ficha1 = new Ficha(1,"Azul",":/imagenes/FICHA _AZUL.png");
     ficha2 = new Ficha(2,"Morado",":/imagenes/FICHA _MORADA.png");

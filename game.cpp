@@ -1312,6 +1312,11 @@ void Game::almacenaFicha(Ficha* ficha, int coorX, int coorY,QString path){
     arrayCoorX->append(coorX);
     arrayCoorY->append(coorY);
     arrayPathsCartas->append(path);
+
+    arrayFichasAux->clear();
+    arrayCoorXAux->clear();
+    arrayCoorYAux->clear();
+    arrayPathsCartasAux->clear();
 }
 
 Ficha* Game::analizarFicha(int coorX, int coorY){

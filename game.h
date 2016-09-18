@@ -39,7 +39,8 @@ protected:
 
     int nextPlay;
     int cantCartas;
-    int secuencia;
+    int secuenciaJugador1;
+    int secuenciaJugador2;
     int contadorWiki;
 
     bool turno;
@@ -285,6 +286,7 @@ public slots:
         void redo();
         void eliminaCarta();
 
+        ///Funciones de los Botones del menu Help
         void previousWiki();
         void nextWiki();
 

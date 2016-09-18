@@ -87,10 +87,10 @@ void Game::ambiente(){
     setFixedSize(1350,680);
 
     arrayPathsWiki = new ArrayCarta<QString>(largoListaWiki);
-    for(int i = 1;i<=largoListaWiki;i++){
-        QString path = ":/imagenes/wiki"+QString::number(i)+".png";
-        arrayPathsWiki->append(path);
-    }
+        for(int i = 1;i<=largoListaWiki;i++){
+            QString path = ":/imagenes/wiki"+QString::number(i)+".png";
+            arrayPathsWiki->append(path);
+        }
 }
 
 void Game::seteoBotones(){
@@ -102,7 +102,7 @@ void Game::agregarBotonesJugar(){
     scene->clear();
     scene->setBackgroundBrush(QBrush(QImage(":/imagenes/FondoInicio2.png")));
 
-    contadorWiki = 0;
+    contadorWiki = nulo;
 
     startButton= new Boton("Start Game",":/imagenes/startButton.png");
     startButton->setPos(388,440);
@@ -188,6 +188,7 @@ void Game::wiki(){
     backButton->setPos(0,0);//Establece la posícion
     connect(backButton,SIGNAL(clicked()),this,SLOT(seteoBotones()));//Establece la acción que va a realizar
     scene->addItem(backButton);//Añade el botón a la pantalla
+
 
     QString wikiPath=arrayPathsWiki->returnPos(contadorWiki);
     QImage wikiImagen(wikiPath);
@@ -935,8 +936,6 @@ void Game::cantidadJugadores(int players){
     //inicializa en array de jugadores con el largo correspondiente
     jugadores= new ArrayCarta<Jugador*>(players);
     turno = true;
-    secuencia = nulo;
-
     //Crea las fichas a utilizar
     ficha1 = new Ficha(1,"Azul",":/imagenes/FICHA _AZUL.png");
     ficha2 = new Ficha(2,"Morado",":/imagenes/FICHA _MORADA.png");
@@ -944,6 +943,8 @@ void Game::cantidadJugadores(int players){
 
     //Crea 2 jugadores
     if (players==players2){
+        secuenciaJugador1= nulo;
+        secuenciaJugador2= nulo;
         cantCartas=cartas2Jugadores;
 
         ArrayCarta<Carta*> *manoJugador=listaCartas(cantCartas);
@@ -958,6 +959,7 @@ void Game::cantidadJugadores(int players){
         muestraFichaJugador(jugador1->getFicha()->getPath());
         muestraNombreJugador(jugador1->getPath());
         cartasJugador(jugador1->getCards());
+
     }
     //crea 3 jugadores
     if (players==players3){
@@ -1338,6 +1340,7 @@ void Game::borrarFicha(int coorX, int coorY){
 
 void Game::evaluaFicha(BotonCarta *botonTablero){
     int players = jugadores->getSize();
+
     pathCartaTablero= botonTablero->getPath();
     if (seleccionJugador->getPath()== pathCartaTablero){
         if(analizarFicha(botonTablero->posX(),botonTablero->posY())->getID()==0){
@@ -1353,9 +1356,21 @@ void Game::evaluaFicha(BotonCarta *botonTablero){
             (evaluaGaneHorizontal(botonTablero->posX(),botonTablero->posY())>=secuenciaFicha)||
             (evaluaGaneDiagonalDerecho(botonTablero->posX(),botonTablero->posY()) >=secuenciaFicha)||
             (evaluaGaneDiagonalIzquierdo(botonTablero->posX(),botonTablero->posY())>=secuenciaFicha)){
-                secuencia++;
-                if ((players == players2)&&(secuencia!=2)){
 
+                if (players == players2){
+                    if (jugadores->returnPos(nextPlay)->getFicha()->getID()== 1){
+                        secuenciaJugador1++;
+                        if (secuenciaJugador1 == 2){
+                            ventanaGane();
+                        }
+                    }
+                    else if (jugadores->returnPos(nextPlay)->getFicha()->getID()== 3){
+                        secuenciaJugador2++;
+
+                        if (secuenciaJugador2== 2){
+                            ventanaGane();
+                        }
+                    }
                 }
                 else{
                     ventanaGane();
@@ -1381,9 +1396,22 @@ void Game::evaluaFicha(BotonCarta *botonTablero){
                 (evaluaGaneHorizontal(botonTablero->posX(),botonTablero->posY())>=secuenciaFicha)||
                 (evaluaGaneDiagonalDerecho(botonTablero->posX(),botonTablero->posY()) >=secuenciaFicha)||
                 (evaluaGaneDiagonalIzquierdo(botonTablero->posX(),botonTablero->posY())>=secuenciaFicha)){
-                    secuencia++;
-                    if ((players == players2)&&(secuencia!=2)){
 
+                    if (players == players2){
+                        if (jugadores->returnPos(nextPlay)->getFicha()->getID()== 1){
+                            secuenciaJugador1++;
+
+                            if (secuenciaJugador1 == 2){
+                                ventanaGane();
+                            }
+                        }
+                        else if (jugadores->returnPos(nextPlay)->getFicha()->getID()== 3){
+                            secuenciaJugador2++;
+
+                            if (secuenciaJugador2== 2){
+                                ventanaGane();
+                            }
+                        }
                     }
                     else{
                         ventanaGane();

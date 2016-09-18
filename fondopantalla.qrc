@@ -95,5 +95,6 @@
         <file>imagenes/TEAM2.png</file>
         <file>imagenes/logo.png</file>
         <file>imagenes/TEAM3.png</file>
+        <file>imagenes/PreviewButton.png</file>
     </qresource>
 </RCC>

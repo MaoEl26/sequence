@@ -52,11 +52,17 @@ protected:
     ArrayStack<Carta*> *descartes;
     ArrayStack<Carta*> *cartas;
 
-    ArrayCarta<QString> *arrayPathsCartas;
     ArrayCarta<Jugador*> *jugadores;
+
     ArrayCarta<Ficha*> *arrayFichas;
     ArrayCarta<int> *arrayCoorX;
     ArrayCarta<int> *arrayCoorY;
+    ArrayCarta<QString> *arrayPathsCartas;
+
+    ArrayCarta<Ficha*> *arrayFichasAux;
+    ArrayCarta<int> *arrayCoorXAux;
+    ArrayCarta<int> *arrayCoorYAux;
+    ArrayCarta<QString> *arrayPathsCartasAux;
 
     QGraphicsPixmapItem *cartaItem;
     QGraphicsPixmapItem *nombreJugador;

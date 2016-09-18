@@ -181,6 +181,13 @@ void Game::wiki(){
     connect(backButton,SIGNAL(clicked()),this,SLOT(seteoBotones()));//Establece la acción que va a realizar
     scene->addItem(backButton);//Añade el botón a la pantalla
 
+
+//    QString logoPath=":/imagenes/wiki5.png";
+//    QImage logoImagen(logoPath);
+//    itemLogo= new QGraphicsPixmapItem( QPixmap::fromImage(logoImagen));
+//    itemLogo->setPos(320,40);
+//    scene->addItem(itemLogo);
+
 }
 
 void Game::ventanaGane(){
@@ -454,10 +461,16 @@ void Game::random(){
 
 void Game::Table(){
     descartes = new ArrayStack<Carta*>(largoMazoCartas);
+
     arrayFichas= new ArrayCarta<Ficha*>(largoListaFichas);
     arrayCoorX= new ArrayCarta<int>(largoListaFichas);
     arrayCoorY= new ArrayCarta<int> (largoListaFichas);
     arrayPathsCartas = new ArrayCarta<QString>(largoListaFichas);
+
+    arrayFichasAux= new ArrayCarta<Ficha*>(largoListaFichas);
+    arrayCoorXAux= new ArrayCarta<int>(largoListaFichas);
+    arrayCoorYAux= new ArrayCarta<int> (largoListaFichas);
+    arrayPathsCartasAux = new ArrayCarta<QString>(largoListaFichas);
 
     scene->clear();
 
@@ -501,13 +514,24 @@ void Game::Table(){
 
 void Game::undo(){
 
-    if (descartes->getSize()!=0){
-        int largoArrayFichas = arrayFichas->getSize()-1;
-        arrayFichas->remove(largoArrayFichas);
+    if (descartes->getSize()!=nulo){
 
-        QImage carta(arrayPathsCartas->remove(largoArrayFichas));
+        int largoArrayFichas = arrayFichas->getSize()-1;
+
+        arrayFichasAux->append(arrayFichas->remove(largoArrayFichas));
+
+        QString path = arrayPathsCartas->remove(largoArrayFichas);
+        QImage carta(path);
+
+        int coorX=arrayCoorX->remove(largoArrayFichas);
+        int coorY=arrayCoorY->remove(largoArrayFichas);
+
+        arrayCoorXAux->append(coorX);
+        arrayCoorYAux->append(coorY);
+        arrayPathsCartasAux->append(path);
+
         cartaItem= new QGraphicsPixmapItem( QPixmap::fromImage(carta));
-        cartaItem->setPos(arrayCoorX->remove(largoArrayFichas),arrayCoorY->remove(largoArrayFichas));
+        cartaItem->setPos(coorX,coorY);
         cartaItem->setScale(0.55);
         scene->addItem(cartaItem);
 
@@ -530,7 +554,6 @@ void Game::undo(){
         delete Carta07;
 
         if (turno==false){
-            delete reverso;
 
             cartas->push(jugadores->returnPos(nextPlay)->getCards().remove(nulo));
             jugadores->returnPos(nextPlay)->getCards().goToPos(nulo);
@@ -548,6 +571,7 @@ void Game::undo(){
 
             turno = true;
 
+
         }else{
             if (nextPlay-1 >= nulo){
 
@@ -557,7 +581,7 @@ void Game::undo(){
                 jugadores->returnPos(nextPlay)->getCards().goToPos(nulo);
                 jugadores->returnPos(nextPlay)->getCards().insert(descartes->pop());
 
-                if (descartes->getSize()!=0){
+                if (descartes->getSize()!=nulo){
                     muestraCartaDescarte(descartes->topValue()->getPath());
                 }else{
                    muestraCartaDescarte(basePila);
@@ -566,6 +590,7 @@ void Game::undo(){
                 muestraFichaJugador(jugadores->returnPos(nextPlay)->getFicha()->getPath());
                 muestraNombreJugador(jugadores->returnPos(nextPlay)->getPath());
                 cartasJugador(jugadores->returnPos(nextPlay)->getCards());
+
             }
             else{
                 nextPlay=jugadores->getSize()-1;
@@ -583,14 +608,99 @@ void Game::undo(){
                 muestraFichaJugador(jugadores->returnPos(nextPlay)->getFicha()->getPath());
                 muestraNombreJugador(jugadores->returnPos(nextPlay)->getPath());
                 cartasJugador(jugadores->returnPos(nextPlay)->getCards());
+
             }
     }
     }else{
+
+        delete itemDescarte;
         muestraCartaDescarte(basePila);
+
     }
+
 }
 
 void Game::redo(){
+
+    int largoArrayFichas = arrayFichasAux->getSize();
+
+    if (largoArrayFichas>nulo){
+
+        if (nextPlay+1 < jugadores->getSize()&& arrayFichas->getSize()!= nulo){
+            nextPlay++;
+
+        }
+        else{
+            nextPlay=nulo;
+        }
+
+        arrayFichas->append(arrayFichasAux->remove(largoArrayFichas-1));
+
+        QString path = arrayPathsCartasAux->remove(largoArrayFichas-1);
+
+        int coorX=arrayCoorXAux->remove(largoArrayFichas-1);
+        int coorY=arrayCoorYAux->remove(largoArrayFichas-1);
+
+        turno = false;
+
+        arrayCoorX->append(coorX);
+        arrayCoorY->append(coorY);
+        arrayPathsCartas->append(path);
+
+        QImage carta(path);
+        cartaItem= new QGraphicsPixmapItem( QPixmap::fromImage(carta));
+        cartaItem->setPos(coorX,coorY);
+        cartaItem->setScale(0.55);
+        scene->addItem(cartaItem);
+
+        QImage jugadorImagen(arrayFichas->returnPos(arrayFichas->getSize()-1)->getPath());
+
+        itemFichaTablero= new QGraphicsPixmapItem( QPixmap::fromImage(jugadorImagen));
+
+        itemFichaTablero->setPos(coorX+20,coorY+5);
+
+        itemFichaTablero->setScale(0.5);
+
+        scene->addItem(itemFichaTablero);
+
+        seleccionJugador = new BotonCarta("NULL",nulo,nulo,nulo);
+
+        delete nombreJugador;
+        delete itemDescarte;
+
+        delete itemFicha;
+        delete itemFicha2;
+        delete itemFicha3;
+
+
+        delete Carta01;
+        delete Carta02;
+        delete Carta03;
+        delete Carta04;
+        delete Carta05;
+        delete Carta06;
+        delete Carta07;
+
+
+
+        descartes->push(jugadores->returnPos(nextPlay)->getCards().remove(nulo));
+        jugadores->returnPos(nextPlay)->getCards().goToPos(nulo);
+        jugadores->returnPos(nextPlay)->getCards().insert(cartas->pop());
+
+        muestraFichaJugador(jugadores->returnPos(nextPlay)->getFicha()->getPath());
+        muestraNombreJugador(jugadores->returnPos(nextPlay)->getPath());
+        cartasJugador(jugadores->returnPos(nextPlay)->getCards());
+
+        if (descartes->getSize()!=0){
+            muestraCartaDescarte(descartes->topValue()->getPath());
+
+        }else{
+
+           muestraCartaDescarte(basePila);
+
+        }
+    }
+
 
 }
 
